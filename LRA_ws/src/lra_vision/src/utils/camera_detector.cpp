@@ -173,11 +173,6 @@ std::optional<CameraInfo> CameraDetector::find_camera_by_name(const std::string&
 
 std::optional<CameraInfo> CameraDetector::find_streamcam()
 {
-  // Try to find by name first
-  auto streamcam = find_camera_by_name("StreamCam");
-  if (streamcam) {
-    return streamcam;
-  }
   
   // Try Logitech generic
   streamcam = find_camera_by_name("Logitech");
