@@ -11,12 +11,11 @@
     Universidad Politécnica de Madrid - MUAR 2025-2026
   </description>
   
-  <maintainer email="lra_team@upm.es">LRA Vision Team</maintainer>
-  <license>MIT</license>
-  <url type="website">https://github.com/upm-lra/lra_vision</url>
-  <url type="bugtracker">https://github.com/upm-lra/lra_vision/issues</url>
+  <maintainer email="asil.arnous@alumnos.upm.es">Asil Arnous</maintainer>
+  <license>to be defined</license>
+  <url type="website">https://github.com/SilOV21/Clasificaci-n-de-tapones-plasticos-REC-</url>
   
-  <author email="dr.asil@upm.es">Dr. Asil</author>
+  <author email="asil.arnous@alumnos.upm.es">Asil Arnous</author>
   
   <!-- Build dependencies -->
   <buildtool_depend>ament_cmake</buildtool_depend>
