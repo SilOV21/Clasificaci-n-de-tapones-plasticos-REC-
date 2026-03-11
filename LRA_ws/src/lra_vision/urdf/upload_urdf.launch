@@ -13,16 +13,14 @@
   <arg name="camera_name" default="camera"/>
   
   <!-- Robot State Publisher -->
-  <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher">
+  <node pkg="robot_state_publisher" exec="robot_state_publisher" name="robot_state_publisher">
     <param name="robot_description" 
-           command="$(find xacro)/xacro $(find lra_vision)/urdf/camera.xacro 
-                    parent_link:=$(arg parent_frame) 
-                    camera_name:=$(arg camera_name)
-                    translation_z:=$(arg camera_height)"/>
+           value="$(command '$(find-exec xacro) $(find-pkg-share lra_vision)/urdf/camera.xacro parent_link:=$(var parent_frame) camera_name:=$(var camera_name) translation_z:=$(var camera_height)')"
+           type="str"/>
   </node>
   
   <!-- Joint State Publisher (for testing without robot) -->
-  <node pkg="joint_state_publisher" type="joint_state_publisher" name="joint_state_publisher">
+  <node pkg="joint_state_publisher" exec="joint_state_publisher" name="joint_state_publisher">
     <param name="use_sim_time" value="false"/>
   </node>
   

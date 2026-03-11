@@ -105,4 +105,14 @@
       rotation_pitch="0"/>
   </xacro:macro>
   
+  <xacro:arg name="parent_link" default="tool0"/>
+  <xacro:arg name="camera_name" default="camera"/>
+  <xacro:arg name="translation_z" default="0.05"/>
+  <!-- to be removed -->
+  <link name="$(arg parent_link)"/>
+  <xacro:lra_camera_mount 
+    parent_link="$(arg parent_link)" 
+    camera_name="$(arg camera_name)" 
+    translation_z="$(arg translation_z)" />
+    
 </robot>
