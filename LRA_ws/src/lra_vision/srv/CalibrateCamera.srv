@@ -1,0 +1,50 @@
+# =============================================================================
+# LRA Vision Package - Calibrate Camera Service
+# Service to perform camera calibration
+# ROS2 Jazzy Jalisco
+# =============================================================================
+
+# Request
+
+# Action to perform
+string action  # "start", "capture", "calibrate", "save", "reset"
+
+# Optional parameters
+int32 board_width
+int32 board_height
+float64 square_size
+int32 min_images
+string save_path
+string output_file
+
+# Capture control
+bool auto_capture
+float64 capture_interval
+
+# Visualization
+bool visualize
+---
+# Response
+
+# Success flag
+bool success
+
+# Status message
+string message
+
+# Number of images used
+int32 images_used
+
+# Calibration quality
+float64 rms_error
+float64 reprojection_error
+
+# Camera matrix (flattened 3x3)
+float64[] camera_matrix
+
+# Distortion coefficients
+float64[] distortion_coefficients
+
+# Image dimensions
+int32 image_width
+int32 image_height

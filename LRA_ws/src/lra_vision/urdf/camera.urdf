@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<robot name="lra_camera" xmlns:xacro="http://ros.org/wiki/xacro">
+  
+  <!--
+  =============================================================================
+  LRA Vision Package - URDF for Camera Mounting on UR3
+  Logitech StreamCam mounted 5cm above tool0
+  ROS2 Jazzy Jalisco
+  =============================================================================
+  -->
+  
+  <!-- Camera Link -->
+  <link name="camera_link">
+    <visual>
+      <geometry>
+        <box size="0.073 0.019 0.029"/> <!-- Logitech StreamCam dimensions -->
+      </geometry>
+      <material name="black">
+        <color rgba="0.1 0.1 0.1 1"/>
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.073 0.019 0.029"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.113"/> <!-- 113 grams -->
+      <inertia ixx="0.00001" ixy="0" ixz="0" iyy="0.00001" iyz="0" izz="0.00001"/>
+    </inertial>
+  </link>
+  
+  <!-- Camera Optical Frame -->
+  <link name="camera_optical_frame">
+    <!-- This is the standard ROS camera optical frame -->
+    <!-- X: right, Y: down, Z: forward -->
+  </link>
+  
+  <!-- Joint from tool0 (UR3 end effector) to camera_link -->
+  <joint name="tool0_to_camera" type="fixed">
+    <parent link="tool0"/>
+    <child link="camera_link"/>
+    
+    <!-- Camera mounted 5cm above tool0, pointing down -->
+    <origin xyz="0 0 0.05" rpy="0 ${pi} 0"/>
+    <!-- Rotation: pitch = PI (180 degrees) to point camera downward -->
+  </joint>
+  
+  <!-- Joint from camera_link to camera_optical_frame -->
+  <joint name="camera_to_optical" type="fixed">
+    <parent link="camera_link"/>
+    <child link="camera_optical_frame"/>
+    
+    <!-- Optical frame convention -->
+    <!-- Rotation to convert from camera_link to optical frame -->
+    <origin xyz="0 0 0" rpy="${-pi/2} 0 ${-pi/2}"/>
+  </joint>
+  
+</robot>

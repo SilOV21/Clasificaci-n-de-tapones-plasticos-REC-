@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<launch>
+  <!--
+  =============================================================================
+  LRA Vision Package - URDF Launch File
+  Upload camera URDF to parameter server
+  ROS2 Jazzy Jalisco
+  =============================================================================
+  -->
+  
+  <arg name="camera_height" default="0.05"/>
+  <arg name="parent_frame" default="tool0"/>
+  <arg name="camera_name" default="camera"/>
+  
+  <!-- Robot State Publisher -->
+  <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher">
+    <param name="robot_description" 
+           command="$(find xacro)/xacro $(find lra_vision)/urdf/camera.xacro 
+                    parent_link:=$(arg parent_frame) 
+                    camera_name:=$(arg camera_name)
+                    translation_z:=$(arg camera_height)"/>
+  </node>
+  
+  <!-- Joint State Publisher (for testing without robot) -->
+  <node pkg="joint_state_publisher" type="joint_state_publisher" name="joint_state_publisher">
+    <param name="use_sim_time" value="false"/>
+  </node>
+  
+</launch>

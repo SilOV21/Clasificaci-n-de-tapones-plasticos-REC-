@@ -1,0 +1,70 @@
+# =============================================================================
+# LRA Vision Package - Camera Parameters Configuration
+# Configuration for Logitech StreamCam on UR3
+# ROS2 Jazzy Jalisco
+# =============================================================================
+
+# Camera Hardware Settings
+camera:
+  name: "logitech_streamcam"
+  manufacturer: "Logitech"
+  model: "StreamCam"
+  
+  # Video Device Settings
+  video_device: "/dev/video2"
+  auto_detect: true
+  fallback_devices:
+    - "/dev/video2"
+    - "/dev/video3"
+    - "/dev/video0"
+    - "/dev/video1"
+  
+  # Resolution and Frame Rate
+  resolution:
+    width: 1920
+    height: 1080
+    framerate: 30
+  
+  # Supported Resolutions
+  supported_resolutions:
+    - width: 1920
+      height: 1080
+      framerate: 30
+    - width: 1920
+      height: 1080
+      framerate: 60
+    - width: 1280
+      height: 720
+      framerate: 30
+    - width: 1280
+      height: 720
+      framerate: 60
+    - width: 640
+      height: 480
+      framerate: 30
+  
+  # Pixel Format
+  pixel_format: "YUYV"
+  
+  # Streaming Settings
+  publish_rate: 30.0
+  buffer_size: 1
+
+# ROS2 Topic Configuration
+topics:
+  image_raw: "camera/image_raw"
+  camera_info: "camera/camera_info"
+  status: "camera/status"
+
+# Frame IDs
+frames:
+  camera_link: "camera_link"
+  optical_frame: "camera_optical_frame"
+
+# Auto-Exposure Settings
+auto_exposure:
+  enabled: true
+  priority: "quality"  # "quality" or "framerate"
+  exposure_time: 0  # 0 for auto
+  gain: 0  # 0 for auto
+  white_balance: true
