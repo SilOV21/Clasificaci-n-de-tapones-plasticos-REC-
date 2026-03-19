@@ -211,6 +211,21 @@ ament_target_dependencies(aruco_detector_node
   visualization_msgs
 )
 
+# Camera Manager Node - Manages v4l2_camera with auto-detection
+add_executable(camera_manager_node
+  src/nodes/camera_manager_node.cpp
+)
+
+target_link_libraries(camera_manager_node
+  lra_camera_utils
+)
+
+ament_target_dependencies(camera_manager_node
+  rclcpp
+  sensor_msgs
+  std_srvs
+)
+
 # =============================================================================
 # INSTALL TARGETS
 # =============================================================================
@@ -227,6 +242,7 @@ install(TARGETS
   camera_calibrator_node
   camera_tf_broadcaster_node
   aruco_detector_node
+  camera_manager_node
   DESTINATION lib/${PROJECT_NAME}
 )
 

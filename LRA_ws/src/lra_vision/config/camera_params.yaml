@@ -21,9 +21,9 @@ camera:
   
   # Resolution and Frame Rate
   resolution:
-    width: 1920
-    height: 1080
-    framerate: 30
+    width: 640
+    height: 480
+    framerate: 60
   
   # Supported Resolutions
   supported_resolutions:
@@ -42,12 +42,15 @@ camera:
     - width: 640
       height: 480
       framerate: 30
+    - width: 640
+      height: 480
+      framerate: 60
   
   # Pixel Format
   pixel_format: "YUYV"
   
   # Streaming Settings
-  publish_rate: 30.0
+  publish_rate: 60.0
   buffer_size: 1
 
 # ROS2 Topic Configuration
@@ -64,7 +67,7 @@ frames:
 # Auto-Exposure Settings
 auto_exposure:
   enabled: true
-  priority: "quality"  # "quality" or "framerate"
+  priority: "framerate"  # "quality" or "framerate"
   exposure_time: 0  # 0 for auto
   gain: 0  # 0 for auto
   white_balance: true

@@ -70,7 +70,7 @@ public:
     // Initialize publishers
     image_pub_ = image_transport::create_publisher(this, "image_raw", rmw_qos_profile_sensor_data);
     camera_info_pub_ = this->create_publisher<sensor_msgs::msg::CameraInfo>(
-      "camera_info", rclcpp::QoS(10).reliability(RMW_QOS_POLICY_RELIABILITY_BEST_EFFORT));
+      "camera_info", rclcpp::QoS(10).reliability(rclcpp::ReliabilityPolicy::Reliable));
     
     // Initialize camera info manager
     camera_info_manager_ = std::make_shared<camera_info_manager::CameraInfoManager>(
@@ -299,8 +299,6 @@ private:
   void capture_loop()
   {
     cv::Mat frame;
-    rclcpp::Time last_publish_time = this->get_clock()->now();
-    double min_interval = 1.0 / publish_rate_;
     
     while (running_ && rclcpp::ok()) {
       {
@@ -322,18 +320,11 @@ private:
         }
       }
       
-      // Rate limiting
-      auto now = this->get_clock()->now();
-      double elapsed = (now - last_publish_time).seconds();
-      
-      if (elapsed < min_interval) {
-        continue;
-      }
-      last_publish_time = now;
+
       
       // Convert to ROS message
       auto msg = cv_bridge::CvImage(std_msgs::msg::Header(), "bgr8", frame).toImageMsg();
-      msg->header.stamp = now;
+      msg->header.stamp = this->get_clock()->now();
       msg->header.frame_id = frame_id_;
       
       // Publish image
