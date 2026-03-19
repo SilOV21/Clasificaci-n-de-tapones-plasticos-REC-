@@ -83,7 +83,6 @@ include_directories(
 add_library(lra_camera_utils SHARED
   src/utils/camera_detector.cpp
   src/utils/camera_calibration.cpp
-  src/utils/image_processor.cpp
   src/utils/aruco_detector.cpp
 )
 
@@ -138,23 +137,23 @@ ament_target_dependencies(lra_tf_utils
 # =============================================================================
 
 # Camera Publisher Node - Publishes camera images from v4l2 device
-add_executable(camera_publisher_node
-  src/nodes/camera_publisher_node.cpp
-)
-
-target_link_libraries(camera_publisher_node
-  lra_camera_utils
-  ${OpenCV_LIBS}
-)
-
-ament_target_dependencies(camera_publisher_node
-  rclcpp
-  sensor_msgs
-  image_transport
-  camera_info_manager
-  rclcpp_components
-  std_srvs
-)
+# add_executable(camera_publisher_node
+#   src/nodes/camera_publisher_node.cpp
+# )
+#
+# target_link_libraries(camera_publisher_node
+#   lra_camera_utils
+#   ${OpenCV_LIBS}
+# )
+#
+# ament_target_dependencies(camera_publisher_node
+#   rclcpp
+#   sensor_msgs
+#   image_transport
+#   camera_info_manager
+#   rclcpp_components
+#   std_srvs
+# )
 
 # Camera Calibrator Node - Performs camera calibration using OpenCV
 add_executable(camera_calibrator_node
@@ -238,7 +237,7 @@ install(TARGETS
 )
 
 install(TARGETS
-  camera_publisher_node
+  # camera_publisher_node
   camera_calibrator_node
   camera_tf_broadcaster_node
   aruco_detector_node
@@ -302,15 +301,6 @@ if(BUILD_TESTING)
     tf2
     tf2_ros
     tf2_geometry_msgs
-  )
-  
-  # Test Image Processor
-  ament_add_gtest(test_image_processor
-    test/test_image_processor.cpp
-  )
-  target_link_libraries(test_image_processor
-    lra_camera_utils
-    ${OpenCV_LIBS}
   )
   
 endif()

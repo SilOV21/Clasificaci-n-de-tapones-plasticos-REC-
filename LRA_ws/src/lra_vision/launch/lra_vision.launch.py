@@ -4,88 +4,77 @@
 # ROS2 Jazzy Jalisco
 # =============================================================================
 
+import os
+import yaml
 from launch import LaunchDescription
-from launch.actions import DeclareLaunchArgument, LogInfo, GroupAction
-from launch.substitutions import LaunchConfiguration, PathJoinSubstitution
-from launch_ros.actions import Node, PushRosNamespace
-from launch_ros.substitutions import FindPackageShare
+from launch.actions import DeclareLaunchArgument, LogInfo
+from launch.substitutions import LaunchConfiguration
+from launch_ros.actions import Node
+from ament_index_python.packages import get_package_share_directory
+
+
+def read_camera_params():
+    """Read camera parameters from YAML and flatten for ROS2."""
+    config_path = os.path.join(
+        get_package_share_directory('lra_vision'),
+        'config',
+        'camera_params.yaml'
+    )
+
+    with open(config_path, 'r') as f:
+        config = yaml.safe_load(f)
+
+    # Flatten nested structure for ROS2 parameters
+    params = {
+        # Camera settings
+        'camera.video_device': config['camera']['video_device'],
+        'camera.name': config['camera']['name'],
+        'camera.resolution.width': config['camera']['resolution']['width'],
+        'camera.resolution.height': config['camera']['resolution']['height'],
+        'camera.resolution.framerate': config['camera']['resolution']['framerate'],
+        'camera.pixel_format': config['camera']['pixel_format'],
+        'camera.auto_detect': config['camera']['auto_detect'],
+
+        # Topics
+        'topics.image_raw': config['topics']['image_raw'],
+        'topics.camera_info': config['topics']['camera_info'],
+
+        # Frames
+        'frames.optical_frame': config['frames']['optical_frame'],
+
+        # Camera manager specific
+        'camera_manager.status_rate': config.get('camera_manager', {}).get('status_rate', 5.0),
+    }
+
+    return params
 
 
 def generate_launch_description():
-    # Get package directory
-    pkg_dir = FindPackageShare('lra_vision')
-    
+    # Read camera parameters from YAML
+    camera_params = read_camera_params()
+
     # Declare launch arguments
-    video_device_arg = DeclareLaunchArgument(
-        'video_device',
-        default_value='/dev/video2',
-        description='Video device path'
+    translation_z_arg = DeclareLaunchArgument(
+        'translation_z',
+        default_value='0.08',
+        description='Camera height above UR3 (meters)'
     )
-    
-    camera_name_arg = DeclareLaunchArgument(
-        'camera_name',
-        default_value='logitech_streamcam',
-        description='Camera name'
-    )
-    
+
     calibration_file_arg = DeclareLaunchArgument(
         'calibration_file',
         default_value='',
         description='Path to camera calibration file'
     )
-    
-    board_width_arg = DeclareLaunchArgument(
-        'board_width',
-        default_value='9',
-        description='Chessboard width'
-    )
-    
-    board_height_arg = DeclareLaunchArgument(
-        'board_height',
-        default_value='6',
-        description='Chessboard height'
-    )
-    
-    translation_z_arg = DeclareLaunchArgument(
-        'translation_z',
-        default_value='0.05',
-        description='Camera height above UR3 (meters)'
-    )
-    
-    use_namespace_arg = DeclareLaunchArgument(
-        'use_namespace',
-        default_value='false',
-        description='Use namespace for nodes'
-    )
-    
-    namespace_arg = DeclareLaunchArgument(
-        'namespace',
-        default_value='lra_vision',
-        description='Namespace for nodes'
-    )
-    
-    # Camera publisher node
-    camera_publisher_node = Node(
+
+    # Camera manager node
+    camera_manager_node = Node(
         package='lra_vision',
-        executable='camera_publisher_node',
-        name='camera_publisher',
+        executable='camera_manager_node',
+        name='camera_manager',
         output='screen',
-        parameters=[{
-            'video_device': LaunchConfiguration('video_device'),
-            'camera_name': LaunchConfiguration('camera_name'),
-            'frame_id': 'camera_optical_frame',
-            'image_width': 1920,
-            'image_height': 1080,
-            'framerate': 30,
-            'auto_detect': True,
-            'publish_rate': 30.0,
-        }],
-        remappings=[
-            ('image_raw', 'camera/image_raw'),
-            ('camera_info', 'camera/camera_info'),
-        ],
+        parameters=[camera_params],
     )
-    
+
     # TF broadcaster node
     tf_broadcaster_node = Node(
         package='lra_vision',
@@ -96,8 +85,8 @@ def generate_launch_description():
             'translation_x': 0.0,
             'translation_y': 0.0,
             'translation_z': LaunchConfiguration('translation_z'),
-            'roll': 0.0,
-            'pitch': 3.14159,  # 180 degrees (pointing down)
+            'roll': 3.14159,
+            'pitch': 0.0,
             'yaw': 0.0,
             'parent_frame': 'tool0',
             'camera_frame': 'camera_link',
@@ -106,7 +95,7 @@ def generate_launch_description():
             'static_transform': True,
         }],
     )
-    
+
     # ArUco detector node
     aruco_detector_node = Node(
         package='lra_vision',
@@ -124,29 +113,18 @@ def generate_launch_description():
             'calibration_file': LaunchConfiguration('calibration_file'),
         }],
     )
-    
-    # Calibrator node (optional - can be started separately)
-    # calibrator_node = Node(...)
-    
+
     return LaunchDescription([
-        video_device_arg,
-        camera_name_arg,
-        calibration_file_arg,
-        board_width_arg,
-        board_height_arg,
         translation_z_arg,
-        use_namespace_arg,
-        namespace_arg,
+        calibration_file_arg,
         LogInfo(msg=''),
         LogInfo(msg='========================================'),
         LogInfo(msg='LRA Vision System - REC Project'),
         LogInfo(msg='========================================'),
         LogInfo(msg=''),
-        LogInfo(msg=['Camera: ', LaunchConfiguration('camera_name')]),
-        LogInfo(msg=['Device: ', LaunchConfiguration('video_device')]),
-        LogInfo(msg=['Height above UR3: ', LaunchConfiguration('translation_z'), 'm']),
+        LogInfo(msg='Loading config from: camera_params.yaml'),
         LogInfo(msg=''),
-        camera_publisher_node,
+        camera_manager_node,
         tf_broadcaster_node,
         aruco_detector_node,
         LogInfo(msg=''),
@@ -155,11 +133,15 @@ def generate_launch_description():
         LogInfo(msg='Topics:'),
         LogInfo(msg='  - /camera/image_raw'),
         LogInfo(msg='  - /camera/camera_info'),
-        LogInfo(msg='  - /camera/aruco/markers'),
-        LogInfo(msg='  - /camera/aruco/poses'),
+        LogInfo(msg='  - /camera/status'),
+        LogInfo(msg='  - /aruco/markers'),
+        LogInfo(msg='  - /aruco/poses'),
         LogInfo(msg=''),
         LogInfo(msg='TF Frames:'),
         LogInfo(msg='  - tool0 -> camera_link -> camera_optical_frame'),
+        LogInfo(msg=''),
+        LogInfo(msg='Services:'),
+        LogInfo(msg='  - /camera/reconnect'),
         LogInfo(msg=''),
         LogInfo(msg='========================================'),
     ])

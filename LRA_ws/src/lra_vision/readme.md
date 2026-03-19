@@ -31,16 +31,14 @@ lra_vision/
 │   ├── camera_params.yaml   # Camera parameters
 │   ├── calibration.yaml    # Calibration settings
 │   ├── camera_mount.yaml    # TF configuration
-│   ├── aruco_params.yaml   # ArUco settings
-│   └── image_processing.yaml # Image processing params
+│   └── aruco_params.yaml   # ArUco settings
 ├── include/lra_vision/    # Header files
 │   ├── camera_detector.hpp
 │   ├── camera_calibration.hpp
-│   ├── image_processor.hpp
 │   ├── camera_tf_broadcaster.hpp
 │   └── aruco_detector.hpp
 ├── launch/                 # Launch files
-│   ├── camera_publisher.launch.py
+│   ├── camera_manager.launch.py
 │   ├── camera_calibration.launch.py
 │   ├── camera_tf_broadcaster.launch.py
 │   ├── aruco_detector.launch.py
@@ -53,14 +51,13 @@ lra_vision/
 │   └── detection_view.rviz
 ├── src/                    # Source files
 │   ├── nodes/             # ROS2 nodes
-│   │   ├── camera_publisher_node.cpp
+│   │   ├── camera_manager_node.cpp
 │   │   ├── camera_calibrator_node.cpp
 │   │   ├── camera_tf_broadcaster_node.cpp
 │   │   └── aruco_detector_node.cpp
 │   ├── utils/             # Utility libraries
 │   │   ├── camera_detector.cpp
 │   │   ├── camera_calibration.cpp
-│   │   ├── image_processor.cpp
 │   │   └── aruco_detector.cpp
 │   └── tf/                # TF utilities
 │       ├── camera_tf_broadcaster.cpp
@@ -72,7 +69,6 @@ lra_vision/
 │   ├── test_camera_detector.cpp
 │   ├── test_camera_calibration.cpp
 │   ├── test_tf_broadcaster.cpp
-│   ├── test_image_processor.cpp
 │   └── test_aruco_detector.cpp
 └── urdf/                   # Robot description
     ├── camera.urdf
@@ -81,27 +77,32 @@ lra_vision/
 
 ## Nodes
 
-### 1. Camera Publisher Node (`camera_publisher_node`)
+### 1. Camera Manager Node (`camera_manager_node`)
 
-Publishes camera images from the Logitech StreamCam device.
+Manages the v4l2_camera node with auto-detection, status monitoring, and reconnect capability.
 
 **Parameters:**
-- `video_device`: Video device path (default: "/dev/video2")
-- `camera_name`: Camera name (default: "logitech_streamcam")
-- `frame_id`: Frame ID for camera (default: "camera_optical_frame")
-- `image_width`: Image width (default: 1920)
-- `image_height`: Image height (default: 1080)
-- `framerate`: Frame rate (default: 30)
-- `auto_detect`: Auto-detect camera (default: true)
-- `publish_rate`: Publishing rate (default: 30.0)
+- `camera.video_device`: Video device path (default: "/dev/video2")
+- `camera.name`: Camera name (default: "logitech_streamcam")
+- `camera.resolution.width`: Image width (default: 640)
+- `camera.resolution.height`: Image height (default: 480)
+- `camera.resolution.framerate`: Frame rate (default: 60)
+- `camera.pixel_format`: Pixel format (default: "YUYV")
+- `camera.auto_detect`: Auto-detect camera (default: true)
+- `frames.optical_frame`: Frame ID for camera (default: "camera_optical_frame")
+- `topics.image_raw`: Image topic (default: "camera/image_raw")
+- `topics.camera_info`: Camera info topic (default: "camera/camera_info")
+- `camera_manager.status_rate`: Status publishing rate (default: 5.0 Hz)
 
 **Published Topics:**
 - `/camera/image_raw` (sensor_msgs/Image): Raw camera images
 - `/camera/camera_info` (sensor_msgs/CameraInfo): Camera calibration information
-- `/camera/status` (std_msgs/String): Camera status information
+- `/camera/status` (std_msgs/String): Camera status information (JSON)
 
 **Services:**
-- `/reconnect` (std_srvs/Trigger): Reconnect to camera
+- `/camera/reconnect` (std_srvs/Trigger): Reconnect to camera
+
+**Note:** This node launches v4l2_camera as a subprocess for optimal performance.
 
 ### 2. Camera Calibrator Node (`camera_calibrator_node`)
 
@@ -171,23 +172,19 @@ Detects ArUco markers for hand-eye calibration.
 Launches all vision nodes for the complete system.
 
 **Launch Arguments:**
-- `video_device`: Video device path (default: "/dev/video2")
-- `camera_name`: Camera name (default: "logitech_streamcam")
+- `translation_z`: Camera height above UR3 (default: "0.08")
 - `calibration_file`: Path to camera calibration file (default: "")
-- `board_width`: Chessboard width (default: "9")
-- `board_height`: Chessboard height (default: "6")
-- `translation_z`: Camera height above UR3 (default: "0.05")
-- `use_namespace`: Use namespace for nodes (default: "false")
-- `namespace`: Namespace for nodes (default: "lra_vision")
 
 **Launched Nodes:**
-- Camera publisher node
+- Camera manager node (with v4l2_camera)
 - Camera TF broadcaster node
 - ArUco detector node
 
-### 2. Camera Publisher Launch (`camera_publisher.launch.py`)
+### 2. Camera Manager Launch (`camera_manager.launch.py`)
 
-Launches only the camera publisher node.
+Launches only the camera manager node with v4l2_camera.
+
+**Parameters loaded from:** `config/camera_params.yaml`
 
 ### 3. Camera Calibration Launch (`camera_calibration.launch.py`)
 
@@ -250,11 +247,11 @@ camera:
     - "/dev/video0"
     - "/dev/video1"
   resolution:
-    width: 1920
-    height: 1080
-    framerate: 30
+    width: 640
+    height: 480
+    framerate: 60
   pixel_format: "YUYV"
-  publish_rate: 30.0
+  publish_rate: 60.0
   buffer_size: 1
 
 topics:
@@ -268,10 +265,13 @@ frames:
 
 auto_exposure:
   enabled: true
-  priority: "quality"
+  priority: "framerate"
   exposure_time: 0
   gain: 0
   white_balance: true
+
+camera_manager:
+  status_rate: 5.0  # Hz
 ```
 
 ### Calibration Parameters (`config/calibration.yaml`)
@@ -313,33 +313,6 @@ aruco:
   publish_image: true
 ```
 
-### Image Processing Parameters (`config/image_processing.yaml`)
-
-```yaml
-image_processing:
-  # Color detection thresholds
-  colors:
-    red:
-      lower_hsv: [0, 100, 100]
-      upper_hsv: [10, 255, 255]
-    blue:
-      lower_hsv: [100, 100, 100]
-      upper_hsv: [130, 255, 255]
-    green:
-      lower_hsv: [40, 100, 100]
-      upper_hsv: [80, 255, 255]
-
-  # Object detection parameters
-  object_detection:
-    min_area: 100
-    max_area: 5000
-    circularity_threshold: 0.7
-
-  # Morphological operations
-  morph:
-    kernel_size: 5
-    iterations: 2
-```
 
 ## TF Transformations
 
@@ -393,17 +366,13 @@ Or with tmux:
 
 #### 1. Starting Individual Components
 
-##### Camera Publisher
+##### Camera Manager
 ```bash
 # Using rosrun
-ros2 run lra_vision camera_publisher_node --ros-args \
-  -p video_device:=/dev/video2 \
-  -p auto_detect:=true
+ros2 run lra_vision camera_manager_node --ros-args --params-file src/lra_vision/config/camera_params.yaml
 
 # Using launch file
-ros2 launch lra_vision camera_publisher.launch.py \
-  video_device:=/dev/video2 \
-  auto_detect:=true
+ros2 launch lra_vision camera_manager.launch.py
 ```
 
 ##### Camera Calibration
@@ -496,9 +465,6 @@ colcon test --packages-select lra_vision --ctest-args -R test_camera_calibration
 # Run TF broadcaster tests
 colcon test --packages-select lra_vision --ctest-args -R test_tf_broadcaster
 
-# Run image processor tests
-colcon test --packages-select lra_vision --ctest-args -R test_image_processor
-
 # Run ArUco detector tests
 colcon test --packages-select lra_vision --ctest-args -R test_aruco_detector
 ```
@@ -540,23 +506,6 @@ auto result = calibrator.calibrate();
 
 // Save calibration results
 calibrator.save_calibration("camera_info.yaml");
-```
-
-#### Image Processing (C++)
-```cpp
-#include "lra_vision/image_processor.hpp"
-
-// Configure processing parameters
-ProcessingParams params = ProcessingParams::default_for_caps();
-
-// Initialize processor
-ImageProcessor processor(params);
-
-// Detect objects in image
-auto objects = processor.detect_objects(image);
-
-// Detect objects by color
-auto red_objects = processor.detect_objects_by_color(image, "red");
 ```
 
 #### TF Broadcasting (C++)

@@ -58,15 +58,15 @@ if [ "$1" == "tmux" ]; then
     tmux new-session -d -s lra_vision
 
     # Create windows for each component
-    tmux new-window -t lra_vision -n camera_publisher
+    tmux new-window -t lra_vision -n camera_manager
     tmux new-window -t lra_vision -n camera_calibrator
     tmux new-window -t lra_vision -n tf_broadcaster
     tmux new-window -t lra_vision -n aruco_detector
     tmux new-window -t lra_vision -n monitor
 
     # Send commands to each window
-    tmux send-keys -t lra_vision:camera_publisher "source /opt/ros/jazzy/setup.bash && source install/setup.bash && ros2 launch lra_vision camera_publisher.launch.py" Enter
-    tmux send-keys -t lra_vision:camera_calibrator "source /opt/ros/jazzy/setup.bash && source install/setup.bash && ros2 launch lra_vision camera_calibrator.launch.py" Enter
+    tmux send-keys -t lra_vision:camera_manager "source /opt/ros/jazzy/setup.bash && source install/setup.bash && ros2 launch lra_vision camera_manager.launch.py" Enter
+    tmux send-keys -t lra_vision:camera_calibrator "source /opt/ros/jazzy/setup.bash && source install/setup.bash && ros2 launch lra_vision camera_calibration.launch.py" Enter
     tmux send-keys -t lra_vision:tf_broadcaster "source /opt/ros/jazzy/setup.bash && source install/setup.bash && ros2 launch lra_vision camera_tf_broadcaster.launch.py" Enter
     tmux send-keys -t lra_vision:aruco_detector "source /opt/ros/jazzy/setup.bash && source install/setup.bash && ros2 launch lra_vision aruco_detector.launch.py" Enter
     tmux send-keys -t lra_vision:monitor "source /opt/ros/jazzy/setup.bash && source install/setup.bash && echo 'Vision System Monitor' && echo 'Useful commands:' && echo 'ros2 topic list' && echo 'ros2 node list' && echo 'ros2 service list' && bash" Enter
@@ -81,14 +81,14 @@ fi
 # Option 2: Launch all in background processes
 echo "Launching all components in background..."
 
-# Launch camera publisher
-launch_component "Camera Publisher" \
-    "ros2 launch lra_vision camera_publisher.launch.py" \
-    "camera_publisher_node"
+# Launch camera manager
+launch_component "Camera Manager" \
+    "ros2 launch lra_vision camera_manager.launch.py" \
+    "camera_manager_node"
 
 # Launch camera calibrator
 launch_component "Camera Calibrator" \
-    "ros2 launch lra_vision camera_calibrator.launch.py" \
+    "ros2 launch lra_vision camera_calibration.launch.py" \
     "camera_calibrator_node"
 
 # Launch TF broadcaster
@@ -104,7 +104,7 @@ launch_component "ArUco Detector" \
 echo ""
 echo "=== Vision System Launched ==="
 echo "Components running:"
-echo "1. Camera Publisher Node"
+echo "1. Camera Manager Node (with v4l2_camera)"
 echo "2. Camera Calibrator Node"
 echo "3. TF Broadcaster Node"
 echo "4. ArUco Detector Node"

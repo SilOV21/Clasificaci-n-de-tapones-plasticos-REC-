@@ -43,31 +43,31 @@ public:
   , running_(true)
   , frames_received_(0)
   {
-    // Declare parameters
-    this->declare_parameter("video_device", "/dev/video2");
-    this->declare_parameter("camera_name", "logitech_streamcam");
-    this->declare_parameter("frame_id", "camera_optical_frame");
-    this->declare_parameter("image_width", 640);
-    this->declare_parameter("image_height", 480);
-    this->declare_parameter("framerate", 60);
-    this->declare_parameter("pixel_format", "YUYV");
-    this->declare_parameter("auto_detect", true);
-    this->declare_parameter("image_topic", "camera/image_raw");
-    this->declare_parameter("camera_info_topic", "camera/camera_info");
-    this->declare_parameter("status_rate", 5.0);  // Hz
+    // Declare parameters (nested structure matching camera_params.yaml)
+    this->declare_parameter("camera.video_device", "/dev/video2");
+    this->declare_parameter("camera.name", "logitech_streamcam");
+    this->declare_parameter("camera.resolution.width", 640);
+    this->declare_parameter("camera.resolution.height", 480);
+    this->declare_parameter("camera.resolution.framerate", 60);
+    this->declare_parameter("camera.pixel_format", "YUYV");
+    this->declare_parameter("camera.auto_detect", true);
+    this->declare_parameter("frames.optical_frame", "camera_optical_frame");
+    this->declare_parameter("topics.image_raw", "camera/image_raw");
+    this->declare_parameter("topics.camera_info", "camera/camera_info");
+    this->declare_parameter("camera_manager.status_rate", 5.0);  // Hz
 
     // Get parameters
-    video_device_ = this->get_parameter("video_device").as_string();
-    camera_name_ = this->get_parameter("camera_name").as_string();
-    frame_id_ = this->get_parameter("frame_id").as_string();
-    image_width_ = this->get_parameter("image_width").as_int();
-    image_height_ = this->get_parameter("image_height").as_int();
-    framerate_ = this->get_parameter("framerate").as_int();
-    pixel_format_ = this->get_parameter("pixel_format").as_string();
-    auto_detect_ = this->get_parameter("auto_detect").as_bool();
-    image_topic_ = this->get_parameter("image_topic").as_string();
-    camera_info_topic_ = this->get_parameter("camera_info_topic").as_string();
-    status_rate_ = this->get_parameter("status_rate").as_double();
+    video_device_ = this->get_parameter("camera.video_device").as_string();
+    camera_name_ = this->get_parameter("camera.name").as_string();
+    image_width_ = this->get_parameter("camera.resolution.width").as_int();
+    image_height_ = this->get_parameter("camera.resolution.height").as_int();
+    framerate_ = this->get_parameter("camera.resolution.framerate").as_int();
+    pixel_format_ = this->get_parameter("camera.pixel_format").as_string();
+    auto_detect_ = this->get_parameter("camera.auto_detect").as_bool();
+    frame_id_ = this->get_parameter("frames.optical_frame").as_string();
+    image_topic_ = this->get_parameter("topics.image_raw").as_string();
+    camera_info_topic_ = this->get_parameter("topics.camera_info").as_string();
+    status_rate_ = this->get_parameter("camera_manager.status_rate").as_double();
 
     // Initialize publishers
     status_pub_ = this->create_publisher<std_msgs::msg::String>("camera/status", 10);

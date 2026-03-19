@@ -78,37 +78,12 @@ public:
     
     // Store config
     config_ = config;
-    
-    // Initialize TF broadcaster
-    tf_broadcaster_ = std::make_unique<CameraTfBroadcaster>(shared_from_this(), config);
-    
-    // Publishers
-    status_pub_ = this->create_publisher<std_msgs::msg::String>("~/status", 10);
-    
-    // Services
-    update_srv_ = this->create_service<std_srvs::srv::Trigger>(
-      "~/update",
-      std::bind(&CameraTfBroadcasterNode::handle_update, this,
-                std::placeholders::_1, std::placeholders::_2));
-    
-    // Initialize TF broadcaster
-    tf_broadcaster_->initialize();
-    
-    // Create timer for dynamic transforms (if not static)
-    if (!static_transform) {
-      timer_ = this->create_wall_timer(
-        std::chrono::milliseconds(static_cast<int>(1000.0 / publish_rate)),
-        std::bind(&CameraTfBroadcasterNode::publish_transforms, this));
-    }
-    
-    // Status timer
-    status_timer_ = this->create_wall_timer(
-      std::chrono::seconds(5),
-      std::bind(&CameraTfBroadcasterNode::publish_status, this));
-    
-    RCLCPP_INFO(this->get_logger(), "Camera TF broadcaster initialized");
+    static_transform_ = static_transform;
+    publish_rate_ = publish_rate;
+
+    RCLCPP_INFO(this->get_logger(), "Camera TF broadcaster configured");
     RCLCPP_INFO(this->get_logger(), "Transform: %s -> %s -> %s",
-                config.parent_frame.c_str(), 
+                config.parent_frame.c_str(),
                 config.camera_frame.c_str(),
                 config.optical_frame.c_str());
     RCLCPP_INFO(this->get_logger(), "Translation: (%.3f, %.3f, %.3f) m",
@@ -117,8 +92,47 @@ public:
                 config.roll, config.pitch, config.yaw);
   }
 
+  /**
+   * @brief Initialize the node after construction.
+   *
+   * Must be called after the node is fully constructed and owned by a shared_ptr.
+   */
+  void init()
+  {
+    // Initialize TF broadcaster
+    tf_broadcaster_ = std::make_unique<CameraTfBroadcaster>(shared_from_this(), config_);
+
+    // Publishers
+    status_pub_ = this->create_publisher<std_msgs::msg::String>("~/status", 10);
+
+    // Services
+    update_srv_ = this->create_service<std_srvs::srv::Trigger>(
+      "~/update",
+      std::bind(&CameraTfBroadcasterNode::handle_update, this,
+                std::placeholders::_1, std::placeholders::_2));
+
+    // Initialize TF broadcaster
+    tf_broadcaster_->initialize();
+
+    // Create timer for dynamic transforms (if not static)
+    if (!static_transform_) {
+      timer_ = this->create_wall_timer(
+        std::chrono::milliseconds(static_cast<int>(1000.0 / publish_rate_)),
+        std::bind(&CameraTfBroadcasterNode::publish_transforms, this));
+    }
+
+    // Status timer
+    status_timer_ = this->create_wall_timer(
+      std::chrono::seconds(5),
+      std::bind(&CameraTfBroadcasterNode::publish_status, this));
+
+    RCLCPP_INFO(this->get_logger(), "Camera TF broadcaster initialized");
+  }
+
 private:
   CameraMountConfig config_;
+  bool static_transform_;
+  double publish_rate_;
   std::unique_ptr<CameraTfBroadcaster> tf_broadcaster_;
   
   rclcpp::Publisher<std_msgs::msg::String>::SharedPtr status_pub_;
@@ -198,11 +212,14 @@ private:
 int main(int argc, char** argv)
 {
   rclcpp::init(argc, argv);
-  
+
   auto node = std::make_shared<lra_vision::CameraTfBroadcasterNode>();
-  
+
+  // Initialize after node is fully constructed
+  node->init();
+
   rclcpp::spin(node);
-  
+
   rclcpp::shutdown();
   return 0;
 }

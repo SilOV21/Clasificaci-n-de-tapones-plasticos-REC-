@@ -7,7 +7,6 @@
 #include <gtest/gtest.h>
 #include <opencv2/opencv.hpp>
 #include "lra_vision/camera_calibration.hpp"
-#include "lra_vision/image_processor.hpp"
 
 class CameraCalibrationTest : public ::testing::Test
 {
@@ -240,30 +239,6 @@ TEST_F(CameraCalibrationTest, TestSyntheticCalibration)
   // With synthetic data, calibration should succeed
   EXPECT_TRUE(result.success);
   EXPECT_GT(result.rms_error, 0.0);
-}
-
-// Test: Calibration utilities
-TEST_F(CameraCalibrationTest, TestCalibrationUtils)
-{
-  // Test circularity calculation
-  std::vector<cv::Point> circle_contour;
-  for (int i = 0; i < 100; ++i) {
-    double angle = 2 * M_PI * i / 100;
-    circle_contour.push_back(cv::Point(100 * cos(angle), 100 * sin(angle)));
-  }
-  
-  double circularity = lra_vision::ImageProcessor::calculate_circularity(circle_contour);
-  EXPECT_NEAR(circularity, 1.0, 0.01);  // Circle should have circularity ~1.0
-  
-  // Test square (lower circularity)
-  std::vector<cv::Point> square_contour;
-  square_contour.push_back(cv::Point(0, 0));
-  square_contour.push_back(cv::Point(100, 0));
-  square_contour.push_back(cv::Point(100, 100));
-  square_contour.push_back(cv::Point(0, 100));
-  
-  double square_circularity = lra_vision::ImageProcessor::calculate_circularity(square_contour);
-  EXPECT_LT(square_circularity, 1.0);  // Square has lower circularity than circle
 }
 
 // Test: CalibrationResult save/load
