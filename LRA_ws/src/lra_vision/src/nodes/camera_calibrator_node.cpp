@@ -44,15 +44,15 @@ public:
     // Declare parameters
     this->declare_parameter("board_width", 9);
     this->declare_parameter("board_height", 6);
-    this->declare_parameter("square_size", 0.025);  // 25mm default
+    this->declare_parameter("square_size", 0.025);
     this->declare_parameter("min_images", 30);
     this->declare_parameter("max_images", 100);
     this->declare_parameter("auto_capture", true);
-    this->declare_parameter("capture_interval", 2.0);
+    this->declare_parameter("capture_interval", 1.0);
     this->declare_parameter("visualize", true);
     this->declare_parameter("save_path", "~/.ros/camera_calibration/");
     this->declare_parameter("camera_name", "logitech_streamcam");
-    this->declare_parameter("image_topic", "image_raw");
+    this->declare_parameter("image_topic", "/camera/image_raw");
     this->declare_parameter("output_file", "camera_info.yaml");
     
     // Get parameters
@@ -185,13 +185,18 @@ private:
       // Convert to OpenCV
       cv_bridge::CvImagePtr cv_ptr = cv_bridge::toCvCopy(msg, sensor_msgs::image_encodings::BGR8);
       cv::Mat image = cv_ptr->image;
-      
+
       last_image_size_ = image.size();
-      
+
       // Detect chessboard pattern
       std::vector<cv::Point2f> corners;
-      bool found = calibrator_->add_image(image, visualize_);
+      bool found = calibrator_->detect_chessboard(image, corners, false);
       last_pattern_found_ = found;
+
+      // Only add image if capture was requested
+      if (found && capturing_.exchange(false)) {
+        calibrator_->add_image(image, false);
+      }
       
       // Visualize
       if (visualize_ && debug_pub_.getNumSubscribers() > 0) {
@@ -237,13 +242,16 @@ private:
     if (!last_pattern_found_) {
       return;
     }
-    
+
     if (calibrator_->get_image_count() >= calibrator_->get_config().max_images) {
       return;
     }
-    
-    capturing_ = true;
-    RCLCPP_INFO(this->get_logger(), "Auto-captured image %zu", calibrator_->get_image_count());
+
+    // Only trigger if not already capturing
+    if (!capturing_) {
+      capturing_ = true;
+      RCLCPP_INFO(this->get_logger(), "Auto-capture triggered for next frame");
+    }
   }
   
   /**
@@ -254,24 +262,26 @@ private:
     std::shared_ptr<std_srvs::srv::Trigger::Response> response)
   {
     (void)request;
-    
+
     if (calibrator_->get_image_count() >= calibrator_->get_config().max_images) {
       response->success = false;
       response->message = "Maximum images captured";
       return;
     }
-    
+
     if (!last_pattern_found_) {
       response->success = false;
       response->message = "No pattern detected in last image";
       return;
     }
-    
+
+    // Trigger capture for next image
+    capturing_ = true;
+
     response->success = true;
-    response->message = "Image captured: " + std::to_string(calibrator_->get_image_count()) + 
-                        "/" + std::to_string(calibrator_->get_config().min_images);
-    
-    RCLCPP_INFO(this->get_logger(), "%s", response->message.c_str());
+    response->message = "Capture triggered - processing...";
+
+    RCLCPP_INFO(this->get_logger(), "Manual capture triggered, waiting for next frame with pattern");
   }
   
   /**

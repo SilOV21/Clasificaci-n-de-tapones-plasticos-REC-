@@ -14,80 +14,80 @@ from launch_ros.substitutions import FindPackageShare
 def generate_launch_description():
     # Get package directory
     pkg_dir = FindPackageShare('lra_vision')
-    
+
     # Declare launch arguments
     image_topic_arg = DeclareLaunchArgument(
         'image_topic',
         default_value='camera/image_raw',
         description='Input image topic'
     )
-    
+
     board_width_arg = DeclareLaunchArgument(
         'board_width',
-        default_value='9',
+        default_value='10',
         description='Chessboard width (inner corners)'
     )
-    
+
     board_height_arg = DeclareLaunchArgument(
         'board_height',
-        default_value='6',
+        default_value='7',
         description='Chessboard height (inner corners)'
     )
-    
+
     square_size_arg = DeclareLaunchArgument(
         'square_size',
         default_value='0.025',
         description='Chessboard square size in meters'
     )
-    
+
     min_images_arg = DeclareLaunchArgument(
         'min_images',
         default_value='30',
         description='Minimum images for calibration'
     )
-    
+
     max_images_arg = DeclareLaunchArgument(
         'max_images',
         default_value='100',
         description='Maximum images for calibration'
     )
-    
+
     auto_capture_arg = DeclareLaunchArgument(
         'auto_capture',
-        default_value='true',
+        default_value='false',
         description='Auto-capture images when pattern detected'
     )
-    
+
     capture_interval_arg = DeclareLaunchArgument(
         'capture_interval',
         default_value='2.0',
         description='Interval between auto-captures in seconds'
     )
-    
+
     visualize_arg = DeclareLaunchArgument(
         'visualize',
         default_value='true',
         description='Visualize detected chessboard'
     )
-    
+
     camera_name_arg = DeclareLaunchArgument(
         'camera_name',
         default_value='logitech_streamcam',
         description='Camera name for calibration file'
     )
-    
+
     save_path_arg = DeclareLaunchArgument(
         'save_path',
         default_value='~/.ros/camera_calibration/',
         description='Path to save calibration files'
     )
-    
+
     output_file_arg = DeclareLaunchArgument(
         'output_file',
         default_value='camera_info.yaml',
         description='Output calibration filename'
     )
-    
+
     # Camera calibrator node
     camera_calibrator_node = Node(
         package='lra_vision',
@@ -114,7 +114,7 @@ def generate_launch_description():
             ('calibration/ready', 'camera/calibration/ready'),
         ],
     )
-    
+
     return LaunchDescription([
         image_topic_arg,
         board_width_arg,
@@ -130,6 +130,8 @@ def generate_launch_description():
         output_file_arg,
         camera_calibrator_node,
         LogInfo(msg=['LRA Vision: Camera calibrator launched']),
-        LogInfo(msg=['  Chessboard: ', LaunchConfiguration('board_width'), 'x', LaunchConfiguration('board_height')]),
-        LogInfo(msg=['  Square size: ', LaunchConfiguration('square_size'), 'm']),
+        LogInfo(msg=['  Chessboard: ', LaunchConfiguration(
+            'board_width'), 'x', LaunchConfiguration('board_height')]),
+        LogInfo(msg=['  Square size: ',
+                LaunchConfiguration('square_size'), 'm']),
     ])

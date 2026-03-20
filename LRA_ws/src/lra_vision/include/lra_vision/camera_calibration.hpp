@@ -205,13 +205,26 @@ public:
   explicit CameraCalibrator(const CalibrationConfig& config = CalibrationConfig());
   
   /**
+   * @brief Detect chessboard corners in an image without adding to calibration.
+   * @param image Input image.
+   * @param corners Output detected corners.
+   * @param visualize If true, display detected corners.
+   * @return True if corners were detected.
+   */
+  bool detect_chessboard(
+    const cv::Mat& image,
+    std::vector<cv::Point2f>& corners,
+    bool visualize = false
+  ) const;
+
+  /**
    * @brief Add an image for calibration.
    * @param image Image containing the chessboard pattern.
    * @param visualize If true, displays detected corners.
    * @return True if chessboard pattern was detected.
    */
   bool add_image(const cv::Mat& image, bool visualize = false);
-  
+
   /**
    * @brief Add an image from file path.
    * @param filepath Path to the image file.
@@ -310,20 +323,7 @@ private:
    * @return Vector of 3D points for the chessboard.
    */
   std::vector<cv::Point3f> generate_object_points() const;
-  
-  /**
-   * @brief Detect chessboard corners in an image.
-   * @param image Input image.
-   * @param corners Output detected corners.
-   * @param visualize If true, display detected corners.
-   * @return True if corners were detected.
-   */
-  bool detect_chessboard(
-    const cv::Mat& image,
-    std::vector<cv::Point2f>& corners,
-    bool visualize = false
-  ) const;
-  
+
   /**
    * @brief Compute undistortion maps from calibration result.
    */

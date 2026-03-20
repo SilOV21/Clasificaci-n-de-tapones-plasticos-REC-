@@ -202,8 +202,8 @@ private:
       "-p", "time_per_frame:=" + std::to_string(1000000000 / framerate_),  // nanoseconds
       "-p", "pixel_format:=\"" + pixel_format_ + "\"",
       "-p", "camera_frame_id:=\"" + frame_id_ + "\"",
-      "-p", "image_topic:=\"" + image_topic_ + "\"",
-      "-p", "camera_info_topic:=\"" + camera_info_topic_ + "\""
+      "-r", "image_raw:=" + image_topic_,
+      "-r", "camera_info:=" + camera_info_topic_
     };
 
     // Fork and exec
