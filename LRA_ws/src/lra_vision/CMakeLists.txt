@@ -175,6 +175,8 @@ ament_target_dependencies(camera_calibrator_node
   std_srvs
 )
 
+rosidl_target_interfaces(camera_calibrator_node ${PROJECT_NAME} "rosidl_typesupport_cpp")
+
 # Camera TF Broadcaster Node - Publishes TF for camera-UR3 relationship
 add_executable(camera_tf_broadcaster_node
   src/nodes/camera_tf_broadcaster_node.cpp

@@ -13,6 +13,8 @@
 #include <std_srvs/srv/trigger.hpp>
 #include <geometry_msgs/msg/point_stamped.hpp>
 
+#include "lra_vision/srv/calibrate_camera.hpp"
+
 #include <opencv2/opencv.hpp>
 #include <cv_bridge/cv_bridge.hpp>
 
@@ -105,7 +107,13 @@ public:
       "reset",
       std::bind(&CameraCalibratorNode::handle_reset, this,
                 std::placeholders::_1, std::placeholders::_2));
-    
+
+    // Unified CalibrateCamera service
+    calibrate_camera_srv_ = this->create_service<lra_vision::srv::CalibrateCamera>(
+      "calibrate_camera",
+      std::bind(&CameraCalibratorNode::handle_calibrate_camera, this,
+                std::placeholders::_1, std::placeholders::_2));
+
     // Timers
     status_timer_ = this->create_wall_timer(
       std::chrono::seconds(1),
@@ -169,6 +177,7 @@ private:
   rclcpp::Service<std_srvs::srv::Trigger>::SharedPtr calibrate_srv_;
   rclcpp::Service<std_srvs::srv::Trigger>::SharedPtr save_srv_;
   rclcpp::Service<std_srvs::srv::Trigger>::SharedPtr reset_srv_;
+  rclcpp::Service<lra_vision::srv::CalibrateCamera>::SharedPtr calibrate_camera_srv_;
   
   rclcpp::TimerBase::SharedPtr status_timer_;
   rclcpp::TimerBase::SharedPtr capture_timer_;
@@ -363,14 +372,152 @@ private:
     std::shared_ptr<std_srvs::srv::Trigger::Response> response)
   {
     (void)request;
-    
+
     calibrator_->clear();
-    
+
     response->success = true;
     response->message = "Calibration data cleared";
     RCLCPP_INFO(this->get_logger(), "Calibration data cleared");
   }
-  
+
+  /**
+   * @brief Handle unified CalibrateCamera service call.
+   */
+  void handle_calibrate_camera(
+    const std::shared_ptr<lra_vision::srv::CalibrateCamera::Request> request,
+    std::shared_ptr<lra_vision::srv::CalibrateCamera::Response> response)
+  {
+    if (request->action == "start") {
+      // Re-initialize with request parameters if provided
+      CalibrationConfig new_config = calibrator_->get_config();
+
+      if (request->board_width > 0) {
+        new_config.board_width = request->board_width;
+      }
+      if (request->board_height > 0) {
+        new_config.board_height = request->board_height;
+      }
+      if (request->square_size > 0.0) {
+        new_config.square_size = request->square_size;
+      }
+      if (request->min_images > 0) {
+        new_config.min_images = request->min_images;
+      }
+      if (!request->save_path.empty()) {
+        new_config.output_path = request->save_path;
+      }
+
+      // Re-create calibrator with new config
+      calibrator_ = std::make_unique<CameraCalibrator>(new_config);
+
+      response->success = true;
+      response->message = "Calibrator re-initialized";
+      RCLCPP_INFO(this->get_logger(), "Calibrator re-initialized with new config");
+    }
+    else if (request->action == "capture") {
+      if (calibrator_->get_image_count() >= calibrator_->get_config().max_images) {
+        response->success = false;
+        response->message = "Maximum images captured";
+        return;
+      }
+
+      if (!last_pattern_found_) {
+        response->success = false;
+        response->message = "No pattern detected in last image";
+        return;
+      }
+
+      capturing_ = true;
+      response->success = true;
+      response->message = "Capture triggered - processing...";
+      RCLCPP_INFO(this->get_logger(), "Capture triggered via CalibrateCamera service");
+    }
+    else if (request->action == "calibrate") {
+      if (!calibrator_->has_sufficient_data()) {
+        response->success = false;
+        response->message = "Insufficient images: " + std::to_string(calibrator_->get_image_count()) +
+                            "/" + std::to_string(calibrator_->get_config().min_images);
+        RCLCPP_WARN(this->get_logger(), "%s", response->message.c_str());
+        return;
+      }
+
+      RCLCPP_INFO(this->get_logger(), "Starting calibration with %zu images...",
+                  calibrator_->get_image_count());
+
+      auto result = calibrator_->calibrate();
+
+      if (result.success) {
+        response->success = true;
+        response->message = "Calibration successful";
+        response->images_used = static_cast<int32_t>(calibrator_->get_image_count());
+        response->rms_error = result.rms_error;
+        response->reprojection_error = result.mean_reprojection_error;
+        response->image_width = result.image_width;
+        response->image_height = result.image_height;
+
+        // Flatten camera matrix (3x3)
+        auto cam_matrix = result.get_camera_matrix_array();
+        response->camera_matrix.clear();
+        for (const auto& row : cam_matrix) {
+          for (double val : row) {
+            response->camera_matrix.push_back(val);
+          }
+        }
+
+        // Get distortion coefficients
+        auto dist_coeffs = result.get_distortion_array();
+        response->distortion_coefficients = dist_coeffs;
+
+        RCLCPP_INFO(this->get_logger(), "Calibration completed:");
+        RCLCPP_INFO(this->get_logger(), "  RMS Error: %.4f pixels", result.rms_error);
+        RCLCPP_INFO(this->get_logger(), "  Image Size: %dx%d", result.image_width, result.image_height);
+      } else {
+        response->success = false;
+        response->message = "Calibration failed";
+        RCLCPP_ERROR(this->get_logger(), "Calibration failed!");
+      }
+    }
+    else if (request->action == "save") {
+      if (!calibrator_->is_calibrated()) {
+        response->success = false;
+        response->message = "Not calibrated yet. Run calibrate action first.";
+        RCLCPP_WARN(this->get_logger(), "%s", response->message.c_str());
+        return;
+      }
+
+      std::string filepath;
+      if (!request->save_path.empty() && !request->output_file.empty()) {
+        filepath = request->save_path + "/" + request->output_file;
+      } else if (!request->save_path.empty()) {
+        filepath = request->save_path + "/" + output_file_;
+      } else {
+        filepath = save_path_ + "/" + output_file_;
+      }
+
+      if (calibrator_->save_calibration(filepath)) {
+        response->success = true;
+        response->message = "Calibration saved to: " + filepath;
+        RCLCPP_INFO(this->get_logger(), "Calibration saved to: %s", filepath.c_str());
+      } else {
+        response->success = false;
+        response->message = "Failed to save calibration";
+        RCLCPP_ERROR(this->get_logger(), "Failed to save calibration to: %s", filepath.c_str());
+      }
+    }
+    else if (request->action == "reset") {
+      calibrator_->clear();
+      response->success = true;
+      response->message = "Calibration data cleared";
+      RCLCPP_INFO(this->get_logger(), "Calibration data cleared via CalibrateCamera service");
+    }
+    else {
+      response->success = false;
+      response->message = "Unknown action: " + request->action +
+                          ". Valid actions: start, capture, calibrate, save, reset";
+      RCLCPP_WARN(this->get_logger(), "Unknown CalibrateCamera action: %s", request->action.c_str());
+    }
+  }
+
   /**
    * @brief Publish status message.
    */
