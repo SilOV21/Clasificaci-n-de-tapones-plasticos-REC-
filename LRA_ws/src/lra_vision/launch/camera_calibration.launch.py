@@ -24,19 +24,19 @@ def generate_launch_description():
 
     board_width_arg = DeclareLaunchArgument(
         'board_width',
-        default_value='10',
+        default_value='8',
         description='Chessboard width (inner corners)'
     )
 
     board_height_arg = DeclareLaunchArgument(
         'board_height',
-        default_value='7',
+        default_value='5',
         description='Chessboard height (inner corners)'
     )
 
     square_size_arg = DeclareLaunchArgument(
         'square_size',
-        default_value='0.025',
+        default_value='0.015',
         description='Chessboard square size in meters'
     )
 

@@ -30,8 +30,8 @@ def generate_launch_description():
     
     dictionary_arg = DeclareLaunchArgument(
         'dictionary',
-        default_value='DICT_4X4_50',
-        description='ArUco dictionary (DICT_4X4_50, DICT_5X5_50, DICT_6X6_50, etc.)'
+        default_value='DICT_ARUCO_ORIGINAL',
+        description='ArUco dictionary (DICT_4X4_50, DICT_5X5_50, DICT_6X6_50, DICT_ARUCO_ORIGINAL, etc.)'
     )
     
     marker_size_arg = DeclareLaunchArgument(

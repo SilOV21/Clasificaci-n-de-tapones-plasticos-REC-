@@ -265,6 +265,13 @@ install(FILES
   DESTINATION share/${PROJECT_NAME}
 )
 
+# Install Python scripts
+install(PROGRAMS
+  scripts/camera_info_publisher.py
+  scripts/aruco_test_publisher.py
+  DESTINATION lib/${PROJECT_NAME}
+)
+
 # =============================================================================
 # TESTS (GTest/Boost)
 # =============================================================================

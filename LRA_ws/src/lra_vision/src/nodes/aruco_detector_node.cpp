@@ -47,8 +47,8 @@ public:
     // Declare parameters
     this->declare_parameter("dictionary", "DICT_4X4_50");
     this->declare_parameter("marker_size", 0.05);
-    this->declare_parameter("image_topic", "image_raw");
-    this->declare_parameter("camera_info_topic", "camera_info");
+    this->declare_parameter("image_topic", "camera/image_raw");
+    this->declare_parameter("camera_info_topic", "camera/camera_info");
     this->declare_parameter("publish_markers", true);
     this->declare_parameter("publish_poses", true);
     this->declare_parameter("publish_image", true);
