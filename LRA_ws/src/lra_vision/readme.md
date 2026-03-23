@@ -147,7 +147,7 @@ The coordinate frames follow the ROS2 REP-105 convention for optical frames:
 The homogeneous transformation from tool0 to camera_link is defined as:
 
 $$
-T_{\text{tool0}}^{\text{camera\_link}} = \begin{bmatrix}
+T_{\mathtt{tool0}}^{\mathtt{camera\_link}} = \begin{bmatrix}
 R & t \\
 0 & 1
 \end{bmatrix} \in SE(3)
