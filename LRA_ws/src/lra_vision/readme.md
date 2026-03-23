@@ -142,9 +142,7 @@ Figure 1: LRA Vision Node Graph
 
 The coordinate frames follow the ROS2 REP-105 convention for optical frames:
 
-$$
-\text{world} \rightarrow \text{base\_link} \rightarrow \cdots \rightarrow \text{tool0} \rightarrow \text{camera\_link} \rightarrow \text{camera\_optical\_frame}
-$$
+`world` → `base_link` → … → `tool0` → `camera_link` → `camera_optical_frame`
 
 The homogeneous transformation from tool0 to camera_link is defined as:
 
