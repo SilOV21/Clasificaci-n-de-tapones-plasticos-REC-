@@ -1,7 +1,7 @@
 # =============================================================================
 # LRA Vision Package - ArUco Detector Launch
 # ArUco marker detection for hand-eye calibration
-# ROS2 Jazzy Jalisco
+# ROS2 Humble Hawksbill
 # =============================================================================
 
 from launch import LaunchDescription

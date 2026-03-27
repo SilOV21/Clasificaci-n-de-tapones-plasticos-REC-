@@ -1,7 +1,7 @@
 # =============================================================================
 # LRA Vision Package - Camera Calibration Launch
 # Interactive camera calibration using chessboard pattern
-# ROS2 Jazzy Jalisco
+# ROS2 Humble Hawksbill
 # =============================================================================
 
 from launch import LaunchDescription

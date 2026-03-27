@@ -1,7 +1,7 @@
 # =============================================================================
 # LRA Vision Package - TF Broadcaster Launch
 # Publishes TF transforms for camera-UR3 relationship
-# ROS2 Jazzy Jalisco
+# ROS2 Humble Hawksbill
 # =============================================================================
 
 from launch import LaunchDescription

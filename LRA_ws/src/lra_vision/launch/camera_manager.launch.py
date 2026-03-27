@@ -1,7 +1,7 @@
 # =============================================================================
 # LRA Vision Package - Camera Manager Launch
 # Manages v4l2_camera with auto-detection and monitoring
-# ROS2 Jazzy Jalisco
+# ROS2 Humble Hawksbill
 # =============================================================================
 
 import os

@@ -21,7 +21,7 @@ class ImagePublisher(Node):
         self.marker_ids = [0, 1, 2]
         self.images = []
 
-        for marker_id in self.marker_ids:
+        for marker_id in self.marker_ids:openc
             image_path = f'{base_path}/aruco-marker-ID={marker_id}.png'
             self.get_logger().info(f'Loading marker {marker_id} from: {image_path}')
             img = cv2.imread(image_path)

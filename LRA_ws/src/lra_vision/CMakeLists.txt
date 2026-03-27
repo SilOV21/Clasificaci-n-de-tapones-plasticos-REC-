@@ -1,7 +1,7 @@
 # =============================================================================
 # LRA Vision Package - CMakeLists.txt
 # Vision subsystem for REC Project (Plastic Cap Classification)
-# ROS2 Jazzy Jalisco - C++17
+# ROS2 Humble Hawksbill - C++17
 # =============================================================================
 cmake_minimum_required(VERSION 3.16)
 project(lra_vision LANGUAGES C CXX)
@@ -119,9 +119,6 @@ target_include_directories(lra_tf_utils PUBLIC
 target_link_libraries(lra_tf_utils
   ${OpenCV_LIBS}
   yaml-cpp
-  tf2::tf2
-  tf2_ros::tf2_ros
-  tf2_geometry_msgs::tf2_geometry_msgs
 )
 
 ament_target_dependencies(lra_tf_utils

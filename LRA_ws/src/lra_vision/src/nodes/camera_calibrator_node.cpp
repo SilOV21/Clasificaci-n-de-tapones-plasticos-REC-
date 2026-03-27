@@ -16,7 +16,7 @@
 #include "lra_vision/srv/calibrate_camera.hpp"
 
 #include <opencv2/opencv.hpp>
-#include <cv_bridge/cv_bridge.hpp>
+#include <cv_bridge/cv_bridge.h>
 
 #include "lra_vision/camera_calibration.hpp"
 

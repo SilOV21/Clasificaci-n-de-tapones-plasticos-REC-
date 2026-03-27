@@ -2,7 +2,7 @@
 # =============================================================================
 # LRA Vision Package - Camera Info Publisher
 # Publishes camera calibration data from YAML file
-# ROS2 Jazzy Jalisco
+# ROS2 Humble Hawksbill
 # =============================================================================
 
 import rclpy
