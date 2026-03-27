@@ -19,8 +19,8 @@ class UR3RealControl(Node):
 
     
         self.io_client = self.create_client(SetIO, '/io_and_status_controller/set_io')
-       # while not self.io_client.wait_for_service(timeout_sec=1.0):
-       #    self.get_logger().info('Esperando al servicio de I/O del robot...')
+        while not self.io_client.wait_for_service(timeout_sec=1.0):
+           self.get_logger().info('Esperando al servicio de I/O del robot...')
 
 
         self.subscription = self.create_subscription(
