@@ -1,4 +1,5 @@
 from setuptools import find_packages, setup
+import os # <--- 1. AÑADE ESTA LÍNEA
 
 package_name = 'ur3_vision_control'
 
@@ -10,6 +11,10 @@ setup(
         ('share/ament_index/resource_index/packages',
             ['resource/' + package_name]),
         ('share/' + package_name, ['package.xml']),
+        
+        # --- 2. AÑADE ESTA LÍNEA AQUÍ ---
+        # Esto copia el Xacro desde la carpeta del código a la carpeta share del sistema
+        (os.path.join('share', package_name), [package_name + '/ur3_with_gripper.xacro']),
     ],
     install_requires=['setuptools'],
     zip_safe=True,

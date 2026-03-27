@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://wiki.ros.org/xacro" name="ur3_con_pinza">
+
+  <xacro:include filename="$(find ur_description)/urdf/ur_macro.xacro"/>
+  <xacro:include filename="$(find robotiq_description)/urdf/robotiq_2f_85_gripper.urdf.xacro" />
+  
+  <xacro:ur_robot
+    name="ur3"
+    tf_prefix=""
+    parent="world"
+    joint_limits_parameters_file="$(find ur_description)/config/ur3/joint_limits.yaml"
+    kinematics_parameters_file="$(find ur_description)/config/ur3/default_kinematics.yaml"
+    physical_parameters_file="$(find ur_description)/config/ur3/physical_parameters.yaml"
+    visual_parameters_file="$(find ur_description)/config/ur3/visual_parameters.yaml"
+    >
+    <origin xyz="0 0 0" rpy="0 0 0" />
+  </xacro:ur_robot>
+
+<xacro:robotiq_gripper name="RobotiqGripper" prefix="robotiq_" parent="tool0" >
+    <origin xyz="0 0 0.005" rpy="0 0 0"/> </xacro:robotiq_gripper>
+
+</robot>
