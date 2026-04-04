@@ -1,0 +1,14 @@
+services:
+  my_changes_app:
+    build: .
+    container_name: lra_vision
+    tty: true
+    privileged: true 
+    
+    environment:
+      - DISPLAY=${DISPLAY} 
+      - QT_X11_NO_MITSHM=1
+      
+    volumes:
+      - .:/root/lra_ws
+      - /tmp/.X11-unix:/tmp/.X11-unix

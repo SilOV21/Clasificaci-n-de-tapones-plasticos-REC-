@@ -1,8 +1,4 @@
-// =============================================================================
-// LRA Vision Package - Camera TF Broadcaster Node
-// Publishes TF transforms for camera-UR3 relationship
-// ROS2 Jazzy Jalisco - C++17
-// =============================================================================
+
 
 #include <rclcpp/rclcpp.hpp>
 #include <geometry_msgs/msg/transform_stamped.hpp>
@@ -20,28 +16,18 @@
 namespace lra_vision
 {
 
-/**
- * @class CameraTfBroadcasterNode
- * @brief ROS2 node that publishes TF transforms for camera-robot relationship.
- * 
- * This node broadcasts:
- * - Static transform from tool0 (UR3 end effector) to camera_link
- * - Static transform from camera_link to camera_optical_frame
- * 
- * The camera is mounted 5cm above the UR3 end effector for the REC project.
- */
 class CameraTfBroadcasterNode : public rclcpp::Node
 {
 public:
   explicit CameraTfBroadcasterNode(const rclcpp::NodeOptions& options = rclcpp::NodeOptions())
   : Node("camera_tf_broadcaster", options)
   {
-    // Declare parameters
+
     this->declare_parameter("translation_x", 0.0);
     this->declare_parameter("translation_y", 0.0);
-    this->declare_parameter("translation_z", 0.05);  // 5cm above UR3
+    this->declare_parameter("translation_z", 0.05);
     this->declare_parameter("roll", 0.0);
-    this->declare_parameter("pitch", 3.14159);  // 180 degrees (pointing down)
+    this->declare_parameter("pitch", 3.14159);
     this->declare_parameter("yaw", 0.0);
     this->declare_parameter("parent_frame", "tool0");
     this->declare_parameter("camera_frame", "camera_link");
@@ -49,8 +35,8 @@ public:
     this->declare_parameter("publish_rate", 30.0);
     this->declare_parameter("static_transform", true);
     this->declare_parameter("config_file", "");
-    
-    // Get parameters
+
+
     CameraMountConfig config;
     config.translation_x = this->get_parameter("translation_x").as_double();
     config.translation_y = this->get_parameter("translation_y").as_double();
@@ -61,12 +47,12 @@ public:
     config.parent_frame = this->get_parameter("parent_frame").as_string();
     config.camera_frame = this->get_parameter("camera_frame").as_string();
     config.optical_frame = this->get_parameter("optical_frame").as_string();
-    
+
     double publish_rate = this->get_parameter("publish_rate").as_double();
     bool static_transform = this->get_parameter("static_transform").as_bool();
     std::string config_file = this->get_parameter("config_file").as_string();
-    
-    // Load from config file if specified
+
+
     if (!config_file.empty()) {
       try {
         config = CameraMountConfig::from_yaml(config_file);
@@ -75,8 +61,8 @@ public:
         RCLCPP_WARN(this->get_logger(), "Could not load config file: %s, using parameters", e.what());
       }
     }
-    
-    // Store config
+
+
     config_ = config;
     static_transform_ = static_transform;
     publish_rate_ = publish_rate;
@@ -92,36 +78,32 @@ public:
                 config.roll, config.pitch, config.yaw);
   }
 
-  /**
-   * @brief Initialize the node after construction.
-   *
-   * Must be called after the node is fully constructed and owned by a shared_ptr.
-   */
+
   void init()
   {
-    // Initialize TF broadcaster
+
     tf_broadcaster_ = std::make_unique<CameraTfBroadcaster>(shared_from_this(), config_);
 
-    // Publishers
+
     status_pub_ = this->create_publisher<std_msgs::msg::String>("~/status", 10);
 
-    // Services
+
     update_srv_ = this->create_service<std_srvs::srv::Trigger>(
       "~/update",
       std::bind(&CameraTfBroadcasterNode::handle_update, this,
                 std::placeholders::_1, std::placeholders::_2));
 
-    // Initialize TF broadcaster
+
     tf_broadcaster_->initialize();
 
-    // Create timer for dynamic transforms (if not static)
+
     if (!static_transform_) {
       timer_ = this->create_wall_timer(
         std::chrono::milliseconds(static_cast<int>(1000.0 / publish_rate_)),
         std::bind(&CameraTfBroadcasterNode::publish_transforms, this));
     }
 
-    // Status timer
+
     status_timer_ = this->create_wall_timer(
       std::chrono::seconds(5),
       std::bind(&CameraTfBroadcasterNode::publish_status, this));
@@ -134,30 +116,26 @@ private:
   bool static_transform_;
   double publish_rate_;
   std::unique_ptr<CameraTfBroadcaster> tf_broadcaster_;
-  
+
   rclcpp::Publisher<std_msgs::msg::String>::SharedPtr status_pub_;
   rclcpp::Service<std_srvs::srv::Trigger>::SharedPtr update_srv_;
   rclcpp::TimerBase::SharedPtr timer_;
   rclcpp::TimerBase::SharedPtr status_timer_;
-  
-  /**
-   * @brief Publish transforms periodically.
-   */
+
+
   void publish_transforms()
   {
     tf_broadcaster_->update();
   }
-  
-  /**
-   * @brief Handle update service call.
-   */
+
+
   void handle_update(
     const std::shared_ptr<std_srvs::srv::Trigger::Request> request,
     std::shared_ptr<std_srvs::srv::Trigger::Response> response)
   {
     (void)request;
-    
-    // Re-read parameters
+
+
     config_.translation_x = this->get_parameter("translation_x").as_double();
     config_.translation_y = this->get_parameter("translation_y").as_double();
     config_.translation_z = this->get_parameter("translation_z").as_double();
@@ -167,47 +145,45 @@ private:
     config_.parent_frame = this->get_parameter("parent_frame").as_string();
     config_.camera_frame = this->get_parameter("camera_frame").as_string();
     config_.optical_frame = this->get_parameter("optical_frame").as_string();
-    
+
     tf_broadcaster_->update_config(config_);
-    
+
     response->success = true;
     response->message = "TF configuration updated";
-    
+
     RCLCPP_INFO(this->get_logger(), "TF configuration updated");
     RCLCPP_INFO(this->get_logger(), "Transform: %s -> %s -> %s",
-                config_.parent_frame.c_str(), 
+                config_.parent_frame.c_str(),
                 config_.camera_frame.c_str(),
                 config_.optical_frame.c_str());
   }
-  
-  /**
-   * @brief Publish status message.
-   */
+
+
   void publish_status()
   {
     auto msg = std_msgs::msg::String();
-    
+
     std::ostringstream ss;
     ss << "{";
     ss << "\"parent_frame\": \"" << config_.parent_frame << "\", ";
     ss << "\"camera_frame\": \"" << config_.camera_frame << "\", ";
     ss << "\"optical_frame\": \"" << config_.optical_frame << "\", ";
-    ss << "\"translation\": [" 
-       << config_.translation_x << ", " 
-       << config_.translation_y << ", " 
+    ss << "\"translation\": ["
+       << config_.translation_x << ", "
+       << config_.translation_y << ", "
        << config_.translation_z << "], ";
-    ss << "\"rotation_rpy\": [" 
-       << config_.roll << ", " 
-       << config_.pitch << ", " 
+    ss << "\"rotation_rpy\": ["
+       << config_.roll << ", "
+       << config_.pitch << ", "
        << config_.yaw << "]";
     ss << "}";
-    
+
     msg.data = ss.str();
     status_pub_->publish(msg);
   }
 };
 
-}  // namespace lra_vision
+}
 
 int main(int argc, char** argv)
 {
@@ -215,7 +191,7 @@ int main(int argc, char** argv)
 
   auto node = std::make_shared<lra_vision::CameraTfBroadcasterNode>();
 
-  // Initialize after node is fully constructed
+
   node->init();
 
   rclcpp::spin(node);

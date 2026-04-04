@@ -1,8 +1,4 @@
-// =============================================================================
-// LRA Vision Package - Camera TF Broadcaster Implementation
-// TF broadcasting for camera-UR3 relationship
-// ROS2 Jazzy Jalisco - C++17
-// =============================================================================
+
 
 #define _USE_MATH_DEFINES
 #include "lra_vision/camera_tf_broadcaster.hpp"
@@ -14,18 +10,14 @@
 namespace lra_vision
 {
 
-// =============================================================================
-// CameraMountConfig Implementation
-// =============================================================================
-
 CameraMountConfig CameraMountConfig::overhead(double height)
 {
   CameraMountConfig config;
   config.translation_x = 0.0;
   config.translation_y = 0.0;
-  config.translation_z = height;  // 5cm above UR3 by default
+  config.translation_z = height;
   config.roll = 0.0;
-  config.pitch = M_PI;  // 180 degrees - camera pointing down
+  config.pitch = M_PI;
   config.yaw = 0.0;
   return config;
 }
@@ -37,7 +29,7 @@ CameraMountConfig CameraMountConfig::angled(double angle_degrees, double height)
   config.translation_y = 0.0;
   config.translation_z = height;
   config.roll = 0.0;
-  config.pitch = angle_degrees * M_PI / 180.0;  // Convert to radians
+  config.pitch = angle_degrees * M_PI / 180.0;
   config.yaw = 0.0;
   return config;
 }
@@ -45,10 +37,10 @@ CameraMountConfig CameraMountConfig::angled(double angle_degrees, double height)
 CameraMountConfig CameraMountConfig::from_yaml(const std::string& filepath)
 {
   CameraMountConfig config;
-  
+
   try {
     YAML::Node yaml = YAML::LoadFile(filepath);
-    
+
     if (yaml["camera_mount"]) {
       auto mount = yaml["camera_mount"];
       if (mount["translation_x"]) config.translation_x = mount["translation_x"].as<double>();
@@ -62,16 +54,12 @@ CameraMountConfig CameraMountConfig::from_yaml(const std::string& filepath)
       if (mount["optical_frame"]) config.optical_frame = mount["optical_frame"].as<std::string>();
     }
   } catch (const std::exception& e) {
-    std::cerr << "Warning: Could not load camera mount config from " << filepath 
+    std::cerr << "Warning: Could not load camera mount config from " << filepath
               << ": " << e.what() << std::endl;
   }
-  
+
   return config;
 }
-
-// =============================================================================
-// CameraTfBroadcaster Implementation
-// =============================================================================
 
 CameraTfBroadcaster::CameraTfBroadcaster(
   rclcpp::Node::SharedPtr node,
@@ -79,11 +67,11 @@ CameraTfBroadcaster::CameraTfBroadcaster(
 : node_(node)
 , config_(config)
 {
-  // Initialize broadcasters
+
   static_broadcaster_ = std::make_shared<tf2_ros::StaticTransformBroadcaster>(node_);
   dynamic_broadcaster_ = std::make_shared<tf2_ros::TransformBroadcaster>(node_);
-  
-  // Initialize TF buffer
+
+
   tf_buffer_ = std::make_shared<tf2_ros::Buffer>(node_->get_clock());
   tf_listener_ = std::make_shared<tf2_ros::TransformListener>(*tf_buffer_);
 }
@@ -95,7 +83,7 @@ void CameraTfBroadcaster::initialize()
 
 void CameraTfBroadcaster::publish_static_transforms()
 {
-  // Create transform from parent frame to camera_link
+
   auto camera_transform = create_transform(
     config_.translation_x,
     config_.translation_y,
@@ -104,27 +92,27 @@ void CameraTfBroadcaster::publish_static_transforms()
     config_.pitch,
     config_.yaw
   );
-  
+
   camera_transform.header.frame_id = config_.parent_frame;
   camera_transform.child_frame_id = config_.camera_frame;
   camera_transform.header.stamp = node_->get_clock()->now();
-  
-  // Create transform from camera_link to camera_optical_frame
+
+
   auto optical_transform = create_optical_transform();
   optical_transform.header.frame_id = config_.camera_frame;
   optical_transform.child_frame_id = config_.optical_frame;
   optical_transform.header.stamp = node_->get_clock()->now();
-  
-  // Publish both transforms
+
+
   static_broadcaster_->sendTransform({camera_transform, optical_transform});
 }
 
 void CameraTfBroadcaster::update()
 {
-  // For static mounting, this doesn't need to do anything
-  // For dynamic mounting (e.g., camera on robot), update would re-publish transforms
-  // with the latest timestamp
-  
+
+
+
+
   auto camera_transform = create_transform(
     config_.translation_x,
     config_.translation_y,
@@ -133,11 +121,11 @@ void CameraTfBroadcaster::update()
     config_.pitch,
     config_.yaw
   );
-  
+
   camera_transform.header.frame_id = config_.parent_frame;
   camera_transform.child_frame_id = config_.camera_frame;
   camera_transform.header.stamp = node_->get_clock()->now();
-  
+
   dynamic_broadcaster_->sendTransform(camera_transform);
 }
 
@@ -156,24 +144,24 @@ geometry_msgs::msg::TransformStamped CameraTfBroadcaster::get_camera_transform()
 geometry_msgs::msg::Pose CameraTfBroadcaster::get_camera_pose_world() const
 {
   geometry_msgs::msg::Pose pose;
-  
+
   try {
-    // Get transform from world to camera
+
     auto transform = tf_buffer_->lookupTransform(
       "world",
       config_.camera_frame,
       tf2::TimePointZero
     );
-    
+
     pose.position.x = transform.transform.translation.x;
     pose.position.y = transform.transform.translation.y;
     pose.position.z = transform.transform.translation.z;
     pose.orientation = transform.transform.rotation;
-    
+
   } catch (const tf2::TransformException& ex) {
     RCLCPP_WARN(node_->get_logger(), "Could not get camera pose in world frame: %s", ex.what());
   }
-  
+
   return pose;
 }
 
@@ -185,11 +173,11 @@ std::array<double, 3> CameraTfBroadcaster::transform_to_world(const std::array<d
     camera_point.point.x = point[0];
     camera_point.point.y = point[1];
     camera_point.point.z = point[2];
-    
+
     auto world_point = tf_buffer_->transform(camera_point, "world");
-    
+
     return {world_point.point.x, world_point.point.y, world_point.point.z};
-    
+
   } catch (const tf2::TransformException& ex) {
     RCLCPP_WARN(node_->get_logger(), "Could not transform point to world: %s", ex.what());
     return point;
@@ -204,11 +192,11 @@ std::array<double, 3> CameraTfBroadcaster::transform_to_camera(const std::array<
     world_point.point.x = point[0];
     world_point.point.y = point[1];
     world_point.point.z = point[2];
-    
+
     auto camera_point = tf_buffer_->transform(world_point, config_.camera_frame);
-    
+
     return {camera_point.point.x, camera_point.point.y, camera_point.point.z};
-    
+
   } catch (const tf2::TransformException& ex) {
     RCLCPP_WARN(node_->get_logger(), "Could not transform point to camera: %s", ex.what());
     return point;
@@ -239,43 +227,39 @@ geometry_msgs::msg::TransformStamped CameraTfBroadcaster::create_transform(
   double roll, double pitch, double yaw) const
 {
   geometry_msgs::msg::TransformStamped transform;
-  
+
   transform.transform.translation.x = x;
   transform.transform.translation.y = y;
   transform.transform.translation.z = z;
-  
+
   auto quat = tf_utils::euler_to_quaternion(roll, pitch, yaw);
   transform.transform.rotation.x = quat[0];
   transform.transform.rotation.y = quat[1];
   transform.transform.rotation.z = quat[2];
   transform.transform.rotation.w = quat[3];
-  
+
   return transform;
 }
 
 geometry_msgs::msg::TransformStamped CameraTfBroadcaster::create_optical_transform() const
 {
-  // Optical frame has Z forward, X right, Y down (standard camera convention)
-  // This is a rotation of -90 deg around Z, then -90 deg around X
+
+
   geometry_msgs::msg::TransformStamped transform;
-  
+
   transform.transform.translation.x = 0;
   transform.transform.translation.y = 0;
   transform.transform.translation.z = 0;
-  
-  // Rotation for optical frame
+
+
   auto quat = tf_utils::euler_to_quaternion(-M_PI / 2, 0, -M_PI / 2);
   transform.transform.rotation.x = quat[0];
   transform.transform.rotation.y = quat[1];
   transform.transform.rotation.z = quat[2];
   transform.transform.rotation.w = quat[3];
-  
+
   return transform;
 }
-
-// =============================================================================
-// TF Utilities Implementation
-// =============================================================================
 
 namespace tf_utils
 {
@@ -288,38 +272,38 @@ std::array<double, 4> euler_to_quaternion(double roll, double pitch, double yaw)
   double sp = std::sin(pitch * 0.5);
   double cr = std::cos(roll * 0.5);
   double sr = std::sin(roll * 0.5);
-  
+
   std::array<double, 4> q;
-  q[0] = sr * cp * cy - cr * sp * sy;  // x
-  q[1] = cr * sp * cy + sr * cp * sy;  // y
-  q[2] = cr * cp * sy - sr * sp * cy;  // z
-  q[3] = cr * cp * cy + sr * sp * sy;  // w
-  
+  q[0] = sr * cp * cy - cr * sp * sy;
+  q[1] = cr * sp * cy + sr * cp * sy;
+  q[2] = cr * cp * sy - sr * sp * cy;
+  q[3] = cr * cp * cy + sr * sp * sy;
+
   return q;
 }
 
 std::array<double, 3> quaternion_to_euler(const std::array<double, 4>& q)
 {
   std::array<double, 3> euler;
-  
-  // Roll (x-axis rotation)
+
+
   double sinr_cosp = 2.0 * (q[3] * q[0] + q[1] * q[2]);
   double cosr_cosp = 1.0 - 2.0 * (q[0] * q[0] + q[1] * q[1]);
   euler[0] = std::atan2(sinr_cosp, cosr_cosp);
-  
-  // Pitch (y-axis rotation)
+
+
   double sinp = 2.0 * (q[3] * q[1] - q[2] * q[0]);
   if (std::abs(sinp) >= 1.0) {
     euler[1] = std::copysign(M_PI / 2, sinp);
   } else {
     euler[1] = std::asin(sinp);
   }
-  
-  // Yaw (z-axis rotation)
+
+
   double siny_cosp = 2.0 * (q[3] * q[2] + q[0] * q[1]);
   double cosy_cosp = 1.0 - 2.0 * (q[1] * q[1] + q[2] * q[2]);
   euler[2] = std::atan2(siny_cosp, cosy_cosp);
-  
+
   return euler;
 }
 
@@ -330,19 +314,19 @@ geometry_msgs::msg::TransformStamped make_transform(
   double qx, double qy, double qz, double qw)
 {
   geometry_msgs::msg::TransformStamped transform;
-  
+
   transform.header.frame_id = parent_frame;
   transform.child_frame_id = child_frame;
-  
+
   transform.transform.translation.x = x;
   transform.transform.translation.y = y;
   transform.transform.translation.z = z;
-  
+
   transform.transform.rotation.x = qx;
   transform.transform.rotation.y = qy;
   transform.transform.rotation.z = qz;
   transform.transform.rotation.w = qw;
-  
+
   return transform;
 }
 
@@ -353,10 +337,10 @@ geometry_msgs::msg::TransformStamped make_transform_rpy(
   double roll, double pitch, double yaw)
 {
   auto q = euler_to_quaternion(roll, pitch, yaw);
-  
+
   return make_transform(parent_frame, child_frame, x, y, z, q[0], q[1], q[2], q[3]);
 }
 
-}  // namespace tf_utils
+}
 
-}  // namespace lra_vision
+}

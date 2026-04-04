@@ -30,8 +30,6 @@ WORKDIR /root/lra_ws
 
 COPY src/ src/
 
-RUN . /opt/ros/humble/setup.sh && \
-    colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release && \
-    . /root/lra_ws/install/setup.sh
+RUN . /opt/ros/humble/setup.sh
 
 CMD ["bash"]

@@ -1,26 +1,14 @@
-# =============================================================================
-# LRA Vision Package - CMakeLists.txt
-# Vision subsystem for REC Project (Plastic Cap Classification)
-# ROS2 Humble Hawksbill - C++17
-# =============================================================================
 cmake_minimum_required(VERSION 3.16)
 project(lra_vision LANGUAGES C CXX)
 
-# =============================================================================
-# COMPILER SETTINGS
-# =============================================================================
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic -Wno-unused-parameter)
 endif()
 
-# C++17 standard required
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-# =============================================================================
-# FIND DEPENDENCIES
-# =============================================================================
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(rclpy REQUIRED)
@@ -38,7 +26,6 @@ find_package(camera_info_manager REQUIRED)
 find_package(camera_calibration_parsers REQUIRED)
 find_package(rclcpp_components REQUIRED)
 
-# OpenCV
 find_package(OpenCV REQUIRED COMPONENTS
   core
   imgproc
@@ -48,38 +35,25 @@ find_package(OpenCV REQUIRED COMPONENTS
   videoio
 )
 
-# YAML-CPP for configuration files
 find_package(yaml-cpp REQUIRED)
 
-# =============================================================================
-# INTERFACES (Custom Messages and Services)
-# =============================================================================
 find_package(rosidl_default_generators REQUIRED)
 find_package(builtin_interfaces REQUIRED)
 
 rosidl_generate_interfaces(${PROJECT_NAME}
   msg/CameraInfo.msg
   msg/CalibrationStatus.msg
-  srv/GetCameraDevice.srv
   srv/CalibrateCamera.srv
   DEPENDENCIES std_msgs sensor_msgs geometry_msgs builtin_interfaces
 )
 
 ament_export_dependencies(rosidl_default_runtime)
 
-# =============================================================================
-# INCLUDE DIRECTORIES
-# =============================================================================
 include_directories(
   include
   ${OpenCV_INCLUDE_DIRS}
 )
 
-# =============================================================================
-# LIBRARIES
-# =============================================================================
-
-# Camera Utilities Library
 add_library(lra_camera_utils SHARED
   src/utils/camera_detector.cpp
   src/utils/camera_calibration.cpp
@@ -105,7 +79,6 @@ target_link_libraries(lra_camera_utils
   yaml-cpp
 )
 
-# TF Utilities Library
 add_library(lra_tf_utils SHARED
   src/tf/camera_tf_broadcaster.cpp
   src/tf/ur3_camera_transform.cpp
@@ -129,30 +102,6 @@ ament_target_dependencies(lra_tf_utils
   tf2_geometry_msgs
 )
 
-# =============================================================================
-# NODES
-# =============================================================================
-
-# Camera Publisher Node - Publishes camera images from v4l2 device
-# add_executable(camera_publisher_node
-#   src/nodes/camera_publisher_node.cpp
-# )
-#
-# target_link_libraries(camera_publisher_node
-#   lra_camera_utils
-#   ${OpenCV_LIBS}
-# )
-#
-# ament_target_dependencies(camera_publisher_node
-#   rclcpp
-#   sensor_msgs
-#   image_transport
-#   camera_info_manager
-#   rclcpp_components
-#   std_srvs
-# )
-
-# Camera Calibrator Node - Performs camera calibration using OpenCV
 add_executable(camera_calibrator_node
   src/nodes/camera_calibrator_node.cpp
 )
@@ -174,7 +123,6 @@ ament_target_dependencies(camera_calibrator_node
 
 rosidl_target_interfaces(camera_calibrator_node ${PROJECT_NAME} "rosidl_typesupport_cpp")
 
-# Camera TF Broadcaster Node - Publishes TF for camera-UR3 relationship
 add_executable(camera_tf_broadcaster_node
   src/nodes/camera_tf_broadcaster_node.cpp
 )
@@ -191,7 +139,6 @@ ament_target_dependencies(camera_tf_broadcaster_node
   std_srvs
 )
 
-# ArUco Detector Node - Detects ArUco markers for hand-eye calibration
 add_executable(aruco_detector_node
   src/nodes/aruco_detector_node.cpp
 )
@@ -209,7 +156,6 @@ ament_target_dependencies(aruco_detector_node
   visualization_msgs
 )
 
-# Camera Manager Node - Manages v4l2_camera with auto-detection
 add_executable(camera_manager_node
   src/nodes/camera_manager_node.cpp
 )
@@ -224,9 +170,6 @@ ament_target_dependencies(camera_manager_node
   std_srvs
 )
 
-# =============================================================================
-# INSTALL TARGETS
-# =============================================================================
 install(TARGETS
   lra_camera_utils
   lra_tf_utils
@@ -236,7 +179,6 @@ install(TARGETS
 )
 
 install(TARGETS
-  # camera_publisher_node
   camera_calibrator_node
   camera_tf_broadcaster_node
   aruco_detector_node
@@ -253,7 +195,6 @@ install(DIRECTORY
   launch
   config
   urdf
-  rviz
   DESTINATION share/${PROJECT_NAME}
 )
 
@@ -262,23 +203,18 @@ install(FILES
   DESTINATION share/${PROJECT_NAME}
 )
 
-# Install Python scripts
 install(PROGRAMS
   scripts/camera_info_publisher.py
   scripts/aruco_test_publisher.py
   DESTINATION lib/${PROJECT_NAME}
 )
 
-# =============================================================================
-# TESTS (GTest/Boost)
-# =============================================================================
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
   ament_lint_auto_find_test_dependencies()
-  
+
   find_package(ament_cmake_gtest REQUIRED)
-  
-  # Test Camera Device Detector
+
   ament_add_gtest(test_camera_detector
     test/test_camera_detector.cpp
   )
@@ -286,8 +222,7 @@ if(BUILD_TESTING)
     lra_camera_utils
     ${OpenCV_LIBS}
   )
-  
-  # Test Camera Calibration
+
   ament_add_gtest(test_camera_calibration
     test/test_camera_calibration.cpp
   )
@@ -295,8 +230,7 @@ if(BUILD_TESTING)
     lra_camera_utils
     ${OpenCV_LIBS}
   )
-  
-  # Test TF Broadcaster
+
   ament_add_gtest(test_tf_broadcaster
     test/test_tf_broadcaster.cpp
   )
@@ -308,10 +242,6 @@ if(BUILD_TESTING)
     tf2_ros
     tf2_geometry_msgs
   )
-  
 endif()
 
-# =============================================================================
-# AMENT PACKAGE
-# =============================================================================
 ament_package()
