@@ -271,9 +271,6 @@ lra_vision/
 │   │   ├── camera_detector.cpp
 │   │   ├── camera_calibration.cpp
 │   │   └── aruco_detector.cpp
-│   └── tf/                     # TF utilities
-│       ├── camera_tf_broadcaster.cpp
-│       └── ur3_camera_transform.cpp
 ├── test/                       # GTest unit tests
 │   ├── test_camera_detector.cpp
 │   ├── test_camera_calibration.cpp
@@ -287,7 +284,7 @@ lra_vision/
 
 ### 4.2 Node Specifications
 
-#### 4.2.1 Camera Manager Node
+#### 4.2.1 Camera Manager Launch (`camera_manager.launch.py`)
 
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
@@ -297,19 +294,17 @@ lra_vision/
 | `camera.resolution.height` | int | 480 | Image height (pixels) |
 | `camera.resolution.framerate` | int | 60 | Frame rate (Hz) |
 | `camera.pixel_format` | string | `YUYV` | Pixel format |
-| `camera.auto_detect` | bool | `true` | Enable auto-detection |
+| `camera.auto_detect` | bool | `true` | Enable Python auto-detection |
 | `frames.optical_frame` | string | `camera_optical_frame` | Frame ID |
 | `topics.image_raw` | string | `camera/image_raw` | Image topic |
 | `topics.camera_info` | string | `camera/camera_info` | CameraInfo topic |
-| `camera_manager.status_rate` | float | 5.0 | Status publish rate (Hz) |
 
-**Published Topics:**
+**Published Topics (from v4l2_camera):**
 - `/camera/image_raw` (`sensor_msgs/msg/Image`): Raw Bayer/RGB images
 - `/camera/camera_info` (`sensor_msgs/msg/CameraInfo`): Calibration parameters
-- `/camera/status` (`std_msgs/msg/String`): JSON status telemetry
 
 **Services:**
-- `/camera/reconnect` (`std_srvs/srv/Trigger`): Reconnect to camera device
+(None)
 
 #### 4.2.2 Camera Calibrator Node
 
@@ -637,21 +632,6 @@ colcon test --packages-select lra_vision --ctest-args -R test_aruco_detector
 
 ### 9.1 C++ Classes
 
-#### CameraDetector
-
-```cpp
-#include "lra_vision/camera_detector.hpp"
-
-// Enumerate all video devices
-std::vector<CameraInfo> cameras = CameraDetector::detect_all_cameras();
-
-// Find Logitech StreamCam specifically
-std::optional<CameraInfo> streamcam = CameraDetector::find_streamcam();
-
-// Validate device capability
-bool valid = CameraDetector::is_valid_camera_device("/dev/video2");
-```
-
 #### CameraCalibrator
 
 ```cpp
@@ -675,23 +655,6 @@ CalibrationResult result = calibrator.calibrate();
 
 // Save results
 calibrator.save_calibration("camera_info.yaml");
-```
-
-#### CameraTfBroadcaster
-
-```cpp
-#include "lra_vision/camera_tf_broadcaster.hpp"
-
-// Configure mount
-CameraMountConfig config = CameraMountConfig::overhead(0.08);
-config.roll = M_PI;
-
-// Initialise broadcaster
-CameraTfBroadcaster broadcaster(node, config);
-
-// Publish transforms
-broadcaster.initialize();
-broadcaster.update();  // Call in timer callback
 ```
 
 #### ArUcoDetector
@@ -771,6 +734,30 @@ ros2 run tf2_ros tf2_monitor
 4. Universal Robots UR3 Technical Specification. https://www.universal-robots.com/products/ur3-robot/
 5. OpenCV Camera Calibration Module. https://docs.opencv.org/4.x/d9/d0c/group_calib3d.html
 6. REP-105: Coordinate Frame Conventions. https://www.ros.org/reps/rep-0105.html
+
+---
+
+*Last updated: 20 March 2026*
+ch 2026*
+org/reps/rep-0105.html
+
+---
+
+*Last updated: 20 March 2026*
+/
+5. OpenCV Camera Calibration Module. https://docs.opencv.org/4.x/d9/d0c/group_calib3d.html
+6. REP-105: Coordinate Frame Conventions. https://www.ros.org/reps/rep-0105.html
+
+---
+
+*Last updated: 20 March 2026*
+ch 2026*
+org/reps/rep-0105.html
+
+---
+
+*Last updated: 20 March 2026*
+-0105.html
 
 ---
 

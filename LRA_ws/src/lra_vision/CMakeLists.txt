@@ -55,7 +55,6 @@ include_directories(
 )
 
 add_library(lra_camera_utils SHARED
-  src/utils/camera_detector.cpp
   src/utils/camera_calibration.cpp
   src/utils/aruco_detector.cpp
 )
@@ -79,29 +78,6 @@ target_link_libraries(lra_camera_utils
   yaml-cpp
 )
 
-add_library(lra_tf_utils SHARED
-  src/tf/camera_tf_broadcaster.cpp
-  src/tf/ur3_camera_transform.cpp
-)
-
-target_include_directories(lra_tf_utils PUBLIC
-  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-  $<INSTALL_INTERFACE:include>
-)
-
-target_link_libraries(lra_tf_utils
-  ${OpenCV_LIBS}
-  yaml-cpp
-)
-
-ament_target_dependencies(lra_tf_utils
-  rclcpp
-  geometry_msgs
-  tf2
-  tf2_ros
-  tf2_geometry_msgs
-)
-
 add_executable(camera_calibrator_node
   src/nodes/camera_calibrator_node.cpp
 )
@@ -123,22 +99,6 @@ ament_target_dependencies(camera_calibrator_node
 
 rosidl_target_interfaces(camera_calibrator_node ${PROJECT_NAME} "rosidl_typesupport_cpp")
 
-add_executable(camera_tf_broadcaster_node
-  src/nodes/camera_tf_broadcaster_node.cpp
-)
-
-target_link_libraries(camera_tf_broadcaster_node
-  lra_tf_utils
-)
-
-ament_target_dependencies(camera_tf_broadcaster_node
-  rclcpp
-  geometry_msgs
-  tf2
-  tf2_ros
-  std_srvs
-)
-
 add_executable(aruco_detector_node
   src/nodes/aruco_detector_node.cpp
 )
@@ -156,23 +116,8 @@ ament_target_dependencies(aruco_detector_node
   visualization_msgs
 )
 
-add_executable(camera_manager_node
-  src/nodes/camera_manager_node.cpp
-)
-
-target_link_libraries(camera_manager_node
-  lra_camera_utils
-)
-
-ament_target_dependencies(camera_manager_node
-  rclcpp
-  sensor_msgs
-  std_srvs
-)
-
 install(TARGETS
   lra_camera_utils
-  lra_tf_utils
   ARCHIVE DESTINATION lib
   LIBRARY DESTINATION lib
   RUNTIME DESTINATION bin
@@ -180,9 +125,7 @@ install(TARGETS
 
 install(TARGETS
   camera_calibrator_node
-  camera_tf_broadcaster_node
   aruco_detector_node
-  camera_manager_node
   DESTINATION lib/${PROJECT_NAME}
 )
 
@@ -195,6 +138,7 @@ install(DIRECTORY
   launch
   config
   urdf
+  rviz
   DESTINATION share/${PROJECT_NAME}
 )
 
@@ -208,40 +152,5 @@ install(PROGRAMS
   scripts/aruco_test_publisher.py
   DESTINATION lib/${PROJECT_NAME}
 )
-
-if(BUILD_TESTING)
-  find_package(ament_lint_auto REQUIRED)
-  ament_lint_auto_find_test_dependencies()
-
-  find_package(ament_cmake_gtest REQUIRED)
-
-  ament_add_gtest(test_camera_detector
-    test/test_camera_detector.cpp
-  )
-  target_link_libraries(test_camera_detector
-    lra_camera_utils
-    ${OpenCV_LIBS}
-  )
-
-  ament_add_gtest(test_camera_calibration
-    test/test_camera_calibration.cpp
-  )
-  target_link_libraries(test_camera_calibration
-    lra_camera_utils
-    ${OpenCV_LIBS}
-  )
-
-  ament_add_gtest(test_tf_broadcaster
-    test/test_tf_broadcaster.cpp
-  )
-  target_link_libraries(test_tf_broadcaster
-    lra_tf_utils
-  )
-  ament_target_dependencies(test_tf_broadcaster
-    tf2
-    tf2_ros
-    tf2_geometry_msgs
-  )
-endif()
 
 ament_package()

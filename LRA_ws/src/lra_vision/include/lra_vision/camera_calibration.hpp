@@ -129,12 +129,6 @@ private:
 namespace calibration_utils
 {
 
-cv::Mat draw_corners(
-  const cv::Mat& image,
-  const std::vector<cv::Point2f>& corners,
-  bool found
-);
-
 void print_calibration_summary(const CalibrationResult& result);
 
 }

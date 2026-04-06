@@ -71,7 +71,3 @@ auto_exposure:
   exposure_time: 0  # 0 for auto
   gain: 0  # 0 for auto
   white_balance: true
-
-# Camera Manager Node Settings
-camera_manager:
-  status_rate: 5.0  # Hz - rate for publishing status messages

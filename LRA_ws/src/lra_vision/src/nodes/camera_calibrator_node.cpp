@@ -1,11 +1,9 @@
-
-
 #include <rclcpp/rclcpp.hpp>
 #include <image_transport/image_transport.hpp>
 #include <sensor_msgs/msg/image.hpp>
 #include <sensor_msgs/msg/camera_info.hpp>
 #include <std_msgs/msg/bool.hpp>
-#include <std_msgs/msg/string.hpp>
+#include "lra_vision/msg/calibration_status.hpp"
 #include <std_srvs/srv/trigger.hpp>
 #include <geometry_msgs/msg/point_stamped.hpp>
 
@@ -70,7 +68,7 @@ public:
 
 
     debug_pub_ = image_transport::create_publisher(this, "calibration/debug");
-    status_pub_ = this->create_publisher<std_msgs::msg::String>("calibration/status", 10);
+    status_pub_ = this->create_publisher<lra_vision::msg::CalibrationStatus>("calibration/status", 10);
     ready_pub_ = this->create_publisher<std_msgs::msg::Bool>("calibration/ready", 10);
 
 
@@ -156,7 +154,7 @@ private:
 
   image_transport::Subscriber image_sub_;
   image_transport::Publisher debug_pub_;
-  rclcpp::Publisher<std_msgs::msg::String>::SharedPtr status_pub_;
+  rclcpp::Publisher<lra_vision::msg::CalibrationStatus>::SharedPtr status_pub_;
   rclcpp::Publisher<std_msgs::msg::Bool>::SharedPtr ready_pub_;
 
   rclcpp::Service<lra_vision::srv::CalibrateCamera>::SharedPtr calibrate_camera_srv_;
@@ -235,7 +233,7 @@ private:
       return;
     }
 
-    if (calibrator_->get_image_count() >= calibrator_->get_config().max_images) {
+    if (calibrator_->get_image_count() >= static_cast<size_t>(calibrator_->get_config().max_images)) {
       return;
     }
 
@@ -253,7 +251,7 @@ private:
   {
     (void)request;
 
-    if (calibrator_->get_image_count() >= calibrator_->get_config().max_images) {
+    if (calibrator_->get_image_count() >= static_cast<size_t>(calibrator_->get_config().max_images)) {
       response->success = false;
       response->message = "Maximum images captured";
       return;
@@ -354,35 +352,14 @@ private:
     const std::shared_ptr<lra_vision::srv::CalibrateCamera::Request> request,
     std::shared_ptr<lra_vision::srv::CalibrateCamera::Response> response)
   {
-    if (request->action == "start") {
-
-      CalibrationConfig new_config = calibrator_->get_config();
-
-      if (request->board_width > 0) {
-        new_config.board_width = request->board_width;
-      }
-      if (request->board_height > 0) {
-        new_config.board_height = request->board_height;
-      }
-      if (request->square_size > 0.0) {
-        new_config.square_size = request->square_size;
-      }
-      if (request->min_images > 0) {
-        new_config.min_images = request->min_images;
-      }
-      if (!request->save_path.empty()) {
-        new_config.output_path = request->save_path;
-      }
-
-
-      calibrator_ = std::make_unique<CameraCalibrator>(new_config);
-
+    if (request->action == "start" || request->action == "reset") {
+      calibrator_->clear();
       response->success = true;
-      response->message = "Calibrator re-initialized";
-      RCLCPP_INFO(this->get_logger(), "Calibrator re-initialized with new config");
+      response->message = "Calibration data cleared and re-initialized";
+      RCLCPP_INFO(this->get_logger(), "Calibrator reset via service");
     }
     else if (request->action == "capture") {
-      if (calibrator_->get_image_count() >= calibrator_->get_config().max_images) {
+      if (calibrator_->get_image_count() >= static_cast<size_t>(calibrator_->get_config().max_images)) {
         response->success = false;
         response->message = "Maximum images captured";
         return;
@@ -397,94 +374,68 @@ private:
       capturing_ = true;
       response->success = true;
       response->message = "Capture triggered - processing...";
-      RCLCPP_INFO(this->get_logger(), "Capture triggered via CalibrateCamera service");
+      RCLCPP_INFO(this->get_logger(), "Capture triggered via service");
     }
     else if (request->action == "calibrate") {
       if (!calibrator_->has_sufficient_data()) {
         response->success = false;
         response->message = "Insufficient images: " + std::to_string(calibrator_->get_image_count()) +
                             "/" + std::to_string(calibrator_->get_config().min_images);
-        RCLCPP_WARN(this->get_logger(), "%s", response->message.c_str());
         return;
       }
 
-      RCLCPP_INFO(this->get_logger(), "Starting calibration with %zu images...",
-                  calibrator_->get_image_count());
-
       auto result = calibrator_->calibrate();
-
-      if (result.success) {
-        response->success = true;
-        response->message = "Calibration successful";
-
-        RCLCPP_INFO(this->get_logger(), "Calibration completed");
-      } else {
-        response->success = false;
-        response->message = "Calibration failed";
-        RCLCPP_ERROR(this->get_logger(), "Calibration failed!");
-      }
+      response->success = result.success;
+      response->message = result.success ? "Calibration successful" : "Calibration failed";
     }
     else if (request->action == "save") {
       if (!calibrator_->is_calibrated()) {
         response->success = false;
-        response->message = "Not calibrated yet. Run calibrate action first.";
-        RCLCPP_WARN(this->get_logger(), "%s", response->message.c_str());
+        response->message = "Not calibrated yet";
         return;
       }
 
-      std::string filepath;
-      if (!request->save_path.empty() && !request->output_file.empty()) {
-        filepath = request->save_path + "/" + request->output_file;
-      } else if (!request->save_path.empty()) {
-        filepath = request->save_path + "/" + output_file_;
-      } else {
-        filepath = save_path_ + "/" + output_file_;
-      }
-
+      std::string filepath = save_path_ + "/" + output_file_;
       if (calibrator_->save_calibration(filepath)) {
         response->success = true;
         response->message = "Calibration saved to: " + filepath;
-        RCLCPP_INFO(this->get_logger(), "Calibration saved to: %s", filepath.c_str());
       } else {
         response->success = false;
         response->message = "Failed to save calibration";
-        RCLCPP_ERROR(this->get_logger(), "Failed to save calibration to: %s", filepath.c_str());
       }
-    }
-    else if (request->action == "reset") {
-      calibrator_->clear();
-      response->success = true;
-      response->message = "Calibration data cleared";
-      RCLCPP_INFO(this->get_logger(), "Calibration data cleared via CalibrateCamera service");
     }
     else {
       response->success = false;
-      response->message = "Unknown action: " + request->action +
-                          ". Valid actions: start, capture, calibrate, save, reset";
-      RCLCPP_WARN(this->get_logger(), "Unknown CalibrateCamera action: %s", request->action.c_str());
+      response->message = "Unknown action: " + request->action;
     }
   }
 
 
   void publish_status()
   {
-    auto msg = std_msgs::msg::String();
+    auto msg = lra_vision::msg::CalibrationStatus();
+    msg.header.stamp = this->get_clock()->now();
 
-    std::ostringstream ss;
-    ss << "{";
-    ss << "\"images_captured\": " << calibrator_->get_image_count() << ", ";
-    ss << "\"min_images\": " << calibrator_->get_config().min_images << ", ";
-    ss << "\"max_images\": " << calibrator_->get_config().max_images << ", ";
-    ss << "\"ready\": " << (calibrator_->has_sufficient_data() ? "true" : "false") << ", ";
-    ss << "\"calibrated\": " << (calibrator_->is_calibrated() ? "true" : "false");
-    ss << "}";
+    msg.images_collected = calibrator_->get_image_count();
+    msg.images_required = calibrator_->get_config().min_images;
+    msg.images_maximum = calibrator_->get_config().max_images;
+    msg.is_ready = calibrator_->has_sufficient_data();
+    msg.is_calibrated = calibrator_->is_calibrated();
 
-    msg.data = ss.str();
+    if (calibrator_->is_calibrated()) {
+      msg.state = "calibrated";
+    } else if (msg.is_ready) {
+      msg.state = "ready";
+    } else {
+      msg.state = "collecting";
+    }
+
+    msg.progress = std::min(1.0, static_cast<double>(msg.images_collected) / msg.images_required);
+
     status_pub_->publish(msg);
 
-
     auto ready_msg = std_msgs::msg::Bool();
-    ready_msg.data = calibrator_->has_sufficient_data();
+    ready_msg.data = msg.is_ready;
     ready_pub_->publish(ready_msg);
   }
 };
