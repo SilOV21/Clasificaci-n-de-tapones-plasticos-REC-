@@ -1,0 +1,21 @@
+camera_name: logitech_streamcam
+image_width: 640
+image_height: 480
+camera_matrix:
+  rows: 3
+  cols: 3
+  data: [376.43638119143662, 0, 319.5, 0, 375.77966070405495, 239.5, 0, 0, 1]
+distortion_coefficients:
+  rows: 5
+  cols: 1
+  data: [0.074852666742421525, -0.23426392030357052, 0, 0, 0.16033937915189445]
+rectification_matrix:
+  rows: 3
+  cols: 3
+  data: [1, 0, 0, 0, 1, 0, 0, 0, 1]
+projection_matrix:
+  rows: 3
+  cols: 4
+  data: [376.43638119143662, 0, 319.5, 0, 0, 375.77966070405495, 239.5, 0, 0, 0, 1, 0]
+calibration_time: 2026-04-07 04:38:04
+rms_error: 0.36442094528686808
