@@ -4,8 +4,7 @@
 
 **Version:** 1.0.0  
 **Date:** 6 April 2026  
-**ROS2 Distribution:** Humble Hawksbill (Docker) 
-**License:** To be defined
+**ROS2 Distribution:** Humble Hawksbill (Docker)
 
 ---
 
