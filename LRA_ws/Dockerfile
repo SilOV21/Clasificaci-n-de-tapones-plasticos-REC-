@@ -24,12 +24,21 @@ RUN apt-get update && apt-get install -y \
     libopencv-dev \
     git \
     xvfb \
+    ros-humble-joint-state-publisher \
+    ros-humble-xacro \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /root/lra_ws
 
 COPY src/ src/
+COPY entrypoint.sh /entrypoint.sh
 
-RUN . /opt/ros/humble/setup.sh
+RUN chmod +x /entrypoint.sh
+
+ENTRYPOINT ["/entrypoint.sh"]
+
+RUN bash -c "source /opt/ros/humble/setup.bash"
+
+RUN chmod +x /entrypoint.sh
 
 CMD ["bash"]

@@ -82,12 +82,6 @@ public:
   std::vector<ArucoMarker> detect_with_pose(const cv::Mat& image);
 
 
-  std::vector<ArucoMarker> detect_specific(
-    const cv::Mat& image,
-    const std::vector<int>& marker_ids
-  );
-
-
   void refine_corners(const cv::Mat& image, std::vector<ArucoMarker>& markers);
 
 

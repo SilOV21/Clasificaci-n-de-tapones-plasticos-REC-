@@ -479,22 +479,6 @@ bool CameraCalibrator::save_calibration(const std::string& filepath) const
 namespace calibration_utils
 {
 
-cv::Mat draw_corners(
-  const cv::Mat& image,
-  const std::vector<cv::Point2f>& corners,
-  bool found
-)
-{
-  cv::Mat display = image.clone();
-
-  if (found && !corners.empty()) {
-    cv::Size pattern_size(9, 6);
-    cv::drawChessboardCorners(display, pattern_size, corners, found);
-  }
-
-  return display;
-}
-
 void print_calibration_summary(const CalibrationResult& result)
 {
   std::cout << "\n========== CALIBRATION RESULTS ==========\n";

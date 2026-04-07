@@ -1,7 +1,10 @@
 #include "lra_vision/aruco_detector.hpp"
 
 #include <fstream>
+#include <iostream>
+#include <algorithm>
 #include <opencv2/calib3d.hpp>
+#include <yaml-cpp/yaml.h>
 
 namespace lra_vision
 {
@@ -64,8 +67,66 @@ ArucoConfig ArucoConfig::from_yaml(const std::string& filepath)
 {
   ArucoConfig config = default_config();
 
+  try {
+    YAML::Node yaml = YAML::LoadFile(filepath);
 
-  (void)filepath;
+    if (yaml["dictionary"]) {
+      std::string dict_name = yaml["dictionary"].as<std::string>();
+      if (dict_name == "DICT_4X4_50") config.dictionary = cv::aruco::DICT_4X4_50;
+      else if (dict_name == "DICT_4X4_100") config.dictionary = cv::aruco::DICT_4X4_100;
+      else if (dict_name == "DICT_4X4_250") config.dictionary = cv::aruco::DICT_4X4_250;
+      else if (dict_name == "DICT_4X4_1000") config.dictionary = cv::aruco::DICT_4X4_1000;
+      else if (dict_name == "DICT_5X5_50") config.dictionary = cv::aruco::DICT_5X5_50;
+      else if (dict_name == "DICT_5X5_100") config.dictionary = cv::aruco::DICT_5X5_100;
+      else if (dict_name == "DICT_5X5_250") config.dictionary = cv::aruco::DICT_5X5_250;
+      else if (dict_name == "DICT_5X5_1000") config.dictionary = cv::aruco::DICT_5X5_1000;
+      else if (dict_name == "DICT_6X6_50") config.dictionary = cv::aruco::DICT_6X6_50;
+      else if (dict_name == "DICT_6X6_100") config.dictionary = cv::aruco::DICT_6X6_100;
+      else if (dict_name == "DICT_6X6_250") config.dictionary = cv::aruco::DICT_6X6_250;
+      else if (dict_name == "DICT_6X6_1000") config.dictionary = cv::aruco::DICT_6X6_1000;
+      else if (dict_name == "DICT_7X7_50") config.dictionary = cv::aruco::DICT_7X7_50;
+      else if (dict_name == "DICT_7X7_100") config.dictionary = cv::aruco::DICT_7X7_100;
+      else if (dict_name == "DICT_7X7_250") config.dictionary = cv::aruco::DICT_7X7_250;
+      else if (dict_name == "DICT_7X7_1000") config.dictionary = cv::aruco::DICT_7X7_1000;
+      else if (dict_name == "DICT_ARUCO_ORIGINAL") config.dictionary = cv::aruco::DICT_ARUCO_ORIGINAL;
+      else if (dict_name == "DICT_APRILTAG_16h5") config.dictionary = cv::aruco::DICT_APRILTAG_16h5;
+      else if (dict_name == "DICT_APRILTAG_25h9") config.dictionary = cv::aruco::DICT_APRILTAG_25h9;
+      else if (dict_name == "DICT_APRILTAG_36h10") config.dictionary = cv::aruco::DICT_APRILTAG_36h10;
+      else if (dict_name == "DICT_APRILTAG_36h11") config.dictionary = cv::aruco::DICT_APRILTAG_36h11;
+    }
+
+    if (yaml["marker"]) {
+      if (yaml["marker"]["size"]) config.marker_size = yaml["marker"]["size"].as<double>();
+    }
+
+    if (yaml["detection"]) {
+      auto det = yaml["detection"];
+      if (det["adaptive_thresh_win_size_min"]) config.adaptive_thresh_win_size_min = det["adaptive_thresh_win_size_min"].as<int>();
+      if (det["adaptive_thresh_win_size_max"]) config.adaptive_thresh_win_size_max = det["adaptive_thresh_win_size_max"].as<int>();
+      if (det["adaptive_thresh_win_size_step"]) config.adaptive_thresh_win_size_step = det["adaptive_thresh_win_size_step"].as<int>();
+      if (det["adaptive_thresh_const"]) config.adaptive_thresh_const = det["adaptive_thresh_const"].as<double>();
+      if (det["min_marker_perimeter_rate"]) config.min_marker_perimeter_rate = det["min_marker_perimeter_rate"].as<double>();
+      if (det["max_marker_perimeter_rate"]) config.max_marker_perimeter_rate = det["max_marker_perimeter_rate"].as<double>();
+      if (det["polygonal_approx_accuracy_rate"]) config.polygonal_approx_accuracy_rate = det["polygonal_approx_accuracy_rate"].as<double>();
+      if (det["min_corner_distance_rate"]) config.min_corner_distance_rate = det["min_corner_distance_rate"].as<double>();
+      if (det["min_distance_to_border"]) config.min_distance_to_border = det["min_distance_to_border"].as<int>();
+      if (det["min_marker_distance_rate"]) config.min_marker_distance_rate = det["min_marker_distance_rate"].as<double>();
+      
+      if (det["corner_refinement_method"]) {
+        std::string method = det["corner_refinement_method"].as<std::string>();
+        if (method == "none") config.corner_refinement_method = cv::aruco::CORNER_REFINE_NONE;
+        else if (method == "subpix") config.corner_refinement_method = cv::aruco::CORNER_REFINE_SUBPIX;
+        else if (method == "contour") config.corner_refinement_method = cv::aruco::CORNER_REFINE_CONTOUR;
+        else if (method == "apriltag") config.corner_refinement_method = cv::aruco::CORNER_REFINE_APRILTAG;
+      }
+      if (det["corner_refinement_win_size"]) config.corner_refinement_win_size = det["corner_refinement_win_size"].as<int>();
+      if (det["corner_refinement_max_iterations"]) config.corner_refinement_max_iterations = det["corner_refinement_max_iterations"].as<int>();
+      if (det["corner_refinement_min_accuracy"]) config.corner_refinement_min_accuracy = det["corner_refinement_min_accuracy"].as<double>();
+    }
+  } catch (const std::exception& e) {
+    std::cerr << "Warning: Could not load Aruco config from " << filepath
+              << ": " << e.what() << std::endl;
+  }
 
   return config;
 }
@@ -173,17 +234,16 @@ std::vector<ArucoMarker> ArucoDetector::detect_with_pose(const cv::Mat& image)
   rvecs.reserve(ids.size());
   tvecs.reserve(ids.size());
 
+  std::vector<cv::Point3f> object_points;
+  float half_size = static_cast<float>(config_.marker_size) / 2.0f;
+  object_points = {
+    cv::Point3f(-half_size, -half_size, 0),
+    cv::Point3f(half_size, -half_size, 0),
+    cv::Point3f(half_size, half_size, 0),
+    cv::Point3f(-half_size, half_size, 0)
+  };
+
   for (size_t i = 0; i < ids.size(); i++) {
-
-    std::vector<cv::Point3f> object_points;
-    float half_size = static_cast<float>(config_.marker_size) / 2.0f;
-    object_points = {
-      cv::Point3f(-half_size, -half_size, 0),
-      cv::Point3f(half_size, -half_size, 0),
-      cv::Point3f(half_size, half_size, 0),
-      cv::Point3f(-half_size, half_size, 0)
-    };
-
 
     cv::Vec3d rvec, tvec;
     bool success = cv::solvePnP(object_points, corners[i], camera_matrix_, dist_coeffs_, rvec, tvec);
@@ -204,16 +264,6 @@ std::vector<ArucoMarker> ArucoDetector::detect_with_pose(const cv::Mat& image)
   for (size_t i = 0; i < markers.size(); ++i) {
     if (i < rvecs.size() && i < tvecs.size()) {
       std::vector<cv::Point2f> reprojected;
-      std::vector<cv::Point3f> object_points;
-
-
-      float half_size = static_cast<float>(config_.marker_size) / 2.0f;
-      object_points = {
-        cv::Point3f(-half_size, -half_size, 0),
-        cv::Point3f(half_size, -half_size, 0),
-        cv::Point3f(half_size, half_size, 0),
-        cv::Point3f(-half_size, half_size, 0)
-      };
 
       cv::projectPoints(object_points, rvecs[i], tvecs[i],
                          camera_matrix_, dist_coeffs_, reprojected);
@@ -227,22 +277,6 @@ std::vector<ArucoMarker> ArucoDetector::detect_with_pose(const cv::Mat& image)
   }
 
   return markers;
-}
-
-std::vector<ArucoMarker> ArucoDetector::detect_specific(
-  const cv::Mat& image,
-  const std::vector<int>& marker_ids)
-{
-  std::vector<ArucoMarker> all_markers = detect_with_pose(image);
-
-  std::vector<ArucoMarker> filtered_markers;
-  for (const auto& marker : all_markers) {
-    if (std::find(marker_ids.begin(), marker_ids.end(), marker.id) != marker_ids.end()) {
-      filtered_markers.push_back(marker);
-    }
-  }
-
-  return filtered_markers;
 }
 
 void ArucoDetector::refine_corners(const cv::Mat& image, std::vector<ArucoMarker>& markers)

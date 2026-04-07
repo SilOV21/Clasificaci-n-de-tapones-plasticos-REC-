@@ -1,5 +1,3 @@
-
-
 #include <rclcpp/rclcpp.hpp>
 #include <image_transport/image_transport.hpp>
 #include <sensor_msgs/msg/image.hpp>

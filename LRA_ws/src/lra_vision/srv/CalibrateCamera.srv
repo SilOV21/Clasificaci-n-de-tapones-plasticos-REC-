@@ -1,13 +1,4 @@
 string action
-int32 board_width
-int32 board_height
-float64 square_size
-int32 min_images
-string save_path
-string output_file
-bool auto_capture
-float64 capture_interval
-bool visualize
 ---
 bool success
 string message
