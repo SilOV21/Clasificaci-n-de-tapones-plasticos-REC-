@@ -4,7 +4,7 @@
 
 **Version:** 1.0.0  
 **Date:** 6 April 2026  
-**ROS2 Distribution:** Humble Hawksbill (Docker) / Jazzy Jalisco  
+**ROS2 Distribution:** Humble Hawksbill (Docker) 
 **License:** To be defined
 
 ---
@@ -26,7 +26,7 @@ REC Project: Plastic Cap Classification using UR3 Robotic Arm
 
 ## Abstract
 
-This document presents the LRA Vision package, a comprehensive ROS2-based vision subsystem developed for the REC (Robotic Education and Classification) project at the Laboratorio de Automática y Robótica, Universidad Politécnica de Madrid. The system provides real-time camera interfacing, intrinsic calibration, and extrinsic hand-eye calibration capabilities for a Logitech StreamCam mounted on a UR3 robotic manipulator. The architecture employs a modular design with primary nodes for Camera Management via `v4l2_camera`, Camera Calibration, ArUco Detection, and URDF-based TF Broadcasting via `robot_state_publisher`. 
+This document presents the LRA Vision package, a comprehensive ROS2-based vision subsystem developed for the REC project at the Laboratorio de Automática y Robótica, Universidad Politécnica de Madrid. The system provides real-time camera interfacing, intrinsic calibration, and extrinsic hand-eye calibration capabilities for a camera mounted on a UR3 robotic manipulator. The architecture employs a modular design with primary nodes for Camera Management via `v4l2_camera`, Camera Calibration, ArUco Detection, and URDF-based TF Broadcasting via `robot_state_publisher`. 
 
 ---
 
@@ -48,7 +48,7 @@ This document presents the LRA Vision package, a comprehensive ROS2-based vision
 Robotic manipulation tasks requiring visual servoing or object recognition depend critically on accurate camera calibration and precise knowledge of the camera pose relative to the robot end-effector.
 
 ### 1.2 Objectives
-- **O1:** Provide a hardware-abstraction layer for the Logitech StreamCam USB camera
+- **O1:** Provide a hardware-abstraction layer for the USB camera
 - **O2:** Implement chessboard-based intrinsic calibration
 - **O3:** Publish accurate TF transforms for the camera-UR3 kinematic chain via URDF
 - **O4:** Enable ArUco marker detection
@@ -63,10 +63,6 @@ The coordinate frames follow the ROS2 REP-105 convention for optical frames:
 
 `world` → `base_link` → … → `tool0` → `camera_link` → `camera_optical_frame`
 
-**Default configuration (defined in `camera.xacro`):**
-- Translation: 5 cm above end-effector (Z-axis offset)
-- Rotation: Camera pointing downward
-
 ---
 
 ## 3. Methodology
@@ -75,63 +71,25 @@ The coordinate frames follow the ROS2 REP-105 convention for optical frames:
 The system launches `v4l2_camera` to capture video and provide ROS2 topics for the raw image and camera info.
 
 ### 3.2 Intrinsic Calibration
-Calibration is performed using a 9x6 chessboard pattern, optimizing intrinsic parameters using OpenCV.
+Calibration is performed using a chessboard pattern, optimizing intrinsic parameters using OpenCV.
 
-### 3.3 Extrinsic Calibration (Hand-Eye)
+### 3.3 TF Transformation Tree
 The static transform is published by `robot_state_publisher` using the definitions in `camera.xacro`.
 
 ---
 
-## 4. Implementation Details
+### 4.1 Node Specifications
 
-### 4.1 Package Structure
-
-```
-lra_vision/
-├── CMakeLists.txt              # Ament CMake build configuration
-├── package.xml                 # ROS2 package manifest
-├── readme.md                   # This documentation
-├── config/                     # YAML configuration files
-│   ├── camera_params.yaml      # Camera hardware parameters
-│   ├── calibration.yaml        # Calibration algorithm settings
-│   └── aruco_params.yaml       # ArUco detection parameters
-├── include/lra_vision/         # C++ header files
-│   ├── camera_calibration.hpp  # Calibration algorithm
-│   └── aruco_detector.hpp      # ArUco marker detection
-├── launch/                     # Python launch files
-│   ├── camera_manager.launch.py
-│   ├── camera_calibration.launch.py
-│   ├── upload_urdf.launch.py
-│   └── aruco_detector.launch.py
-├── msg/                        # Custom message definitions
-│   └── CalibrationStatus.msg
-├── srv/                        # Custom service definitions
-│   └── CalibrateCamera.srv
-├── rviz/                       # RViz visualisation configs
-│   └── camera_view.rviz
-├── src/                        # C++ source files
-│   ├── nodes/                  # ROS2 node implementations
-│   │   ├── camera_calibrator_node.cpp
-│   │   └── aruco_detector_node.cpp
-│   ├── utils/                  # Utility libraries
-│   │   ├── camera_calibration.cpp
-│   │   └── aruco_detector.cpp
-└── urdf/                       # URDF descriptions
-    └── camera.xacro
-```
-
-### 4.2 Node Specifications
-
-#### 4.2.1 Camera Manager Launch (`camera_manager.launch.py`)
+#### 4.1.1 Camera Manager Launch (`camera_manager.launch.py`)
 Launches the `v4l2_camera` node with configured parameters for resolution, device, and topics.
 
-#### 4.2.2 Camera Calibrator Node
+#### 4.1.2 Camera Calibrator Node
 Subscribes to images and provides services (`/capture`, `/calibrate`, `/save`, `/reset`) to collect chessboard data and save the calculated intrinsic calibration.
 
-#### 4.2.3 ArUco Detector Node
+#### 4.1.3 ArUco Detector Node
 Subscribes to image and calibration data to detect markers (e.g., `DICT_4X4_50`) and publishes `MarkerArray`, `PoseArray`, and annotated images.
 
-#### 4.2.4 URDF Upload Launch (`upload_urdf.launch.py`)
+#### 4.1.4 URDF Upload Launch (`upload_urdf.launch.py`)
 Processes `camera.xacro` and launches `robot_state_publisher` and `joint_state_publisher` to publish static TF frames (`tool0` → `camera_link` → `camera_optical_frame`).
 
 ---
@@ -139,16 +97,7 @@ Processes `camera.xacro` and launches `robot_state_publisher` and `joint_state_p
 ## 5. Experimental Setup
 
 ### 5.1 Software Environment
-Tested on ROS2 Humble (via Docker) / Jazzy with OpenCV 4.x and C++17.
-
-### 5.2 Dependencies
-```bash
-sudo apt install ros-<distro>-v4l2-camera ros-<distro>-image-transport \
-                 ros-<distro>-cv-bridge ros-<distro>-tf2-ros \
-                 ros-<distro>-camera-info-manager \
-                 ros-<distro>-joint-state-publisher ros-<distro>-xacro \
-                 libopencv-dev libyaml-cpp-dev
-```
+Tested on ROS2 Humble (via Docker)
 
 ---
 
@@ -156,8 +105,9 @@ sudo apt install ros-<distro>-v4l2-camera ros-<distro>-image-transport \
 
 ### 6.1 Intrinsic Calibration Procedure
 1. **Launch calibrator**: `ros2 launch lra_vision camera_calibration.launch.py`
-2. **Execute calibration**: `ros2 service call /calibrate std_srvs/srv/Trigger`
-3. **Save results**: `ros2 service call /save std_srvs/srv/Trigger`
+2. **Capture images**: `ros2 service call /calibrate_camera lra_vision/srv/CalibrateCamera "{action: 'capture'}"`
+3. **Execute calibration**: `ros2 service call /calibrate_camera lra_vision/srv/CalibrateCamera "{action: 'calibrate'}"`    
+4. **Save results**: `ros2 service call /calibrate_camera lra_vision/srv/CalibrateCamera "{action: 'save'}"`
 
 ---
 
@@ -188,5 +138,5 @@ ros2 launch lra_vision aruco_detector.launch.py
 ### 7.3 Visualisation
 ```bash
 # RViz visualisation
-ros2 run rviz2 rviz2 -d $(ros2 pkg prefix lra_vision)/share/lra_vision/rviz/camera_view.rviz
+rviz2
 ```
