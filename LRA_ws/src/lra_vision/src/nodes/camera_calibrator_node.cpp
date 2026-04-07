@@ -36,7 +36,7 @@ public:
     this->declare_parameter("auto_capture", true);
     this->declare_parameter("capture_interval", 1.0);
     this->declare_parameter("visualize", true);
-    this->declare_parameter("save_path", "~/.ros/camera_calibration/");
+    this->declare_parameter("save_path", "calibration_data/");
     this->declare_parameter("camera_name", "logitech_streamcam");
     this->declare_parameter("image_topic", "/camera/image_raw");
     this->declare_parameter("output_file", "camera_info.yaml");

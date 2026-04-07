@@ -78,7 +78,7 @@ def generate_launch_description():
 
     save_path_arg = DeclareLaunchArgument(
         'save_path',
-        default_value='~/.ros/camera_calibration/',
+        default_value='calibration_data/',
         description='Path to save calibration files'
     )
 

@@ -24,6 +24,8 @@ RUN apt-get update && apt-get install -y \
     libopencv-dev \
     git \
     xvfb \
+    ros-humble-joint-state-publisher \
+    ros-humble-xacro \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /root/lra_ws

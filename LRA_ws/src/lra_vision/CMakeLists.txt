@@ -41,7 +41,6 @@ find_package(rosidl_default_generators REQUIRED)
 find_package(builtin_interfaces REQUIRED)
 
 rosidl_generate_interfaces(${PROJECT_NAME}
-  msg/CameraInfo.msg
   msg/CalibrationStatus.msg
   srv/CalibrateCamera.srv
   DEPENDENCIES std_msgs sensor_msgs geometry_msgs builtin_interfaces
@@ -140,17 +139,13 @@ install(DIRECTORY
   urdf
   rviz
   DESTINATION share/${PROJECT_NAME}
+  PATTERN "camera_tf_broadcaster.launch.py" EXCLUDE
+  PATTERN "camera.urdf" EXCLUDE
 )
 
 install(FILES
   package.xml
   DESTINATION share/${PROJECT_NAME}
-)
-
-install(PROGRAMS
-  scripts/camera_info_publisher.py
-  scripts/aruco_test_publisher.py
-  DESTINATION lib/${PROJECT_NAME}
 )
 
 ament_package()

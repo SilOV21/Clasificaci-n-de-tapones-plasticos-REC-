@@ -12,22 +12,24 @@ from launch.actions import LogInfo
 from launch_ros.actions import Node
 from ament_index_python.packages import get_package_share_directory
 
+
 def get_best_video_device(default_device, auto_detect):
     if not auto_detect:
         return default_device
-        
+
     # Prefer these devices in order
     preferred = ['/dev/video2', '/dev/video3', '/dev/video0', '/dev/video1']
     for dev in preferred:
         if os.path.exists(dev):
             return dev
-            
+
     # Fallback to any available video device
     available = glob.glob('/dev/video*')
     if available:
         return sorted(available)[0]
-        
+
     return default_device
+
 
 def read_camera_params():
     """Read camera parameters from YAML and flatten for ROS2."""
@@ -41,7 +43,7 @@ def read_camera_params():
         config = yaml.safe_load(f)
 
     video_device = get_best_video_device(
-        config['camera']['video_device'], 
+        config['camera']['video_device'],
         config['camera']['auto_detect']
     )
 
@@ -54,7 +56,7 @@ def read_camera_params():
         'camera.resolution.height': config['camera']['resolution']['height'],
         'camera.resolution.framerate': config['camera']['resolution']['framerate'],
         'camera.pixel_format': config['camera']['pixel_format'],
-        'camera.auto_detect': False, # handled in python
+        'camera.auto_detect': False,  # handled in python
 
         # Topics
         'topics.image_raw': config['topics']['image_raw'],
@@ -82,7 +84,8 @@ def generate_launch_description():
             'image_size': [params['camera.resolution.width'], params['camera.resolution.height']],
             'time_per_frame': [1, params['camera.resolution.framerate']],
             'pixel_format': params['camera.pixel_format'],
-            'camera_frame_id': params['frames.optical_frame']
+            'camera_frame_id': params['frames.optical_frame'],
+            'camera_info_url': 'file:///root/lra_ws/calibration_data/camera_info.yaml'
         }],
         remappings=[
             ('image_raw', params['topics.image_raw']),
@@ -91,6 +94,7 @@ def generate_launch_description():
     )
 
     return LaunchDescription([
-        LogInfo(msg=[f"LRA Vision: Launching v4l2_camera on device {params['camera.video_device']}"]),
+        LogInfo(msg=[
+                f"LRA Vision: Launching v4l2_camera on device {params['camera.video_device']}"]),
         v4l2_camera_node,
     ])
