@@ -71,6 +71,10 @@ Thumbs.db
 
 # Documentation
 docs/_build/
+*.docx
+*.png
+*.jpg
+*.jpeg
 
 # Temporary files
 tmp/
