@@ -1,0 +1,163 @@
+[0.141s] DEBUG:colcon:Command line arguments: ['/usr/bin/colcon', 'build']
+[0.141s] DEBUG:colcon:Parsed command line arguments: Namespace(log_base=None, log_level=None, verb_name='build', build_base='build', install_base='install', merge_install=False, symlink_install=False, test_result_base=None, continue_on_error=False, executor='parallel', parallel_workers=22, event_handlers=None, ignore_user_meta=False, metas=['./colcon.meta'], base_paths=['.'], packages_ignore=None, packages_ignore_regex=None, paths=None, packages_up_to=None, packages_up_to_regex=None, packages_above=None, packages_above_and_dependencies=None, packages_above_depth=None, packages_select_by_dep=None, packages_skip_by_dep=None, packages_skip_up_to=None, packages_select_build_failed=False, packages_skip_build_finished=False, packages_select_test_failures=False, packages_skip_test_passed=False, packages_select=None, packages_skip=None, packages_select_regex=None, packages_skip_regex=None, packages_start=None, packages_end=None, cmake_args=None, cmake_target=None, cmake_target_skip_unavailable=False, cmake_clean_cache=False, cmake_clean_first=False, cmake_force_configure=False, ament_cmake_args=None, catkin_cmake_args=None, catkin_skip_building_tests=False, mixin_files=None, mixin=None, verb_parser=<colcon_mixin.mixin.mixin_argument.MixinArgumentDecorator object at 0x70c831801d50>, verb_extension=<colcon_core.verb.build.BuildVerb object at 0x70c831801720>, main=<bound method BuildVerb.main of <colcon_core.verb.build.BuildVerb object at 0x70c831801720>>, mixin_verb=('build',))
+[0.276s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) check parameters
+[0.277s] INFO:colcon.colcon_metadata.package_discovery.colcon_meta:Using configuration from '/root/.colcon/metadata/default/Gazebo.meta'
+[0.277s] INFO:colcon.colcon_metadata.package_discovery.colcon_meta:Using configuration from '/root/.colcon/metadata/default/fastdds.meta'
+[0.278s] INFO:colcon.colcon_metadata.package_discovery.colcon_meta:Using configuration from '/root/.colcon/metadata/default/fastrtps.meta'
+[0.278s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) check parameters
+[0.278s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) check parameters
+[0.278s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) check parameters
+[0.278s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) discover
+[0.278s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) discover
+[0.278s] INFO:colcon.colcon_core.package_discovery:Crawling recursively for packages in '/root/lra_ws'
+[0.278s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ignore', 'ignore_ament_install']
+[0.279s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore'
+[0.279s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore_ament_install'
+[0.279s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_pkg']
+[0.279s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_pkg'
+[0.279s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_meta']
+[0.279s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_meta'
+[0.279s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ros']
+[0.279s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ros'
+[0.293s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['cmake', 'python']
+[0.294s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'cmake'
+[0.294s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python'
+[0.294s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['python_setup_py']
+[0.294s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python_setup_py'
+[0.294s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extensions ['ignore', 'ignore_ament_install']
+[0.294s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extension 'ignore'
+[0.294s] Level 1:colcon.colcon_core.package_identification:_identify(build) ignored
+[0.294s] Level 1:colcon.colcon_core.package_identification:_identify(calibration_data) by extensions ['ignore', 'ignore_ament_install']
+[0.294s] Level 1:colcon.colcon_core.package_identification:_identify(calibration_data) by extension 'ignore'
+[0.294s] Level 1:colcon.colcon_core.package_identification:_identify(calibration_data) by extension 'ignore_ament_install'
+[0.294s] Level 1:colcon.colcon_core.package_identification:_identify(calibration_data) by extensions ['colcon_pkg']
+[0.294s] Level 1:colcon.colcon_core.package_identification:_identify(calibration_data) by extension 'colcon_pkg'
+[0.294s] Level 1:colcon.colcon_core.package_identification:_identify(calibration_data) by extensions ['colcon_meta']
+[0.294s] Level 1:colcon.colcon_core.package_identification:_identify(calibration_data) by extension 'colcon_meta'
+[0.294s] Level 1:colcon.colcon_core.package_identification:_identify(calibration_data) by extensions ['ros']
+[0.294s] Level 1:colcon.colcon_core.package_identification:_identify(calibration_data) by extension 'ros'
+[0.295s] Level 1:colcon.colcon_core.package_identification:_identify(calibration_data) by extensions ['cmake', 'python']
+[0.295s] Level 1:colcon.colcon_core.package_identification:_identify(calibration_data) by extension 'cmake'
+[0.295s] Level 1:colcon.colcon_core.package_identification:_identify(calibration_data) by extension 'python'
+[0.295s] Level 1:colcon.colcon_core.package_identification:_identify(calibration_data) by extensions ['python_setup_py']
+[0.295s] Level 1:colcon.colcon_core.package_identification:_identify(calibration_data) by extension 'python_setup_py'
+[0.295s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extensions ['ignore', 'ignore_ament_install']
+[0.295s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extension 'ignore'
+[0.295s] Level 1:colcon.colcon_core.package_identification:_identify(install) ignored
+[0.295s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extensions ['ignore', 'ignore_ament_install']
+[0.295s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extension 'ignore'
+[0.295s] Level 1:colcon.colcon_core.package_identification:_identify(log) ignored
+[0.295s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['ignore', 'ignore_ament_install']
+[0.295s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ignore'
+[0.295s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ignore_ament_install'
+[0.295s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['colcon_pkg']
+[0.295s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'colcon_pkg'
+[0.295s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['colcon_meta']
+[0.296s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'colcon_meta'
+[0.296s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['ros']
+[0.296s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ros'
+[0.296s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['cmake', 'python']
+[0.296s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'cmake'
+[0.296s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'python'
+[0.296s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['python_setup_py']
+[0.296s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'python_setup_py'
+[0.296s] Level 1:colcon.colcon_core.package_identification:_identify(src/lra_vision) by extensions ['ignore', 'ignore_ament_install']
+[0.296s] Level 1:colcon.colcon_core.package_identification:_identify(src/lra_vision) by extension 'ignore'
+[0.296s] Level 1:colcon.colcon_core.package_identification:_identify(src/lra_vision) by extension 'ignore_ament_install'
+[0.296s] Level 1:colcon.colcon_core.package_identification:_identify(src/lra_vision) by extensions ['colcon_pkg']
+[0.296s] Level 1:colcon.colcon_core.package_identification:_identify(src/lra_vision) by extension 'colcon_pkg'
+[0.296s] Level 1:colcon.colcon_core.package_identification:_identify(src/lra_vision) by extensions ['colcon_meta']
+[0.296s] Level 1:colcon.colcon_core.package_identification:_identify(src/lra_vision) by extension 'colcon_meta'
+[0.296s] Level 1:colcon.colcon_core.package_identification:_identify(src/lra_vision) by extensions ['ros']
+[0.296s] Level 1:colcon.colcon_core.package_identification:_identify(src/lra_vision) by extension 'ros'
+[0.301s] DEBUG:colcon.colcon_core.package_identification:Package 'src/lra_vision' with type 'ros.ament_cmake' and name 'lra_vision'
+[0.302s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) using defaults
+[0.302s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) discover
+[0.302s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) using defaults
+[0.302s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) discover
+[0.302s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) using defaults
+[0.328s] Level 5:colcon.colcon_core.verb:set package 'lra_vision' build argument 'cmake_args' from command line to 'None'
+[0.328s] Level 5:colcon.colcon_core.verb:set package 'lra_vision' build argument 'cmake_target' from command line to 'None'
+[0.328s] Level 5:colcon.colcon_core.verb:set package 'lra_vision' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.329s] Level 5:colcon.colcon_core.verb:set package 'lra_vision' build argument 'cmake_clean_cache' from command line to 'False'
+[0.329s] Level 5:colcon.colcon_core.verb:set package 'lra_vision' build argument 'cmake_clean_first' from command line to 'False'
+[0.329s] Level 5:colcon.colcon_core.verb:set package 'lra_vision' build argument 'cmake_force_configure' from command line to 'False'
+[0.329s] Level 5:colcon.colcon_core.verb:set package 'lra_vision' build argument 'ament_cmake_args' from command line to 'None'
+[0.329s] Level 5:colcon.colcon_core.verb:set package 'lra_vision' build argument 'catkin_cmake_args' from command line to 'None'
+[0.329s] Level 5:colcon.colcon_core.verb:set package 'lra_vision' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.329s] DEBUG:colcon.colcon_core.verb:Building package 'lra_vision' with the following arguments: {'ament_cmake_args': None, 'build_base': '/root/lra_ws/build/lra_vision', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/root/lra_ws/install/lra_vision', 'merge_install': False, 'path': '/root/lra_ws/src/lra_vision', 'symlink_install': False, 'test_result_base': None}
+[0.329s] INFO:colcon.colcon_core.executor:Executing jobs using 'parallel' executor
+[0.331s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete
+[0.331s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/root/lra_ws/src/lra_vision' with build type 'ament_cmake'
+[0.332s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/root/lra_ws/src/lra_vision'
+[0.334s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_core.shell.bat': Not used on non-Windows systems
+[0.334s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.334s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.351s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/root/lra_ws/build/lra_vision': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /root/lra_ws/build/lra_vision -- -j22 -l22
+[19.875s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/root/lra_ws/build/lra_vision' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /root/lra_ws/build/lra_vision -- -j22 -l22
+[19.891s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/root/lra_ws/build/lra_vision': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --install /root/lra_ws/build/lra_vision
+[19.964s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(lra_vision)
+[19.965s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/root/lra_ws/build/lra_vision' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --install /root/lra_ws/build/lra_vision
+[19.968s] Level 1:colcon.colcon_core.environment:checking '/root/lra_ws/install/lra_vision' for CMake module files
+[19.968s] Level 1:colcon.colcon_core.environment:checking '/root/lra_ws/install/lra_vision' for CMake config files
+[19.969s] Level 1:colcon.colcon_core.shell:create_environment_hook('lra_vision', 'cmake_prefix_path')
+[19.970s] INFO:colcon.colcon_core.shell:Creating environment hook '/root/lra_ws/install/lra_vision/share/lra_vision/hook/cmake_prefix_path.ps1'
+[19.970s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/root/lra_ws/install/lra_vision/share/lra_vision/hook/cmake_prefix_path.dsv'
+[19.971s] INFO:colcon.colcon_core.shell:Creating environment hook '/root/lra_ws/install/lra_vision/share/lra_vision/hook/cmake_prefix_path.sh'
+[19.973s] Level 1:colcon.colcon_core.environment:checking '/root/lra_ws/install/lra_vision/lib'
+[19.973s] Level 1:colcon.colcon_core.shell:create_environment_hook('lra_vision', 'ld_library_path_lib')
+[19.973s] INFO:colcon.colcon_core.shell:Creating environment hook '/root/lra_ws/install/lra_vision/share/lra_vision/hook/ld_library_path_lib.ps1'
+[19.974s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/root/lra_ws/install/lra_vision/share/lra_vision/hook/ld_library_path_lib.dsv'
+[19.974s] INFO:colcon.colcon_core.shell:Creating environment hook '/root/lra_ws/install/lra_vision/share/lra_vision/hook/ld_library_path_lib.sh'
+[19.975s] Level 1:colcon.colcon_core.environment:checking '/root/lra_ws/install/lra_vision/bin'
+[19.975s] Level 1:colcon.colcon_core.environment:checking '/root/lra_ws/install/lra_vision/lib/pkgconfig/lra_vision.pc'
+[19.977s] Level 1:colcon.colcon_core.environment:checking '/root/lra_ws/install/lra_vision/lib/python3.10/site-packages'
+[19.978s] Level 1:colcon.colcon_core.environment:checking '/root/lra_ws/install/lra_vision/bin'
+[19.978s] INFO:colcon.colcon_core.shell:Creating package script '/root/lra_ws/install/lra_vision/share/lra_vision/package.ps1'
+[19.980s] INFO:colcon.colcon_core.shell:Creating package descriptor '/root/lra_ws/install/lra_vision/share/lra_vision/package.dsv'
+[19.980s] INFO:colcon.colcon_core.shell:Creating package script '/root/lra_ws/install/lra_vision/share/lra_vision/package.sh'
+[19.981s] INFO:colcon.colcon_core.shell:Creating package script '/root/lra_ws/install/lra_vision/share/lra_vision/package.bash'
+[19.982s] INFO:colcon.colcon_core.shell:Creating package script '/root/lra_ws/install/lra_vision/share/lra_vision/package.zsh'
+[19.983s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/root/lra_ws/install/lra_vision/share/colcon-core/packages/lra_vision)
+[19.984s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(lra_vision)
+[19.984s] Level 1:colcon.colcon_core.environment:checking '/root/lra_ws/install/lra_vision' for CMake module files
+[19.984s] Level 1:colcon.colcon_core.environment:checking '/root/lra_ws/install/lra_vision' for CMake config files
+[19.985s] Level 1:colcon.colcon_core.shell:create_environment_hook('lra_vision', 'cmake_prefix_path')
+[19.985s] INFO:colcon.colcon_core.shell:Creating environment hook '/root/lra_ws/install/lra_vision/share/lra_vision/hook/cmake_prefix_path.ps1'
+[19.986s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/root/lra_ws/install/lra_vision/share/lra_vision/hook/cmake_prefix_path.dsv'
+[19.986s] INFO:colcon.colcon_core.shell:Creating environment hook '/root/lra_ws/install/lra_vision/share/lra_vision/hook/cmake_prefix_path.sh'
+[19.987s] Level 1:colcon.colcon_core.environment:checking '/root/lra_ws/install/lra_vision/lib'
+[19.987s] Level 1:colcon.colcon_core.shell:create_environment_hook('lra_vision', 'ld_library_path_lib')
+[19.987s] INFO:colcon.colcon_core.shell:Creating environment hook '/root/lra_ws/install/lra_vision/share/lra_vision/hook/ld_library_path_lib.ps1'
+[19.987s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/root/lra_ws/install/lra_vision/share/lra_vision/hook/ld_library_path_lib.dsv'
+[19.988s] INFO:colcon.colcon_core.shell:Creating environment hook '/root/lra_ws/install/lra_vision/share/lra_vision/hook/ld_library_path_lib.sh'
+[19.988s] Level 1:colcon.colcon_core.environment:checking '/root/lra_ws/install/lra_vision/bin'
+[19.988s] Level 1:colcon.colcon_core.environment:checking '/root/lra_ws/install/lra_vision/lib/pkgconfig/lra_vision.pc'
+[19.988s] Level 1:colcon.colcon_core.environment:checking '/root/lra_ws/install/lra_vision/lib/python3.10/site-packages'
+[19.989s] Level 1:colcon.colcon_core.environment:checking '/root/lra_ws/install/lra_vision/bin'
+[19.989s] INFO:colcon.colcon_core.shell:Creating package script '/root/lra_ws/install/lra_vision/share/lra_vision/package.ps1'
+[19.990s] INFO:colcon.colcon_core.shell:Creating package descriptor '/root/lra_ws/install/lra_vision/share/lra_vision/package.dsv'
+[19.991s] INFO:colcon.colcon_core.shell:Creating package script '/root/lra_ws/install/lra_vision/share/lra_vision/package.sh'
+[19.991s] INFO:colcon.colcon_core.shell:Creating package script '/root/lra_ws/install/lra_vision/share/lra_vision/package.bash'
+[19.992s] INFO:colcon.colcon_core.shell:Creating package script '/root/lra_ws/install/lra_vision/share/lra_vision/package.zsh'
+[19.992s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/root/lra_ws/install/lra_vision/share/colcon-core/packages/lra_vision)
+[19.992s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:closing loop
+[19.993s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:loop closed
+[19.993s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete finished with '0'
+[19.993s] DEBUG:colcon.colcon_core.event_reactor:joining thread
+[19.999s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.notify_send': Could not find 'notify-send'
+[19.999s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.terminal_notifier': Not used on non-Darwin systems
+[20.000s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.win32': Not used on non-Windows systems
+[20.000s] INFO:colcon.colcon_notification.desktop_notification:Sending desktop notification using 'notify2'
+[20.004s] DEBUG:colcon.colcon_notification.desktop_notification.notify2:Failed to initialize notify2: org.freedesktop.DBus.Error.Spawn.ExecFailed: /usr/bin/dbus-launch terminated abnormally without any error message
+[20.004s] DEBUG:colcon.colcon_core.event_reactor:joined thread
+[20.005s] INFO:colcon.colcon_core.shell:Creating prefix script '/root/lra_ws/install/local_setup.ps1'
+[20.006s] INFO:colcon.colcon_core.shell:Creating prefix util module '/root/lra_ws/install/_local_setup_util_ps1.py'
+[20.007s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/root/lra_ws/install/setup.ps1'
+[20.009s] INFO:colcon.colcon_core.shell:Creating prefix script '/root/lra_ws/install/local_setup.sh'
+[20.009s] INFO:colcon.colcon_core.shell:Creating prefix util module '/root/lra_ws/install/_local_setup_util_sh.py'
+[20.010s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/root/lra_ws/install/setup.sh'
+[20.011s] INFO:colcon.colcon_core.shell:Creating prefix script '/root/lra_ws/install/local_setup.bash'
+[20.012s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/root/lra_ws/install/setup.bash'
+[20.013s] INFO:colcon.colcon_core.shell:Creating prefix script '/root/lra_ws/install/local_setup.zsh'
+[20.013s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/root/lra_ws/install/setup.zsh'

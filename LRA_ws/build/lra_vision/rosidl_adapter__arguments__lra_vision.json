@@ -1,0 +1,7 @@
+{
+  "package_name": "lra_vision",
+  "non_idl_tuples": [
+    "/root/lra_ws/src/lra_vision:msg/CalibrationStatus.msg",
+    "/root/lra_ws/src/lra_vision:srv/CalibrateCamera.srv"
+  ]
+}

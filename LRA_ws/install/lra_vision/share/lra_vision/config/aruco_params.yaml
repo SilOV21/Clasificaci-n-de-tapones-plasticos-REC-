@@ -1,0 +1,94 @@
+# =============================================================================
+# LRA Vision Package - ArUco Detector Configuration
+# Settings for marker detection and pose estimation
+# ROS2 Jazzy Jalisco
+# =============================================================================
+
+# ArUco Dictionary Selection
+dictionary: "DICT_4X4_50"
+# Available dictionaries:
+# - DICT_4X4_50, DICT_4X4_100, DICT_4X4_250, DICT_4X4_1000
+# - DICT_5X5_50, DICT_5X5_100, DICT_5X5_250, DICT_5X5_1000
+# - DICT_6X6_50, DICT_6X6_100, DICT_6X6_250, DICT_6X6_1000
+# - DICT_7X7_50, DICT_7X7_100, DICT_7X7_250, DICT_7X7_1000
+# - DICT_ARUCO_ORIGINAL
+# - DICT_APRILTAG_16h5, DICT_APRILTAG_25h9, DICT_APRILTAG_36h10, DICT_APRILTAG_36h11
+
+# Marker Parameters
+marker:
+  size: 0.05  # Marker size in meters (default: 5cm)
+  border_bits: 1  # Number of bits in marker border
+  
+  # Marker IDs to detect (empty = detect all)
+  # Example: [0, 1, 2, 3, 4, 5]
+  target_ids: []
+
+# Detection Parameters
+detection:
+  # Adaptive Thresholding
+  adaptive_thresh_win_size_min: 3
+  adaptive_thresh_win_size_max: 23
+  adaptive_thresh_win_size_step: 10
+  adaptive_thresh_const: 7.0
+  
+  # Contour Filtering
+  min_marker_perimeter_rate: 0.03
+  max_marker_perimeter_rate: 4.0
+  polygonal_approx_accuracy_rate: 0.03
+  min_corner_distance_rate: 0.05
+  min_distance_to_border: 3
+  min_marker_distance_rate: 0.05
+  
+  # Corner Refinement
+  corner_refinement_method: "subpix"  # "none", "corner", "subpix"
+  corner_refinement_win_size: 5
+  corner_refinement_max_iterations: 30
+  corner_refinement_min_accuracy: 0.1
+
+# Pose Estimation
+pose_estimation:
+  # Use camera calibration for pose estimation
+  use_calibration: true
+  
+  # If no calibration, use these default intrinsics
+  default_focal_length: 1000.0  # pixels
+  
+  # Axis length for visualization (meters)
+  axis_length: 0.03
+
+# Visualization
+visualization:
+  publish_markers: true
+  publish_poses: true
+  publish_image: true
+  draw_axes: true
+  draw_ids: true
+  
+  # Marker visualization colors (BGR)
+  marker_color: [0, 255, 0]  # Green
+  axis_colors:
+    x: [0, 0, 255]   # Red
+    y: [0, 255, 0]   # Green
+    z: [255, 0, 0]   # Blue
+
+# Hand-Eye Calibration Support
+hand_eye:
+  enabled: false
+  # Marker pattern for hand-eye calibration
+  pattern:
+    type: "single"  # "single" or "board"
+    marker_ids: [0, 1, 2, 3]  # For board type
+    marker_separation: 0.05  # Distance between markers (meters)
+
+# ROS2 Topics
+topics:
+  image: "camera/image_raw"
+  camera_info: "camera/camera_info"
+  detected_image: "aruco/detected_image"
+  markers: "aruco/markers"
+  poses: "aruco/poses"
+  marker_ids: "aruco/marker_ids"
+
+# Camera Calibration File (optional)
+# Path to camera calibration YAML file
+calibration_file: ""  # Leave empty to use camera_info topic

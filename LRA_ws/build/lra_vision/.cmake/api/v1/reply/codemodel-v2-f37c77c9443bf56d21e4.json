@@ -1,0 +1,285 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1,
+						2
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-c11429d3723bbec9d96e.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						8,
+						9,
+						10,
+						11,
+						12,
+						13,
+						14,
+						15,
+						16,
+						17,
+						18,
+						20,
+						21
+					]
+				},
+				{
+					"build" : "lra_vision__py",
+					"jsonFile" : "directory-lra_vision__py-8b567293de8d3eda7820.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "/root/lra_ws/build/lra_vision/lra_vision__py",
+					"targetIndexes" : 
+					[
+						7
+					]
+				},
+				{
+					"build" : "lra_vision__rs",
+					"jsonFile" : "directory-lra_vision__rs-c61391f58a701c887858.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "/root/lra_ws/build/lra_vision/lra_vision__rs",
+					"targetIndexes" : 
+					[
+						19
+					]
+				}
+			],
+			"name" : "",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0,
+						1,
+						2
+					],
+					"name" : "lra_vision",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10,
+						11,
+						12,
+						13,
+						14,
+						15,
+						16,
+						17,
+						18,
+						19,
+						20,
+						21
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "ament_cmake_python_build_lra_vision_egg::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ament_cmake_python_build_lra_vision_egg-a0ec561c471f07c1f98a.json",
+					"name" : "ament_cmake_python_build_lra_vision_egg",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ament_cmake_python_copy_lra_vision::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ament_cmake_python_copy_lra_vision-94c85844d33dfca2fa69.json",
+					"name" : "ament_cmake_python_copy_lra_vision",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "aruco_detector_node::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-aruco_detector_node-32d1b186ddca5dd79d73.json",
+					"name" : "aruco_detector_node",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "camera_calibrator_node::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-camera_calibrator_node-165e40d87d1cbc3739eb.json",
+					"name" : "camera_calibrator_node",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "lra_camera_utils::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-lra_camera_utils-ebee893995e70ac3b379.json",
+					"name" : "lra_camera_utils",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "lra_vision::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-lra_vision-e0186f32ff34f78f8767.json",
+					"name" : "lra_vision",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "lra_vision__cpp::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-lra_vision__cpp-fb69dd9ac83eda7d1a77.json",
+					"name" : "lra_vision__cpp",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "lra_vision__py::@628deff38e721cd6f516",
+					"jsonFile" : "target-lra_vision__py-31b15881aaced66d7f17.json",
+					"name" : "lra_vision__py",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "lra_vision__rosidl_generator_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-lra_vision__rosidl_generator_c-5b3a22f8b2c3b86d5e95.json",
+					"name" : "lra_vision__rosidl_generator_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "lra_vision__rosidl_generator_py::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-lra_vision__rosidl_generator_py-1a0edf07df095f16f464.json",
+					"name" : "lra_vision__rosidl_generator_py",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "lra_vision__rosidl_typesupport_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-lra_vision__rosidl_typesupport_c-36cccf6ec2b9be05794a.json",
+					"name" : "lra_vision__rosidl_typesupport_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "lra_vision__rosidl_typesupport_c__pyext::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-lra_vision__rosidl_typesupport_c__pyext-ae9fd95253091e76f72d.json",
+					"name" : "lra_vision__rosidl_typesupport_c__pyext",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "lra_vision__rosidl_typesupport_cpp::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-lra_vision__rosidl_typesupport_cpp-37260254f7d9c41b3bd3.json",
+					"name" : "lra_vision__rosidl_typesupport_cpp",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "lra_vision__rosidl_typesupport_fastrtps_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-lra_vision__rosidl_typesupport_fastrtps_c-71441d2d88155aaa59d3.json",
+					"name" : "lra_vision__rosidl_typesupport_fastrtps_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "lra_vision__rosidl_typesupport_fastrtps_c__pyext::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-lra_vision__rosidl_typesupport_fastrtps_c__pyext-a24247ed502bfdc5ddc7.json",
+					"name" : "lra_vision__rosidl_typesupport_fastrtps_c__pyext",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "lra_vision__rosidl_typesupport_fastrtps_cpp::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-lra_vision__rosidl_typesupport_fastrtps_cpp-e1eb77e746bde32cef20.json",
+					"name" : "lra_vision__rosidl_typesupport_fastrtps_cpp",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "lra_vision__rosidl_typesupport_introspection_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-lra_vision__rosidl_typesupport_introspection_c-564c6964a9c18a84e293.json",
+					"name" : "lra_vision__rosidl_typesupport_introspection_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "lra_vision__rosidl_typesupport_introspection_c__pyext::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-lra_vision__rosidl_typesupport_introspection_c__pyext-772874e620b540f081b7.json",
+					"name" : "lra_vision__rosidl_typesupport_introspection_c__pyext",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "lra_vision__rosidl_typesupport_introspection_cpp::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-lra_vision__rosidl_typesupport_introspection_cpp-d845adb62ad76e21326d.json",
+					"name" : "lra_vision__rosidl_typesupport_introspection_cpp",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "lra_vision__rs::@3a77dddc2b363fbfb82e",
+					"jsonFile" : "target-lra_vision__rs-b75d2cf4f676026e134f.json",
+					"name" : "lra_vision__rs",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "lra_vision_uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-lra_vision_uninstall-8db8d0d6ffa514fad0d0.json",
+					"name" : "lra_vision_uninstall",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-uninstall-c1652415bbb212e78500.json",
+					"name" : "uninstall",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/root/lra_ws/build/lra_vision",
+		"source" : "/root/lra_ws/src/lra_vision"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 3
+	}
+}

@@ -1,0 +1,118 @@
+<?xml version="1.0"?>
+<robot name="lra_camera" xmlns:xacro="http://ros.org/wiki/xacro">
+  
+  <!--
+  =============================================================================
+  LRA Vision Package - Xacro Macro for Camera Mounting
+  Reusable macro for different camera mounting configurations
+  ROS2 Jazzy Jalisco
+  =============================================================================
+  -->
+  
+  <!-- 
+  Macro: lra_camera_mount
+  
+  Parameters:
+    - parent_link: Link to mount camera on (default: tool0)
+    - camera_name: Name prefix for links/joints (default: camera)
+    - translation_x: X offset in meters (default: 0)
+    - translation_y: Y offset in meters (default: 0)
+    - translation_z: Z offset in meters (default: 0.05)
+    - rotation_roll: Roll in radians (default: 0)
+    - rotation_pitch: Pitch in radians (default: ${pi})
+    - rotation_yaw: Yaw in radians (default: 0)
+  -->
+  
+  <xacro:macro name="lra_camera_mount" params="
+    parent_link:=tool0
+    camera_name:=camera
+    translation_x:=0
+    translation_y:=0
+    translation_z:=0.05
+    rotation_roll:=0
+    rotation_pitch:=${pi}
+    rotation_yaw:=0">
+    
+    <!-- Camera Link -->
+    <link name="${camera_name}_link">
+      <visual>
+        <geometry>
+          <box size="0.073 0.019 0.029"/> <!-- Logitech StreamCam -->
+        </geometry>
+        <material name="black">
+          <color rgba="0.1 0.1 0.1 1"/>
+        </material>
+      </visual>
+      <collision>
+        <geometry>
+          <box size="0.073 0.019 0.029"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <mass value="0.113"/>
+        <inertia ixx="0.00001" ixy="0" ixz="0" iyy="0.00001" iyz="0" izz="0.00001"/>
+      </inertial>
+    </link>
+    
+    <!-- Optical Frame -->
+    <link name="${camera_name}_optical_frame"/>
+    
+    <!-- Parent to Camera Joint -->
+    <joint name="${parent_link}_to_${camera_name}" type="fixed">
+      <parent link="${parent_link}"/>
+      <child link="${camera_name}_link"/>
+      <origin xyz="${translation_x} ${translation_y} ${translation_z}" 
+              rpy="${rotation_roll} ${rotation_pitch} ${rotation_yaw}"/>
+    </joint>
+    
+    <!-- Camera to Optical Joint -->
+    <joint name="${camera_name}_to_optical" type="fixed">
+      <parent link="${camera_name}_link"/>
+      <child link="${camera_name}_optical_frame"/>
+      <origin xyz="0 0 0" rpy="${-pi/2} 0 ${-pi/2}"/>
+    </joint>
+    
+  </xacro:macro>
+  
+  <!-- Preset Configurations -->
+  
+  <!-- Overhead Mounting (Default) -->
+  <xacro:macro name="lra_camera_overhead" params="parent_link:=tool0 camera_name:=camera">
+    <xacro:lra_camera_mount 
+      parent_link="${parent_link}" 
+      camera_name="${camera_name}"
+      translation_z="0.05"
+      rotation_pitch="${pi}"/>
+  </xacro:macro>
+  
+  <!-- Angled Mounting -->
+  <xacro:macro name="lra_camera_angled" params="parent_link:=tool0 camera_name:=camera angle_deg:=45">
+    <xacro:lra_camera_mount 
+      parent_link="${parent_link}" 
+      camera_name="${camera_name}"
+      translation_x="${0.05*sin(angle_deg*pi/180)}"
+      translation_z="${0.05*cos(angle_deg*pi/180)}"
+      rotation_pitch="${pi - angle_deg*pi/180}"/>
+  </xacro:macro>
+  
+  <!-- In-Hand Mounting -->
+  <xacro:macro name="lra_camera_in_hand" params="parent_link:=tool0 camera_name:=camera">
+    <xacro:lra_camera_mount 
+      parent_link="${parent_link}" 
+      camera_name="${camera_name}"
+      translation_x="0.05"
+      translation_z="0.02"
+      rotation_pitch="0"/>
+  </xacro:macro>
+  
+  <xacro:arg name="parent_link" default="tool0"/>
+  <xacro:arg name="camera_name" default="camera"/>
+  <xacro:arg name="translation_z" default="0.05"/>
+  <!-- to be removed -->
+  <link name="$(arg parent_link)"/>
+  <xacro:lra_camera_mount 
+    parent_link="$(arg parent_link)" 
+    camera_name="$(arg camera_name)" 
+    translation_z="$(arg translation_z)" />
+    
+</robot>

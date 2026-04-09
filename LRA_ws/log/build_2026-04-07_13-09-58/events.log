@@ -1,0 +1,438 @@
+[0.000000] (-) TimerEvent: {}
+[0.000813] (lra_vision) JobQueued: {'identifier': 'lra_vision', 'dependencies': OrderedDict()}
+[0.001404] (lra_vision) JobStarted: {'identifier': 'lra_vision'}
+[0.014821] (lra_vision) JobProgress: {'identifier': 'lra_vision', 'progress': 'cmake'}
+[0.019453] (lra_vision) JobProgress: {'identifier': 'lra_vision', 'progress': 'build'}
+[0.019518] (lra_vision) Command: {'cmd': ['/usr/bin/cmake', '--build', '/root/lra_ws/build/lra_vision', '--', '-j22', '-l22'], 'cwd': '/root/lra_ws/build/lra_vision', 'env': OrderedDict([('HOSTNAME', '10e0c7b14f8e'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('HOME', '/root'), ('ROS_PYTHON_VERSION', '3'), ('ROS_DISTRO', 'humble'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('TERM', 'xterm'), ('ROS_LOCALHOST_ONLY', '0'), ('QT_X11_NO_MITSHM', '1'), ('PATH', '/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'), ('DISPLAY', ':0'), ('LANG', 'C.UTF-CE'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('AMENT_PREFIX_PATH', '/opt/ros/humble'), ('DEBIAN_FRONTEND', 'noninteractive'), ('PWD', '/root/lra_ws/build/lra_vision'), ('LC_ALL', 'C.UTF-8'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('COLCON', '1'), ('CMAKE_PREFIX_PATH', '/opt/ros/humble')]), 'shell': False}
+[0.087130] (lra_vision) StdoutLine: {'line': b'\x1b[35m\x1b[1mConsolidate compiler generated dependencies of target lra_vision__rosidl_generator_c\x1b[0m\n'}
+[0.087704] (lra_vision) StdoutLine: {'line': b'\x1b[35m\x1b[1mConsolidate compiler generated dependencies of target lra_camera_utils\x1b[0m\n'}
+[0.100052] (-) TimerEvent: {}
+[0.100901] (lra_vision) StdoutLine: {'line': b'[  2%] Built target lra_vision__cpp\n'}
+[0.101553] (lra_vision) StdoutLine: {'line': b'[  4%] Built target lra_vision__rs\n'}
+[0.104535] (lra_vision) StdoutLine: {'line': b'[ 12%] Built target lra_vision__rosidl_generator_c\n'}
+[0.111148] (lra_vision) StdoutLine: {'line': b'[ 19%] Built target lra_camera_utils\n'}
+[0.114345] (lra_vision) StdoutLine: {'line': b'\x1b[35m\x1b[1mConsolidate compiler generated dependencies of target lra_vision__rosidl_typesupport_cpp\x1b[0m\n'}
+[0.114917] (lra_vision) StdoutLine: {'line': b'\x1b[35m\x1b[1mConsolidate compiler generated dependencies of target lra_vision__rosidl_typesupport_fastrtps_cpp\x1b[0m\n'}
+[0.117389] (lra_vision) StdoutLine: {'line': b'\x1b[35m\x1b[1mConsolidate compiler generated dependencies of target lra_vision__rosidl_typesupport_c\x1b[0m\n'}
+[0.118080] (lra_vision) StdoutLine: {'line': b'\x1b[35m\x1b[1mConsolidate compiler generated dependencies of target lra_vision__rosidl_typesupport_introspection_c\x1b[0m\n'}
+[0.120372] (lra_vision) StdoutLine: {'line': b'\x1b[35m\x1b[1mConsolidate compiler generated dependencies of target lra_vision__rosidl_typesupport_fastrtps_c\x1b[0m\n'}
+[0.127346] (lra_vision) StdoutLine: {'line': b'\x1b[35m\x1b[1mConsolidate compiler generated dependencies of target lra_vision__rosidl_typesupport_introspection_cpp\x1b[0m\n'}
+[0.131028] (lra_vision) StdoutLine: {'line': b'[ 27%] Built target lra_vision__rosidl_typesupport_c\n'}
+[0.133156] (lra_vision) StdoutLine: {'line': b'[ 36%] Built target lra_vision__rosidl_typesupport_introspection_c\n'}
+[0.133603] (lra_vision) StdoutLine: {'line': b'[ 36%] Built target ament_cmake_python_copy_lra_vision\n'}
+[0.134003] (lra_vision) StdoutLine: {'line': b'[ 44%] Built target lra_vision__rosidl_typesupport_fastrtps_cpp\n'}
+[0.134229] (lra_vision) StdoutLine: {'line': b'[ 53%] Built target lra_vision__rosidl_typesupport_cpp\n'}
+[0.135225] (lra_vision) StdoutLine: {'line': b'[ 61%] Built target lra_vision__rosidl_typesupport_fastrtps_c\n'}
+[0.149036] (lra_vision) StdoutLine: {'line': b'[ 70%] Built target lra_vision__rosidl_typesupport_introspection_cpp\n'}
+[0.151477] (lra_vision) StdoutLine: {'line': b'[ 72%] \x1b[32mBuilding CXX object CMakeFiles/aruco_detector_node.dir/src/nodes/aruco_detector_node.cpp.o\x1b[0m\n'}
+[0.185127] (lra_vision) StdoutLine: {'line': b'[ 72%] Built target lra_vision\n'}
+[0.200212] (-) TimerEvent: {}
+[0.205473] (lra_vision) StdoutLine: {'line': b'\x1b[35m\x1b[1mConsolidate compiler generated dependencies of target camera_calibrator_node\x1b[0m\n'}
+[0.229892] (lra_vision) StdoutLine: {'line': b'[ 74%] Built target lra_vision__py\n'}
+[0.239440] (lra_vision) StdoutLine: {'line': b'[ 78%] Built target camera_calibrator_node\n'}
+[0.248284] (lra_vision) StdoutLine: {'line': b'\x1b[35m\x1b[1mConsolidate compiler generated dependencies of target lra_vision__rosidl_generator_py\x1b[0m\n'}
+[0.269142] (lra_vision) StdoutLine: {'line': b'[ 85%] Built target lra_vision__rosidl_generator_py\n'}
+[0.288248] (lra_vision) StdoutLine: {'line': b'\x1b[35m\x1b[1mConsolidate compiler generated dependencies of target lra_vision__rosidl_typesupport_introspection_c__pyext\x1b[0m\n'}
+[0.288864] (lra_vision) StdoutLine: {'line': b'\x1b[35m\x1b[1mConsolidate compiler generated dependencies of target lra_vision__rosidl_typesupport_c__pyext\x1b[0m\n'}
+[0.292659] (lra_vision) StdoutLine: {'line': b'\x1b[35m\x1b[1mConsolidate compiler generated dependencies of target lra_vision__rosidl_typesupport_fastrtps_c__pyext\x1b[0m\n'}
+[0.300317] (-) TimerEvent: {}
+[0.312248] (lra_vision) StdoutLine: {'line': b'[ 93%] Built target lra_vision__rosidl_typesupport_c__pyext\n'}
+[0.312704] (lra_vision) StdoutLine: {'line': b'[ 93%] Built target lra_vision__rosidl_typesupport_introspection_c__pyext\n'}
+[0.314266] (lra_vision) StdoutLine: {'line': b'[ 97%] Built target lra_vision__rosidl_typesupport_fastrtps_c__pyext\n'}
+[0.373957] (lra_vision) StdoutLine: {'line': b'running egg_info\n'}
+[0.374762] (lra_vision) StdoutLine: {'line': b'writing lra_vision.egg-info/PKG-INFO\n'}
+[0.375266] (lra_vision) StdoutLine: {'line': b'writing dependency_links to lra_vision.egg-info/dependency_links.txt\n'}
+[0.375528] (lra_vision) StdoutLine: {'line': b'writing top-level names to lra_vision.egg-info/top_level.txt\n'}
+[0.377600] (lra_vision) StdoutLine: {'line': b"reading manifest file 'lra_vision.egg-info/SOURCES.txt'\n"}
+[0.378375] (lra_vision) StdoutLine: {'line': b"writing manifest file 'lra_vision.egg-info/SOURCES.txt'\n"}
+[0.400495] (-) TimerEvent: {}
+[0.427763] (lra_vision) StdoutLine: {'line': b'[ 97%] Built target ament_cmake_python_build_lra_vision_egg\n'}
+[0.500693] (-) TimerEvent: {}
+[0.601346] (-) TimerEvent: {}
+[0.702070] (-) TimerEvent: {}
+[0.802560] (-) TimerEvent: {}
+[0.903074] (-) TimerEvent: {}
+[1.003553] (-) TimerEvent: {}
+[1.104047] (-) TimerEvent: {}
+[1.204583] (-) TimerEvent: {}
+[1.305106] (-) TimerEvent: {}
+[1.405676] (-) TimerEvent: {}
+[1.506275] (-) TimerEvent: {}
+[1.607075] (-) TimerEvent: {}
+[1.707581] (-) TimerEvent: {}
+[1.808069] (-) TimerEvent: {}
+[1.908592] (-) TimerEvent: {}
+[2.009103] (-) TimerEvent: {}
+[2.109602] (-) TimerEvent: {}
+[2.210096] (-) TimerEvent: {}
+[2.310622] (-) TimerEvent: {}
+[2.411142] (-) TimerEvent: {}
+[2.511658] (-) TimerEvent: {}
+[2.612163] (-) TimerEvent: {}
+[2.712685] (-) TimerEvent: {}
+[2.813197] (-) TimerEvent: {}
+[2.913717] (-) TimerEvent: {}
+[3.014228] (-) TimerEvent: {}
+[3.114704] (-) TimerEvent: {}
+[3.215206] (-) TimerEvent: {}
+[3.315719] (-) TimerEvent: {}
+[3.416225] (-) TimerEvent: {}
+[3.516680] (-) TimerEvent: {}
+[3.617126] (-) TimerEvent: {}
+[3.717513] (-) TimerEvent: {}
+[3.817931] (-) TimerEvent: {}
+[3.918389] (-) TimerEvent: {}
+[4.018842] (-) TimerEvent: {}
+[4.119305] (-) TimerEvent: {}
+[4.219919] (-) TimerEvent: {}
+[4.320400] (-) TimerEvent: {}
+[4.420913] (-) TimerEvent: {}
+[4.521409] (-) TimerEvent: {}
+[4.621943] (-) TimerEvent: {}
+[4.722439] (-) TimerEvent: {}
+[4.822934] (-) TimerEvent: {}
+[4.923423] (-) TimerEvent: {}
+[5.023921] (-) TimerEvent: {}
+[5.124440] (-) TimerEvent: {}
+[5.224976] (-) TimerEvent: {}
+[5.325477] (-) TimerEvent: {}
+[5.425999] (-) TimerEvent: {}
+[5.526502] (-) TimerEvent: {}
+[5.627039] (-) TimerEvent: {}
+[5.727542] (-) TimerEvent: {}
+[5.828051] (-) TimerEvent: {}
+[5.928525] (-) TimerEvent: {}
+[6.029012] (-) TimerEvent: {}
+[6.129521] (-) TimerEvent: {}
+[6.230009] (-) TimerEvent: {}
+[6.330497] (-) TimerEvent: {}
+[6.431000] (-) TimerEvent: {}
+[6.531486] (-) TimerEvent: {}
+[6.631981] (-) TimerEvent: {}
+[6.732470] (-) TimerEvent: {}
+[6.833000] (-) TimerEvent: {}
+[6.933521] (-) TimerEvent: {}
+[7.034055] (-) TimerEvent: {}
+[7.134555] (-) TimerEvent: {}
+[7.235067] (-) TimerEvent: {}
+[7.335549] (-) TimerEvent: {}
+[7.436068] (-) TimerEvent: {}
+[7.536617] (-) TimerEvent: {}
+[7.637115] (-) TimerEvent: {}
+[7.737627] (-) TimerEvent: {}
+[7.838082] (-) TimerEvent: {}
+[7.938537] (-) TimerEvent: {}
+[8.039013] (-) TimerEvent: {}
+[8.139456] (-) TimerEvent: {}
+[8.239938] (-) TimerEvent: {}
+[8.340397] (-) TimerEvent: {}
+[8.440972] (-) TimerEvent: {}
+[8.541503] (-) TimerEvent: {}
+[8.642018] (-) TimerEvent: {}
+[8.742537] (-) TimerEvent: {}
+[8.843110] (-) TimerEvent: {}
+[8.943618] (-) TimerEvent: {}
+[9.044098] (-) TimerEvent: {}
+[9.144566] (-) TimerEvent: {}
+[9.245227] (-) TimerEvent: {}
+[9.345750] (-) TimerEvent: {}
+[9.446272] (-) TimerEvent: {}
+[9.546749] (-) TimerEvent: {}
+[9.647234] (-) TimerEvent: {}
+[9.747716] (-) TimerEvent: {}
+[9.848262] (-) TimerEvent: {}
+[9.948847] (-) TimerEvent: {}
+[10.049318] (-) TimerEvent: {}
+[10.149807] (-) TimerEvent: {}
+[10.250306] (-) TimerEvent: {}
+[10.350823] (-) TimerEvent: {}
+[10.451318] (-) TimerEvent: {}
+[10.551865] (-) TimerEvent: {}
+[10.652395] (-) TimerEvent: {}
+[10.752949] (-) TimerEvent: {}
+[10.853436] (-) TimerEvent: {}
+[10.953933] (-) TimerEvent: {}
+[11.054433] (-) TimerEvent: {}
+[11.154970] (-) TimerEvent: {}
+[11.255515] (-) TimerEvent: {}
+[11.356021] (-) TimerEvent: {}
+[11.456469] (-) TimerEvent: {}
+[11.556950] (-) TimerEvent: {}
+[11.657409] (-) TimerEvent: {}
+[11.757860] (-) TimerEvent: {}
+[11.858383] (-) TimerEvent: {}
+[11.958900] (-) TimerEvent: {}
+[12.059395] (-) TimerEvent: {}
+[12.159906] (-) TimerEvent: {}
+[12.260412] (-) TimerEvent: {}
+[12.360938] (-) TimerEvent: {}
+[12.461445] (-) TimerEvent: {}
+[12.561945] (-) TimerEvent: {}
+[12.662402] (-) TimerEvent: {}
+[12.762830] (-) TimerEvent: {}
+[12.863256] (-) TimerEvent: {}
+[12.963684] (-) TimerEvent: {}
+[13.064056] (-) TimerEvent: {}
+[13.164426] (-) TimerEvent: {}
+[13.264857] (-) TimerEvent: {}
+[13.365269] (-) TimerEvent: {}
+[13.465693] (-) TimerEvent: {}
+[13.566120] (-) TimerEvent: {}
+[13.666699] (-) TimerEvent: {}
+[13.767147] (-) TimerEvent: {}
+[13.867633] (-) TimerEvent: {}
+[13.968151] (-) TimerEvent: {}
+[14.068674] (-) TimerEvent: {}
+[14.169152] (-) TimerEvent: {}
+[14.269666] (-) TimerEvent: {}
+[14.370132] (-) TimerEvent: {}
+[14.470624] (-) TimerEvent: {}
+[14.571191] (-) TimerEvent: {}
+[14.671695] (-) TimerEvent: {}
+[14.772170] (-) TimerEvent: {}
+[14.872765] (-) TimerEvent: {}
+[14.973255] (-) TimerEvent: {}
+[15.073737] (-) TimerEvent: {}
+[15.174172] (-) TimerEvent: {}
+[15.274565] (-) TimerEvent: {}
+[15.375015] (-) TimerEvent: {}
+[15.475431] (-) TimerEvent: {}
+[15.575858] (-) TimerEvent: {}
+[15.676275] (-) TimerEvent: {}
+[15.776746] (-) TimerEvent: {}
+[15.877263] (-) TimerEvent: {}
+[15.977663] (-) TimerEvent: {}
+[16.078044] (-) TimerEvent: {}
+[16.178445] (-) TimerEvent: {}
+[16.278876] (-) TimerEvent: {}
+[16.379385] (-) TimerEvent: {}
+[16.479909] (-) TimerEvent: {}
+[16.580340] (-) TimerEvent: {}
+[16.680769] (-) TimerEvent: {}
+[16.781185] (-) TimerEvent: {}
+[16.881645] (-) TimerEvent: {}
+[16.982107] (-) TimerEvent: {}
+[17.082624] (-) TimerEvent: {}
+[17.183107] (-) TimerEvent: {}
+[17.283640] (-) TimerEvent: {}
+[17.384200] (-) TimerEvent: {}
+[17.484788] (-) TimerEvent: {}
+[17.585285] (-) TimerEvent: {}
+[17.685776] (-) TimerEvent: {}
+[17.786270] (-) TimerEvent: {}
+[17.886820] (-) TimerEvent: {}
+[17.987355] (-) TimerEvent: {}
+[18.087848] (-) TimerEvent: {}
+[18.163065] (lra_vision) StdoutLine: {'line': b'\x1b[32m\x1b[1mLinking CXX executable aruco_detector_node\x1b[0m\n'}
+[18.187999] (-) TimerEvent: {}
+[18.288751] (-) TimerEvent: {}
+[18.389247] (-) TimerEvent: {}
+[18.489691] (-) TimerEvent: {}
+[18.590164] (-) TimerEvent: {}
+[18.690703] (-) TimerEvent: {}
+[18.791207] (-) TimerEvent: {}
+[18.891730] (-) TimerEvent: {}
+[18.992227] (-) TimerEvent: {}
+[19.092722] (-) TimerEvent: {}
+[19.193247] (-) TimerEvent: {}
+[19.293708] (-) TimerEvent: {}
+[19.394210] (-) TimerEvent: {}
+[19.494693] (-) TimerEvent: {}
+[19.525847] (lra_vision) StdoutLine: {'line': b'Built target aruco_detector_node\n'}
+[19.544423] (lra_vision) CommandEnded: {'returncode': 0}
+[19.545977] (lra_vision) JobProgress: {'identifier': 'lra_vision', 'progress': 'install'}
+[19.559917] (lra_vision) Command: {'cmd': ['/usr/bin/cmake', '--install', '/root/lra_ws/build/lra_vision'], 'cwd': '/root/lra_ws/build/lra_vision', 'env': OrderedDict([('HOSTNAME', '10e0c7b14f8e'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('HOME', '/root'), ('ROS_PYTHON_VERSION', '3'), ('ROS_DISTRO', 'humble'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('TERM', 'xterm'), ('ROS_LOCALHOST_ONLY', '0'), ('QT_X11_NO_MITSHM', '1'), ('PATH', '/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'), ('DISPLAY', ':0'), ('LANG', 'C.UTF-CE'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('AMENT_PREFIX_PATH', '/opt/ros/humble'), ('DEBIAN_FRONTEND', 'noninteractive'), ('PWD', '/root/lra_ws/build/lra_vision'), ('LC_ALL', 'C.UTF-8'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('COLCON', '1'), ('CMAKE_PREFIX_PATH', '/opt/ros/humble')]), 'shell': False}
+[19.570202] (lra_vision) StdoutLine: {'line': b'-- Install configuration: ""\n'}
+[19.570477] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/share/ament_index/resource_index/rosidl_interfaces/lra_vision\n'}
+[19.570567] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision\n'}
+[19.570638] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg\n'}
+[19.570836] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg/detail\n'}
+[19.571013] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg/detail/calibration_status__functions.h\n'}
+[19.571092] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg/detail/calibration_status__functions.c\n'}
+[19.571148] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg/detail/calibration_status__type_support.h\n'}
+[19.571210] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg/detail/calibration_status__struct.h\n'}
+[19.571269] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg/rosidl_generator_c__visibility_control.h\n'}
+[19.571328] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg/calibration_status.h\n'}
+[19.571389] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/srv\n'}
+[19.571453] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/srv/detail\n'}
+[19.571593] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/srv/detail/calibrate_camera__functions.c\n'}
+[19.571659] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/srv/detail/calibrate_camera__functions.h\n'}
+[19.571723] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/srv/detail/calibrate_camera__type_support.h\n'}
+[19.571784] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/srv/detail/calibrate_camera__struct.h\n'}
+[19.571846] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/srv/calibrate_camera.h\n'}
+[19.571904] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/share/lra_vision/environment/library_path.sh\n'}
+[19.571966] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/share/lra_vision/environment/library_path.dsv\n'}
+[19.572120] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/lib/liblra_vision__rosidl_generator_c.so\n'}
+[19.572182] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision\n'}
+[19.572243] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg\n'}
+[19.572306] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg/detail\n'}
+[19.572365] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg/detail/calibration_status__rosidl_typesupport_fastrtps_c.h\n'}
+[19.572424] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg/rosidl_typesupport_fastrtps_c__visibility_control.h\n'}
+[19.572490] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/srv\n'}
+[19.572548] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/srv/detail\n'}
+[19.572614] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/srv/detail/calibrate_camera__rosidl_typesupport_fastrtps_c.h\n'}
+[19.572674] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/lib/liblra_vision__rosidl_typesupport_fastrtps_c.so\n'}
+[19.572735] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision\n'}
+[19.572805] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg\n'}
+[19.573054] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg/calibration_status.hpp\n'}
+[19.573137] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg/detail\n'}
+[19.573212] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg/detail/calibration_status__builder.hpp\n'}
+[19.573285] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg/detail/calibration_status__struct.hpp\n'}
+[19.573353] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg/detail/calibration_status__type_support.hpp\n'}
+[19.573413] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg/detail/calibration_status__traits.hpp\n'}
+[19.573478] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg/rosidl_generator_cpp__visibility_control.hpp\n'}
+[19.573547] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/srv\n'}
+[19.573632] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/srv/detail\n'}
+[19.573695] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/srv/detail/calibrate_camera__struct.hpp\n'}
+[19.573759] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/srv/detail/calibrate_camera__type_support.hpp\n'}
+[19.573818] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/srv/detail/calibrate_camera__traits.hpp\n'}
+[19.573890] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/srv/detail/calibrate_camera__builder.hpp\n'}
+[19.573973] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/srv/calibrate_camera.hpp\n'}
+[19.574062] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision\n'}
+[19.574149] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg\n'}
+[19.574235] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg/detail\n'}
+[19.574323] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg/detail/calibration_status__rosidl_typesupport_fastrtps_cpp.hpp\n'}
+[19.574389] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg/detail/dds_fastrtps\n'}
+[19.574448] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg/rosidl_typesupport_fastrtps_cpp__visibility_control.h\n'}
+[19.574512] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/srv\n'}
+[19.574572] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/srv/detail\n'}
+[19.574636] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/srv/detail/calibrate_camera__rosidl_typesupport_fastrtps_cpp.hpp\n'}
+[19.574695] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/srv/detail/dds_fastrtps\n'}
+[19.574867] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/lib/liblra_vision__rosidl_typesupport_fastrtps_cpp.so\n'}
+[19.574939] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision\n'}
+[19.574999] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg\n'}
+[19.575274] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg/detail\n'}
+[19.575328] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg/detail/calibration_status__type_support.c\n'}
+[19.575380] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg/detail/calibration_status__rosidl_typesupport_introspection_c.h\n'}
+[19.575433] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg/rosidl_typesupport_introspection_c__visibility_control.h\n'}
+[19.575487] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/srv\n'}
+[19.575539] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/srv/detail\n'}
+[19.575612] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/srv/detail/calibrate_camera__rosidl_typesupport_introspection_c.h\n'}
+[19.575676] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/srv/detail/calibrate_camera__type_support.c\n'}
+[19.575729] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/lib/liblra_vision__rosidl_typesupport_introspection_c.so\n'}
+[19.575781] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/lib/liblra_vision__rosidl_typesupport_c.so\n'}
+[19.575831] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision\n'}
+[19.575881] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg\n'}
+[19.575931] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg/detail\n'}
+[19.575982] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg/detail/calibration_status__rosidl_typesupport_introspection_cpp.hpp\n'}
+[19.576034] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg/detail/calibration_status__type_support.cpp\n'}
+[19.576084] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/srv\n'}
+[19.576134] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/srv/detail\n'}
+[19.576188] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/srv/detail/calibrate_camera__type_support.cpp\n'}
+[19.576239] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/srv/detail/calibrate_camera__rosidl_typesupport_introspection_cpp.hpp\n'}
+[19.576293] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/lib/liblra_vision__rosidl_typesupport_introspection_cpp.so\n'}
+[19.576344] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/lib/liblra_vision__rosidl_typesupport_cpp.so\n'}
+[19.576395] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/share/lra_vision/environment/pythonpath.sh\n'}
+[19.576448] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/share/lra_vision/environment/pythonpath.dsv\n'}
+[19.576498] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision-1.0.0-py3.10.egg-info\n'}
+[19.576550] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision-1.0.0-py3.10.egg-info/SOURCES.txt\n'}
+[19.576667] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision-1.0.0-py3.10.egg-info/top_level.txt\n'}
+[19.576722] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision-1.0.0-py3.10.egg-info/PKG-INFO\n'}
+[19.576777] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision-1.0.0-py3.10.egg-info/dependency_links.txt\n'}
+[19.576833] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision\n'}
+[19.576891] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision/lra_vision_s__rosidl_typesupport_introspection_c.cpython-310-x86_64-linux-gnu.so\n'}
+[19.576963] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision/msg\n'}
+[19.577024] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision/msg/_calibration_status_s.c\n'}
+[19.577076] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision/msg/_calibration_status.py\n'}
+[19.577129] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision/msg/__init__.py\n'}
+[19.577180] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision/lra_vision_s__rosidl_typesupport_c.cpython-310-x86_64-linux-gnu.so\n'}
+[19.577231] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision/liblra_vision__rosidl_generator_py.so\n'}
+[19.577281] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision/_lra_vision_s.ep.rosidl_typesupport_c.c\n'}
+[19.577334] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision/__init__.py\n'}
+[19.577384] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision/_lra_vision_s.ep.rosidl_typesupport_fastrtps_c.c\n'}
+[19.577436] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision/_lra_vision_s.ep.rosidl_typesupport_introspection_c.c\n'}
+[19.577486] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision/lra_vision_s__rosidl_typesupport_fastrtps_c.cpython-310-x86_64-linux-gnu.so\n'}
+[19.577538] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision/srv\n'}
+[19.577609] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision/srv/_calibrate_camera.py\n'}
+[19.577663] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision/srv/_calibrate_camera_s.c\n'}
+[19.577714] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision/srv/__init__.py\n'}
+[19.594864] (-) TimerEvent: {}
+[19.613297] (lra_vision) StdoutLine: {'line': b"Listing '/root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision'...\n"}
+[19.613480] (lra_vision) StdoutLine: {'line': b"Listing '/root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision/msg'...\n"}
+[19.613564] (lra_vision) StdoutLine: {'line': b"Listing '/root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision/srv'...\n"}
+[19.618460] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision/lra_vision_s__rosidl_typesupport_fastrtps_c.cpython-310-x86_64-linux-gnu.so\n'}
+[19.618971] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision/lra_vision_s__rosidl_typesupport_introspection_c.cpython-310-x86_64-linux-gnu.so\n'}
+[19.619433] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision/lra_vision_s__rosidl_typesupport_c.cpython-310-x86_64-linux-gnu.so\n'}
+[19.619637] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/lib/liblra_vision__rosidl_generator_py.so\n'}
+[19.619878] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/share/ament_index/resource_index/rust_packages/lra_vision\n'}
+[19.620188] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/share/lra_vision/rust\n'}
+[19.620322] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/share/lra_vision/rust/Cargo.toml\n'}
+[19.620396] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/share/lra_vision/rust/build.rs\n'}
+[19.620470] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/share/lra_vision/rust/src\n'}
+[19.620534] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/share/lra_vision/rust/src/lib.rs\n'}
+[19.620612] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/share/lra_vision/rust/src/msg\n'}
+[19.620676] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/share/lra_vision/rust/src/msg/rmw.rs\n'}
+[19.620744] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/share/lra_vision/rust/src/srv.rs\n'}
+[19.620814] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/share/lra_vision/rust/src/msg.rs\n'}
+[19.620881] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/share/lra_vision/rust/src/srv\n'}
+[19.620945] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/share/lra_vision/rust/src/srv/rmw.rs\n'}
+[19.621023] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/share/lra_vision/msg/CalibrationStatus.idl\n'}
+[19.621108] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/share/lra_vision/srv/CalibrateCamera.idl\n'}
+[19.621195] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/share/lra_vision/msg/CalibrationStatus.msg\n'}
+[19.621281] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/share/lra_vision/srv/CalibrateCamera.srv\n'}
+[19.621540] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/share/lra_vision/srv/CalibrateCamera_Request.msg\n'}
+[19.621711] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/share/lra_vision/srv/CalibrateCamera_Response.msg\n'}
+[19.621788] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/lib/liblra_camera_utils.so\n'}
+[19.621849] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/lib/lra_vision/camera_calibrator_node\n'}
+[19.621908] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/lib/lra_vision/aruco_detector_node\n'}
+[19.626746] (lra_vision) StdoutLine: {'line': b'-- Set runtime path of "/root/lra_ws/install/lra_vision/lib/lra_vision/aruco_detector_node" to ""\n'}
+[19.626906] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include\n'}
+[19.627171] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision\n'}
+[19.627315] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/camera_calibration.hpp\n'}
+[19.627391] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/aruco_detector.hpp\n'}
+[19.627457] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/share/lra_vision/launch\n'}
+[19.627522] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/share/lra_vision/launch/camera_calibration.launch.py\n'}
+[19.627612] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/share/lra_vision/launch/camera_manager.launch.py\n'}
+[19.627681] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/share/lra_vision/launch/upload_urdf.launch.py\n'}
+[19.627746] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/share/lra_vision/launch/aruco_detector.launch.py\n'}
+[19.627807] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/share/lra_vision/config\n'}
+[19.627871] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/share/lra_vision/config/camera_params.yaml\n'}
+[19.627932] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/share/lra_vision/config/aruco_params.yaml\n'}
+[19.627991] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/share/lra_vision/config/calibration.yaml\n'}
+[19.628052] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/share/lra_vision/urdf\n'}
+[19.628112] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/share/lra_vision/urdf/camera.xacro\n'}
+[19.628171] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/share/lra_vision/rviz\n'}
+[19.628435] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/share/lra_vision/rviz/camera_view.rviz\n'}
+[19.628581] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/share/lra_vision/package.xml\n'}
+[19.628667] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/share/ament_index/resource_index/package_run_dependencies/lra_vision\n'}
+[19.628740] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/share/ament_index/resource_index/parent_prefix_path/lra_vision\n'}
+[19.628806] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/share/lra_vision/environment/ament_prefix_path.sh\n'}
+[19.628868] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/share/lra_vision/environment/ament_prefix_path.dsv\n'}
+[19.628933] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/share/lra_vision/environment/path.sh\n'}
+[19.628995] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/share/lra_vision/environment/path.dsv\n'}
+[19.629059] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/share/lra_vision/local_setup.bash\n'}
+[19.629245] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/share/lra_vision/local_setup.sh\n'}
+[19.629309] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/share/lra_vision/local_setup.zsh\n'}
+[19.629365] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/share/lra_vision/local_setup.dsv\n'}
+[19.629420] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/package.dsv\n'}
+[19.629916] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/share/ament_index/resource_index/packages/lra_vision\n'}
+[19.630007] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/share/lra_vision/cmake/export_lra_vision__rosidl_generator_cExport.cmake\n'}
+[19.630069] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/share/lra_vision/cmake/export_lra_vision__rosidl_generator_cExport-noconfig.cmake\n'}
+[19.630127] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/share/lra_vision/cmake/export_lra_vision__rosidl_typesupport_fastrtps_cExport.cmake\n'}
+[19.630183] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/share/lra_vision/cmake/export_lra_vision__rosidl_typesupport_fastrtps_cExport-noconfig.cmake\n'}
+[19.630239] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/share/lra_vision/cmake/export_lra_vision__rosidl_generator_cppExport.cmake\n'}
+[19.630292] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/share/lra_vision/cmake/export_lra_vision__rosidl_typesupport_fastrtps_cppExport.cmake\n'}
+[19.630344] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/share/lra_vision/cmake/export_lra_vision__rosidl_typesupport_fastrtps_cppExport-noconfig.cmake\n'}
+[19.630398] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/share/lra_vision/cmake/lra_vision__rosidl_typesupport_introspection_cExport.cmake\n'}
+[19.630450] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/share/lra_vision/cmake/lra_vision__rosidl_typesupport_introspection_cExport-noconfig.cmake\n'}
+[19.630516] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/share/lra_vision/cmake/lra_vision__rosidl_typesupport_cExport.cmake\n'}
+[19.630583] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/share/lra_vision/cmake/lra_vision__rosidl_typesupport_cExport-noconfig.cmake\n'}
+[19.630643] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/share/lra_vision/cmake/lra_vision__rosidl_typesupport_introspection_cppExport.cmake\n'}
+[19.630697] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/share/lra_vision/cmake/lra_vision__rosidl_typesupport_introspection_cppExport-noconfig.cmake\n'}
+[19.630750] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/share/lra_vision/cmake/lra_vision__rosidl_typesupport_cppExport.cmake\n'}
+[19.630803] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/share/lra_vision/cmake/lra_vision__rosidl_typesupport_cppExport-noconfig.cmake\n'}
+[19.630857] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/share/lra_vision/cmake/export_lra_vision__rosidl_generator_pyExport.cmake\n'}
+[19.630909] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/share/lra_vision/cmake/export_lra_vision__rosidl_generator_pyExport-noconfig.cmake\n'}
+[19.630962] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/share/lra_vision/cmake/rosidl_cmake-extras.cmake\n'}
+[19.631017] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/share/lra_vision/cmake/ament_cmake_export_dependencies-extras.cmake\n'}
+[19.631070] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/share/lra_vision/cmake/ament_cmake_export_include_directories-extras.cmake\n'}
+[19.631128] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/share/lra_vision/cmake/ament_cmake_export_libraries-extras.cmake\n'}
+[19.631181] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/share/lra_vision/cmake/ament_cmake_export_targets-extras.cmake\n'}
+[19.631233] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/share/lra_vision/cmake/rosidl_cmake_export_typesupport_targets-extras.cmake\n'}
+[19.631285] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/share/lra_vision/cmake/rosidl_cmake_export_typesupport_libraries-extras.cmake\n'}
+[19.631336] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/share/lra_vision/cmake/lra_visionConfig.cmake\n'}
+[19.631388] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/share/lra_vision/cmake/lra_visionConfig-version.cmake\n'}
+[19.631441] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/share/lra_vision/package.xml\n'}
+[19.634362] (lra_vision) CommandEnded: {'returncode': 0}
+[19.662433] (lra_vision) JobEnded: {'identifier': 'lra_vision', 'rc': 0}
+[19.663386] (-) EventReactorShutdown: {}

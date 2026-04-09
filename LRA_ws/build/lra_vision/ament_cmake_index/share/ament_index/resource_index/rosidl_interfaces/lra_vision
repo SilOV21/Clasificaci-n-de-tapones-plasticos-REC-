@@ -1,0 +1,6 @@
+msg/CalibrationStatus.idl
+msg/CalibrationStatus.msg
+srv/CalibrateCamera.idl
+srv/CalibrateCamera.srv
+srv/CalibrateCamera_Request.msg
+srv/CalibrateCamera_Response.msg

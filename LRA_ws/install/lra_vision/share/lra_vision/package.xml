@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>lra_vision</name>
+  <version>1.0.0</version>
+  <description>
+    Vision package for LRA (Laboratorio de Automática y Robótica) - REC Project.
+    Provides camera interface, calibration, and TF publishing for UR3 robotic arm
+    integration with Logitech StreamCam for plastic cap classification.
+    
+    Universidad Politécnica de Madrid - MUAR 2025-2026
+  </description>
+  
+  <maintainer email="asil.arnous@alumnos.upm.es">Asil Arnous</maintainer>
+  <license>to be defined</license>
+  <url type="website">https://github.com/SilOV21/Clasificaci-n-de-tapones-plasticos-REC-</url>
+  
+  <author email="asil.arnous@alumnos.upm.es">Asil Arnous</author>
+  
+  <!-- Build dependencies -->
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  <buildtool_depend>rosidl_default_generators</buildtool_depend>
+  
+  <!-- Build and export dependencies -->
+  <depend>rclcpp</depend>
+  <depend>rclpy</depend>
+  <depend>std_msgs</depend>
+  <depend>std_srvs</depend>
+  <depend>sensor_msgs</depend>
+  <depend>geometry_msgs</depend>
+  <depend>visualization_msgs</depend>
+  <depend>image_transport</depend>
+  <depend>cv_bridge</depend>
+  <depend>OpenCV</depend>
+  <depend>tf2</depend>
+  <depend>tf2_ros</depend>
+  <depend>tf2_geometry_msgs</depend>
+  <depend>camera_info_manager</depend>
+  <depend>camera_calibration_parsers</depend>
+  <depend>rclcpp_components</depend>
+  <depend>v4l2_camera</depend>
+  <depend>vision_opencv</depend>
+  <depend>yaml-cpp</depend>
+  <depend>robot_state_publisher</depend>
+  <depend>xacro</depend>
+  <depend>joint_state_publisher</depend>
+  
+  <!-- Member of groups -->
+  <member_of_group>rosidl_interface_packages</member_of_group>
+  
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>

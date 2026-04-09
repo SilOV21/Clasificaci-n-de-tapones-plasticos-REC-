@@ -1,0 +1,12 @@
+std_msgs/Header header
+string state
+int32 images_collected
+int32 images_required
+int32 images_maximum
+float64 current_rms_error
+float64 best_rms_error
+float64 mean_reprojection_error
+bool is_ready
+bool is_calibrated
+string error_message
+float64 progress

@@ -1,0 +1,6 @@
+Invoking command in '/root/lra_ws/build/lra_vision': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake /root/lra_ws/src/lra_vision -DCMAKE_INSTALL_PREFIX=/root/lra_ws/install/lra_vision
+Invoked command in '/root/lra_ws/build/lra_vision' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake /root/lra_ws/src/lra_vision -DCMAKE_INSTALL_PREFIX=/root/lra_ws/install/lra_vision
+Invoking command in '/root/lra_ws/build/lra_vision': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /root/lra_ws/build/lra_vision -- -j22 -l22
+Invoked command in '/root/lra_ws/build/lra_vision' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /root/lra_ws/build/lra_vision -- -j22 -l22
+Invoking command in '/root/lra_ws/build/lra_vision': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --install /root/lra_ws/build/lra_vision
+Invoked command in '/root/lra_ws/build/lra_vision' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --install /root/lra_ws/build/lra_vision

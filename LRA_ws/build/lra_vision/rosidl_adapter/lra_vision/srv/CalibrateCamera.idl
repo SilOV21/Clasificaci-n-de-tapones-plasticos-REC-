@@ -1,0 +1,17 @@
+// generated from rosidl_adapter/resource/srv.idl.em
+// with input from lra_vision/srv/CalibrateCamera.srv
+// generated code does not contain a copyright notice
+
+
+module lra_vision {
+  module srv {
+    struct CalibrateCamera_Request {
+      string action;
+    };
+    struct CalibrateCamera_Response {
+      boolean success;
+
+      string message;
+    };
+  };
+};

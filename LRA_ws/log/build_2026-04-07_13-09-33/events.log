@@ -1,0 +1,651 @@
+[0.000000] (-) TimerEvent: {}
+[0.000394] (lra_vision) JobQueued: {'identifier': 'lra_vision', 'dependencies': OrderedDict()}
+[0.001013] (lra_vision) JobStarted: {'identifier': 'lra_vision'}
+[0.020609] (lra_vision) JobProgress: {'identifier': 'lra_vision', 'progress': 'cmake'}
+[0.021263] (lra_vision) Command: {'cmd': ['/usr/bin/cmake', '/root/lra_ws/src/lra_vision', '-DCMAKE_INSTALL_PREFIX=/root/lra_ws/install/lra_vision'], 'cwd': '/root/lra_ws/build/lra_vision', 'env': OrderedDict([('HOSTNAME', '10e0c7b14f8e'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('HOME', '/root'), ('ROS_PYTHON_VERSION', '3'), ('ROS_DISTRO', 'humble'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('TERM', 'xterm'), ('ROS_LOCALHOST_ONLY', '0'), ('QT_X11_NO_MITSHM', '1'), ('PATH', '/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'), ('DISPLAY', ':0'), ('LANG', 'C.UTF-CE'), ('AMENT_PREFIX_PATH', '/opt/ros/humble'), ('DEBIAN_FRONTEND', 'noninteractive'), ('PWD', '/root/lra_ws/build/lra_vision'), ('LC_ALL', 'C.UTF-8'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('COLCON', '1'), ('CMAKE_PREFIX_PATH', '/opt/ros/humble')]), 'shell': False}
+[0.099698] (-) TimerEvent: {}
+[0.200075] (-) TimerEvent: {}
+[0.270354] (lra_vision) StdoutLine: {'line': b'-- The C compiler identification is GNU 11.4.0\n'}
+[0.300193] (-) TimerEvent: {}
+[0.400184] (lra_vision) StdoutLine: {'line': b'-- The CXX compiler identification is GNU 11.4.0\n'}
+[0.400479] (-) TimerEvent: {}
+[0.415138] (lra_vision) StdoutLine: {'line': b'-- Detecting C compiler ABI info\n'}
+[0.500670] (-) TimerEvent: {}
+[0.530584] (lra_vision) StdoutLine: {'line': b'-- Detecting C compiler ABI info - done\n'}
+[0.540114] (lra_vision) StdoutLine: {'line': b'-- Check for working C compiler: /usr/bin/cc - skipped\n'}
+[0.540786] (lra_vision) StdoutLine: {'line': b'-- Detecting C compile features\n'}
+[0.541797] (lra_vision) StdoutLine: {'line': b'-- Detecting C compile features - done\n'}
+[0.546949] (lra_vision) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info\n'}
+[0.600786] (-) TimerEvent: {}
+[0.667601] (lra_vision) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info - done\n'}
+[0.677543] (lra_vision) StdoutLine: {'line': b'-- Check for working CXX compiler: /usr/bin/c++ - skipped\n'}
+[0.677925] (lra_vision) StdoutLine: {'line': b'-- Detecting CXX compile features\n'}
+[0.678615] (lra_vision) StdoutLine: {'line': b'-- Detecting CXX compile features - done\n'}
+[0.691375] (lra_vision) StdoutLine: {'line': b'-- Found ament_cmake: 1.3.14 (/opt/ros/humble/share/ament_cmake/cmake)\n'}
+[0.700867] (-) TimerEvent: {}
+[0.801250] (-) TimerEvent: {}
+[0.878054] (lra_vision) StdoutLine: {'line': b'-- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter \n'}
+[0.901342] (-) TimerEvent: {}
+[1.001673] (-) TimerEvent: {}
+[1.010128] (lra_vision) StdoutLine: {'line': b'-- Found rclcpp: 16.0.19 (/opt/ros/humble/share/rclcpp/cmake)\n'}
+[1.077754] (lra_vision) StdoutLine: {'line': b'-- Found rosidl_generator_c: 3.1.8 (/opt/ros/humble/share/rosidl_generator_c/cmake)\n'}
+[1.085570] (lra_vision) StdoutLine: {'line': b'-- Found rosidl_adapter: 3.1.8 (/opt/ros/humble/share/rosidl_adapter/cmake)\n'}
+[1.101755] (-) TimerEvent: {}
+[1.102242] (lra_vision) StdoutLine: {'line': b'-- Found rosidl_generator_cpp: 3.1.8 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)\n'}
+[1.126458] (lra_vision) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[1.153389] (lra_vision) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[1.201927] (-) TimerEvent: {}
+[1.227331] (lra_vision) StdoutLine: {'line': b'-- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)\n'}
+[1.231662] (lra_vision) StdoutLine: {'line': b'-- Found rmw_fastrtps_cpp: 6.2.10 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)\n'}
+[1.302032] (-) TimerEvent: {}
+[1.389406] (lra_vision) StdoutLine: {'line': b'-- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.2")  \n'}
+[1.402121] (-) TimerEvent: {}
+[1.419803] (lra_vision) StdoutLine: {'line': b'-- Found FastRTPS: /opt/ros/humble/include  \n'}
+[1.465768] (lra_vision) StdoutLine: {'line': b"-- Using RMW implementation 'rmw_fastrtps_cpp' as default\n"}
+[1.478859] (lra_vision) StdoutLine: {'line': b'-- Looking for pthread.h\n'}
+[1.502219] (-) TimerEvent: {}
+[1.602561] (-) TimerEvent: {}
+[1.603167] (lra_vision) StdoutLine: {'line': b'-- Looking for pthread.h - found\n'}
+[1.604329] (lra_vision) StdoutLine: {'line': b'-- Performing Test CMAKE_HAVE_LIBC_PTHREAD\n'}
+[1.702730] (-) TimerEvent: {}
+[1.720139] (lra_vision) StdoutLine: {'line': b'-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success\n'}
+[1.721798] (lra_vision) StdoutLine: {'line': b'-- Found Threads: TRUE  \n'}
+[1.802824] (-) TimerEvent: {}
+[1.810583] (lra_vision) StdoutLine: {'line': b'-- Found rclpy: 3.3.21 (/opt/ros/humble/share/rclpy/cmake)\n'}
+[1.812612] (lra_vision) StdoutLine: {'line': b'-- Found std_srvs: 4.9.1 (/opt/ros/humble/share/std_srvs/cmake)\n'}
+[1.831895] (lra_vision) StdoutLine: {'line': b'-- Found sensor_msgs: 4.9.1 (/opt/ros/humble/share/sensor_msgs/cmake)\n'}
+[1.888751] (lra_vision) StdoutLine: {'line': b'-- Found visualization_msgs: 4.9.1 (/opt/ros/humble/share/visualization_msgs/cmake)\n'}
+[1.902921] (-) TimerEvent: {}
+[1.922465] (lra_vision) StdoutLine: {'line': b'-- Found image_transport: 3.1.12 (/opt/ros/humble/share/image_transport/cmake)\n'}
+[1.972758] (lra_vision) StdoutLine: {'line': b'-- Found cv_bridge: 3.2.1 (/opt/ros/humble/share/cv_bridge/cmake)\n'}
+[1.995170] (lra_vision) StdoutLine: {'line': b'-- Found tf2: 0.25.20 (/opt/ros/humble/share/tf2/cmake)\n'}
+[2.003025] (-) TimerEvent: {}
+[2.003345] (lra_vision) StdoutLine: {'line': b'-- Found tf2_ros: 0.25.20 (/opt/ros/humble/share/tf2_ros/cmake)\n'}
+[2.103161] (-) TimerEvent: {}
+[2.144079] (lra_vision) StdoutLine: {'line': b'-- Found tf2_geometry_msgs: 0.25.20 (/opt/ros/humble/share/tf2_geometry_msgs/cmake)\n'}
+[2.162610] (lra_vision) StdoutLine: {'line': b'-- Found eigen3_cmake_module: 0.1.1 (/opt/ros/humble/share/eigen3_cmake_module/cmake)\n'}
+[2.165601] (lra_vision) StdoutLine: {'line': b'-- Found Eigen3: TRUE (found version "3.4.0") \n'}
+[2.165762] (lra_vision) StdoutLine: {'line': b'-- Ensuring Eigen3 include directory is part of orocos-kdl CMake target\n'}
+[2.169579] (lra_vision) StdoutLine: {'line': b'-- Found camera_info_manager: 3.1.12 (/opt/ros/humble/share/camera_info_manager/cmake)\n'}
+[2.192779] (lra_vision) StdoutLine: {'line': b'-- Found OpenCV: /usr (found version "4.5.4") found components: core imgproc imgcodecs highgui calib3d videoio \n'}
+[2.195432] (lra_vision) StdoutLine: {'line': b'-- Found rosidl_default_generators: 1.2.1 (/opt/ros/humble/share/rosidl_default_generators/cmake)\n'}
+[2.203237] (-) TimerEvent: {}
+[2.303661] (-) TimerEvent: {}
+[2.404138] (-) TimerEvent: {}
+[2.504515] (-) TimerEvent: {}
+[2.604903] (-) TimerEvent: {}
+[2.678939] (lra_vision) StdoutLine: {'line': b'-- Found ament_cmake_ros: 0.10.0 (/opt/ros/humble/share/ament_cmake_ros/cmake)\n'}
+[2.704996] (-) TimerEvent: {}
+[2.805311] (-) TimerEvent: {}
+[2.905665] (-) TimerEvent: {}
+[3.006064] (-) TimerEvent: {}
+[3.106482] (-) TimerEvent: {}
+[3.206918] (-) TimerEvent: {}
+[3.273893] (lra_vision) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[3.307062] (-) TimerEvent: {}
+[3.407605] (-) TimerEvent: {}
+[3.490134] (lra_vision) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[3.507680] (-) TimerEvent: {}
+[3.516018] (lra_vision) StdoutLine: {'line': b'-- Found PythonInterp: /usr/bin/python3 (found suitable version "3.10.12", minimum required is "3.6") \n'}
+[3.518274] (lra_vision) StdoutLine: {'line': b'-- Found python_cmake_module: 0.10.0 (/opt/ros/humble/share/python_cmake_module/cmake)\n'}
+[3.544638] (lra_vision) StdoutLine: {'line': b'-- Found PythonLibs: /usr/lib/x86_64-linux-gnu/libpython3.10.so (found suitable version "3.10.12", minimum required is "3.5") \n'}
+[3.544835] (lra_vision) StdoutLine: {'line': b'-- Using PYTHON_EXECUTABLE: /usr/bin/python3\n'}
+[3.544912] (lra_vision) StdoutLine: {'line': b'-- Using PYTHON_INCLUDE_DIRS: /usr/include/python3.10\n'}
+[3.544973] (lra_vision) StdoutLine: {'line': b'-- Using PYTHON_LIBRARIES: /usr/lib/x86_64-linux-gnu/libpython3.10.so\n'}
+[3.566102] (lra_vision) StdoutLine: {'line': b'-- Found PythonExtra: .so  \n'}
+[3.607778] (-) TimerEvent: {}
+[3.708044] (-) TimerEvent: {}
+[3.794618] (lra_vision) StderrLine: {'line': b'\x1b[0mCMake Deprecation Warning at /opt/ros/humble/share/rosidl_cmake/cmake/rosidl_target_interfaces.cmake:32 (message):\n'}
+[3.794916] (lra_vision) StderrLine: {'line': b'  Use rosidl_get_typesupport_target() and target_link_libraries() instead of\n'}
+[3.794992] (lra_vision) StderrLine: {'line': b'  rosidl_target_interfaces()\n'}
+[3.795053] (lra_vision) StderrLine: {'line': b'Call Stack (most recent call first):\n'}
+[3.795119] (lra_vision) StderrLine: {'line': b'  CMakeLists.txt:99 (rosidl_target_interfaces)\n'}
+[3.795198] (lra_vision) StderrLine: {'line': b'\n'}
+[3.795261] (lra_vision) StderrLine: {'line': b'\x1b[0m\n'}
+[3.808132] (-) TimerEvent: {}
+[3.810820] (lra_vision) StdoutLine: {'line': b'-- Configuring done\n'}
+[3.893313] (lra_vision) StdoutLine: {'line': b'-- Generating done\n'}
+[3.908236] (-) TimerEvent: {}
+[3.920084] (lra_vision) StdoutLine: {'line': b'-- Build files have been written to: /root/lra_ws/build/lra_vision\n'}
+[3.945220] (lra_vision) CommandEnded: {'returncode': 0}
+[3.946392] (lra_vision) JobProgress: {'identifier': 'lra_vision', 'progress': 'build'}
+[3.950120] (lra_vision) Command: {'cmd': ['/usr/bin/cmake', '--build', '/root/lra_ws/build/lra_vision', '--', '-j22', '-l22'], 'cwd': '/root/lra_ws/build/lra_vision', 'env': OrderedDict([('HOSTNAME', '10e0c7b14f8e'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('HOME', '/root'), ('ROS_PYTHON_VERSION', '3'), ('ROS_DISTRO', 'humble'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('TERM', 'xterm'), ('ROS_LOCALHOST_ONLY', '0'), ('QT_X11_NO_MITSHM', '1'), ('PATH', '/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'), ('DISPLAY', ':0'), ('LANG', 'C.UTF-CE'), ('AMENT_PREFIX_PATH', '/opt/ros/humble'), ('DEBIAN_FRONTEND', 'noninteractive'), ('PWD', '/root/lra_ws/build/lra_vision'), ('LC_ALL', 'C.UTF-8'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('COLCON', '1'), ('CMAKE_PREFIX_PATH', '/opt/ros/humble')]), 'shell': False}
+[4.008431] (-) TimerEvent: {}
+[4.026677] (lra_vision) StdoutLine: {'line': b'[  2%] \x1b[34m\x1b[1mGenerating C code for ROS interfaces\x1b[0m\n'}
+[4.045786] (lra_vision) StdoutLine: {'line': b'[  4%] \x1b[34m\x1b[1mGenerating Rust code for ROS interfaces\x1b[0m\n'}
+[4.050190] (lra_vision) StdoutLine: {'line': b'[  6%] \x1b[32mBuilding CXX object CMakeFiles/lra_camera_utils.dir/src/utils/camera_calibration.cpp.o\x1b[0m\n'}
+[4.057783] (lra_vision) StdoutLine: {'line': b'[  6%] Built target ament_cmake_python_copy_lra_vision\n'}
+[4.058900] (lra_vision) StdoutLine: {'line': b'[  8%] \x1b[32mBuilding CXX object CMakeFiles/lra_camera_utils.dir/src/utils/aruco_detector.cpp.o\x1b[0m\n'}
+[4.059791] (lra_vision) StdoutLine: {'line': b'[ 10%] \x1b[34m\x1b[1mGenerating C++ code for ROS interfaces\x1b[0m\n'}
+[4.108611] (-) TimerEvent: {}
+[4.209229] (-) TimerEvent: {}
+[4.309834] (-) TimerEvent: {}
+[4.318233] (lra_vision) StdoutLine: {'line': b'running egg_info\n'}
+[4.318948] (lra_vision) StdoutLine: {'line': b'creating lra_vision.egg-info\n'}
+[4.319514] (lra_vision) StdoutLine: {'line': b'writing lra_vision.egg-info/PKG-INFO\n'}
+[4.319786] (lra_vision) StdoutLine: {'line': b'writing dependency_links to lra_vision.egg-info/dependency_links.txt\n'}
+[4.320044] (lra_vision) StdoutLine: {'line': b'writing top-level names to lra_vision.egg-info/top_level.txt\n'}
+[4.320222] (lra_vision) StdoutLine: {'line': b"writing manifest file 'lra_vision.egg-info/SOURCES.txt'\n"}
+[4.322480] (lra_vision) StdoutLine: {'line': b"reading manifest file 'lra_vision.egg-info/SOURCES.txt'\n"}
+[4.323004] (lra_vision) StdoutLine: {'line': b"writing manifest file 'lra_vision.egg-info/SOURCES.txt'\n"}
+[4.373974] (lra_vision) StdoutLine: {'line': b'[ 10%] Built target ament_cmake_python_build_lra_vision_egg\n'}
+[4.410049] (-) TimerEvent: {}
+[4.446033] (lra_vision) StdoutLine: {'line': b'[ 10%] Built target lra_vision__rs\n'}
+[4.510243] (-) TimerEvent: {}
+[4.521866] (lra_vision) StdoutLine: {'line': b'[ 12%] \x1b[32mBuilding C object CMakeFiles/lra_vision__rosidl_generator_c.dir/rosidl_generator_c/lra_vision/msg/detail/calibration_status__functions.c.o\x1b[0m\n'}
+[4.522468] (lra_vision) StdoutLine: {'line': b'[ 14%] \x1b[32mBuilding C object CMakeFiles/lra_vision__rosidl_generator_c.dir/rosidl_generator_c/lra_vision/srv/detail/calibrate_camera__functions.c.o\x1b[0m\n'}
+[4.544737] (lra_vision) StdoutLine: {'line': b'[ 14%] Built target lra_vision__cpp\n'}
+[4.566584] (lra_vision) StdoutLine: {'line': b'[ 17%] \x1b[34m\x1b[1mGenerating C++ type support for eProsima Fast-RTPS\x1b[0m\n'}
+[4.570160] (lra_vision) StdoutLine: {'line': b'[ 21%] \x1b[34m\x1b[1mGenerating C++ introspection for ROS interfaces\x1b[0m\n'}
+[4.570649] (lra_vision) StdoutLine: {'line': b'[ 21%] \x1b[34m\x1b[1mGenerating C++ type support dispatch for ROS interfaces\x1b[0m\n'}
+[4.610417] (-) TimerEvent: {}
+[4.616393] (lra_vision) StdoutLine: {'line': b'[ 23%] \x1b[32m\x1b[1mLinking C shared library liblra_vision__rosidl_generator_c.so\x1b[0m\n'}
+[4.693963] (lra_vision) StdoutLine: {'line': b'[ 23%] Built target lra_vision__rosidl_generator_c\n'}
+[4.710651] (-) TimerEvent: {}
+[4.721027] (lra_vision) StdoutLine: {'line': b'[ 27%] \x1b[34m\x1b[1mGenerating C type support for eProsima Fast-RTPS\x1b[0m\n'}
+[4.721605] (lra_vision) StdoutLine: {'line': b'[ 29%] \x1b[34m\x1b[1mGenerating C type support dispatch for ROS interfaces\x1b[0m\n'}
+[4.722027] (lra_vision) StdoutLine: {'line': b'[ 29%] \x1b[34m\x1b[1mGenerating C introspection for ROS interfaces\x1b[0m\n'}
+[4.810815] (-) TimerEvent: {}
+[4.911399] (-) TimerEvent: {}
+[4.947959] (lra_vision) StdoutLine: {'line': b'[ 34%] \x1b[32mBuilding CXX object CMakeFiles/lra_vision__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/lra_vision/msg/calibration_status__type_support.cpp.o\x1b[0m\n'}
+[4.948507] (lra_vision) StdoutLine: {'line': b'[ 34%] \x1b[32mBuilding CXX object CMakeFiles/lra_vision__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/lra_vision/srv/calibrate_camera__type_support.cpp.o\x1b[0m\n'}
+[5.001693] (lra_vision) StdoutLine: {'line': b'[ 38%] \x1b[32mBuilding CXX object CMakeFiles/lra_vision__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/lra_vision/srv/detail/dds_fastrtps/calibrate_camera__type_support.cpp.o\x1b[0m\n'}
+[5.002235] (lra_vision) StdoutLine: {'line': b'[ 38%] \x1b[32mBuilding CXX object CMakeFiles/lra_vision__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/lra_vision/msg/detail/dds_fastrtps/calibration_status__type_support.cpp.o\x1b[0m\n'}
+[5.011559] (-) TimerEvent: {}
+[5.063004] (lra_vision) StdoutLine: {'line': b'[ 40%] \x1b[32mBuilding CXX object CMakeFiles/lra_vision__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/lra_vision/msg/detail/calibration_status__type_support.cpp.o\x1b[0m\n'}
+[5.072709] (lra_vision) StdoutLine: {'line': b'[ 42%] \x1b[32mBuilding CXX object CMakeFiles/lra_vision__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/lra_vision/srv/detail/calibrate_camera__type_support.cpp.o\x1b[0m\n'}
+[5.101857] (lra_vision) StdoutLine: {'line': b'[ 46%] \x1b[32mBuilding CXX object CMakeFiles/lra_vision__rosidl_typesupport_c.dir/rosidl_typesupport_c/lra_vision/srv/calibrate_camera__type_support.cpp.o\x1b[0m\n'}
+[5.102437] (lra_vision) StdoutLine: {'line': b'[ 46%] \x1b[32mBuilding CXX object CMakeFiles/lra_vision__rosidl_typesupport_c.dir/rosidl_typesupport_c/lra_vision/msg/calibration_status__type_support.cpp.o\x1b[0m\n'}
+[5.111745] (-) TimerEvent: {}
+[5.155428] (lra_vision) StdoutLine: {'line': b'[ 48%] \x1b[32mBuilding C object CMakeFiles/lra_vision__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/lra_vision/msg/detail/calibration_status__type_support.c.o\x1b[0m\n'}
+[5.162837] (lra_vision) StdoutLine: {'line': b'[ 51%] \x1b[32m\x1b[1mLinking CXX shared library liblra_vision__rosidl_typesupport_c.so\x1b[0m\n'}
+[5.164269] (lra_vision) StdoutLine: {'line': b'[ 53%] \x1b[32mBuilding C object CMakeFiles/lra_vision__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/lra_vision/srv/detail/calibrate_camera__type_support.c.o\x1b[0m\n'}
+[5.211939] (-) TimerEvent: {}
+[5.225060] (lra_vision) StdoutLine: {'line': b'[ 55%] \x1b[32m\x1b[1mLinking C shared library liblra_vision__rosidl_typesupport_introspection_c.so\x1b[0m\n'}
+[5.227364] (lra_vision) StdoutLine: {'line': b'[ 55%] Built target lra_vision__rosidl_typesupport_c\n'}
+[5.285644] (lra_vision) StdoutLine: {'line': b'[ 55%] Built target lra_vision__rosidl_typesupport_introspection_c\n'}
+[5.312086] (-) TimerEvent: {}
+[5.412633] (-) TimerEvent: {}
+[5.513179] (-) TimerEvent: {}
+[5.544049] (lra_vision) StdoutLine: {'line': b'[ 57%] \x1b[32m\x1b[1mLinking CXX shared library liblra_vision__rosidl_typesupport_fastrtps_cpp.so\x1b[0m\n'}
+[5.581029] (lra_vision) StdoutLine: {'line': b'[ 59%] \x1b[32mBuilding CXX object CMakeFiles/lra_vision__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/lra_vision/srv/detail/calibrate_camera__type_support_c.cpp.o\x1b[0m\n'}
+[5.582977] (lra_vision) StdoutLine: {'line': b'[ 61%] \x1b[32mBuilding CXX object CMakeFiles/lra_vision__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/lra_vision/msg/detail/calibration_status__type_support_c.cpp.o\x1b[0m\n'}
+[5.613396] (-) TimerEvent: {}
+[5.647405] (lra_vision) StdoutLine: {'line': b'[ 63%] \x1b[32m\x1b[1mLinking CXX shared library liblra_vision__rosidl_typesupport_cpp.so\x1b[0m\n'}
+[5.674525] (lra_vision) StdoutLine: {'line': b'[ 63%] Built target lra_vision__rosidl_typesupport_fastrtps_cpp\n'}
+[5.693390] (lra_vision) StdoutLine: {'line': b'[ 65%] \x1b[32m\x1b[1mLinking CXX shared library liblra_vision__rosidl_typesupport_introspection_cpp.so\x1b[0m\n'}
+[5.713630] (-) TimerEvent: {}
+[5.732839] (lra_vision) StdoutLine: {'line': b'[ 65%] Built target lra_vision__rosidl_typesupport_cpp\n'}
+[5.800190] (lra_vision) StdoutLine: {'line': b'[ 65%] Built target lra_vision__rosidl_typesupport_introspection_cpp\n'}
+[5.813795] (-) TimerEvent: {}
+[5.914414] (-) TimerEvent: {}
+[6.015031] (-) TimerEvent: {}
+[6.065481] (lra_vision) StdoutLine: {'line': b'[ 68%] \x1b[32m\x1b[1mLinking CXX shared library liblra_vision__rosidl_typesupport_fastrtps_c.so\x1b[0m\n'}
+[6.115240] (-) TimerEvent: {}
+[6.181147] (lra_vision) StdoutLine: {'line': b'[ 68%] Built target lra_vision__rosidl_typesupport_fastrtps_c\n'}
+[6.215403] (-) TimerEvent: {}
+[6.218107] (lra_vision) StdoutLine: {'line': b'[ 68%] Built target lra_vision\n'}
+[6.250531] (lra_vision) StdoutLine: {'line': b'[ 70%] \x1b[34m\x1b[1mGenerating Python code for ROS interfaces\x1b[0m\n'}
+[6.315598] (-) TimerEvent: {}
+[6.416211] (-) TimerEvent: {}
+[6.516850] (-) TimerEvent: {}
+[6.617456] (-) TimerEvent: {}
+[6.718062] (-) TimerEvent: {}
+[6.818773] (-) TimerEvent: {}
+[6.844922] (lra_vision) StdoutLine: {'line': b'[ 70%] Built target lra_vision__py\n'}
+[6.879079] (lra_vision) StdoutLine: {'line': b'[ 72%] \x1b[32mBuilding C object CMakeFiles/lra_vision__rosidl_generator_py.dir/rosidl_generator_py/lra_vision/srv/_calibrate_camera_s.c.o\x1b[0m\n'}
+[6.880750] (lra_vision) StdoutLine: {'line': b'[ 74%] \x1b[32mBuilding C object CMakeFiles/lra_vision__rosidl_generator_py.dir/rosidl_generator_py/lra_vision/msg/_calibration_status_s.c.o\x1b[0m\n'}
+[6.918966] (-) TimerEvent: {}
+[7.019669] (-) TimerEvent: {}
+[7.066481] (lra_vision) StdoutLine: {'line': b'[ 76%] \x1b[32m\x1b[1mLinking C shared library rosidl_generator_py/lra_vision/liblra_vision__rosidl_generator_py.so\x1b[0m\n'}
+[7.119885] (-) TimerEvent: {}
+[7.141641] (lra_vision) StdoutLine: {'line': b'[ 76%] Built target lra_vision__rosidl_generator_py\n'}
+[7.175626] (lra_vision) StdoutLine: {'line': b'[ 78%] \x1b[32mBuilding C object CMakeFiles/lra_vision__rosidl_typesupport_fastrtps_c__pyext.dir/rosidl_generator_py/lra_vision/_lra_vision_s.ep.rosidl_typesupport_fastrtps_c.c.o\x1b[0m\n'}
+[7.181239] (lra_vision) StdoutLine: {'line': b'[ 80%] \x1b[32mBuilding C object CMakeFiles/lra_vision__rosidl_typesupport_c__pyext.dir/rosidl_generator_py/lra_vision/_lra_vision_s.ep.rosidl_typesupport_c.c.o\x1b[0m\n'}
+[7.184743] (lra_vision) StdoutLine: {'line': b'[ 82%] \x1b[32mBuilding C object CMakeFiles/lra_vision__rosidl_typesupport_introspection_c__pyext.dir/rosidl_generator_py/lra_vision/_lra_vision_s.ep.rosidl_typesupport_introspection_c.c.o\x1b[0m\n'}
+[7.220074] (-) TimerEvent: {}
+[7.313238] (lra_vision) StdoutLine: {'line': b'[ 85%] \x1b[32m\x1b[1mLinking C shared library rosidl_generator_py/lra_vision/lra_vision_s__rosidl_typesupport_fastrtps_c.cpython-310-x86_64-linux-gnu.so\x1b[0m\n'}
+[7.320276] (-) TimerEvent: {}
+[7.322028] (lra_vision) StdoutLine: {'line': b'[ 87%] \x1b[32m\x1b[1mLinking C shared library rosidl_generator_py/lra_vision/lra_vision_s__rosidl_typesupport_c.cpython-310-x86_64-linux-gnu.so\x1b[0m\n'}
+[7.326665] (lra_vision) StdoutLine: {'line': b'[ 89%] \x1b[32m\x1b[1mLinking C shared library rosidl_generator_py/lra_vision/lra_vision_s__rosidl_typesupport_introspection_c.cpython-310-x86_64-linux-gnu.so\x1b[0m\n'}
+[7.389460] (lra_vision) StdoutLine: {'line': b'[ 89%] Built target lra_vision__rosidl_typesupport_fastrtps_c__pyext\n'}
+[7.390163] (lra_vision) StdoutLine: {'line': b'[ 89%] Built target lra_vision__rosidl_typesupport_c__pyext\n'}
+[7.392215] (lra_vision) StdoutLine: {'line': b'[ 89%] Built target lra_vision__rosidl_typesupport_introspection_c__pyext\n'}
+[7.420456] (-) TimerEvent: {}
+[7.521061] (-) TimerEvent: {}
+[7.621883] (-) TimerEvent: {}
+[7.722382] (-) TimerEvent: {}
+[7.822845] (-) TimerEvent: {}
+[7.923273] (-) TimerEvent: {}
+[8.023704] (-) TimerEvent: {}
+[8.124110] (-) TimerEvent: {}
+[8.224547] (-) TimerEvent: {}
+[8.324997] (-) TimerEvent: {}
+[8.378080] (lra_vision) StdoutLine: {'line': b'[ 91%] \x1b[32m\x1b[1mLinking CXX shared library liblra_camera_utils.so\x1b[0m\n'}
+[8.425119] (-) TimerEvent: {}
+[8.525522] (-) TimerEvent: {}
+[8.625974] (-) TimerEvent: {}
+[8.726437] (-) TimerEvent: {}
+[8.826902] (-) TimerEvent: {}
+[8.855794] (lra_vision) StdoutLine: {'line': b'[ 91%] Built target lra_camera_utils\n'}
+[8.896514] (lra_vision) StdoutLine: {'line': b'[ 93%] \x1b[32mBuilding CXX object CMakeFiles/camera_calibrator_node.dir/src/nodes/camera_calibrator_node.cpp.o\x1b[0m\n'}
+[8.900056] (lra_vision) StdoutLine: {'line': b'[ 95%] \x1b[32mBuilding CXX object CMakeFiles/aruco_detector_node.dir/src/nodes/aruco_detector_node.cpp.o\x1b[0m\n'}
+[8.926984] (-) TimerEvent: {}
+[9.027341] (-) TimerEvent: {}
+[9.127811] (-) TimerEvent: {}
+[9.228268] (-) TimerEvent: {}
+[9.328757] (-) TimerEvent: {}
+[9.429240] (-) TimerEvent: {}
+[9.529718] (-) TimerEvent: {}
+[9.630200] (-) TimerEvent: {}
+[9.730698] (-) TimerEvent: {}
+[9.831195] (-) TimerEvent: {}
+[9.931689] (-) TimerEvent: {}
+[10.032168] (-) TimerEvent: {}
+[10.132671] (-) TimerEvent: {}
+[10.233153] (-) TimerEvent: {}
+[10.333656] (-) TimerEvent: {}
+[10.434167] (-) TimerEvent: {}
+[10.534667] (-) TimerEvent: {}
+[10.635143] (-) TimerEvent: {}
+[10.735620] (-) TimerEvent: {}
+[10.836087] (-) TimerEvent: {}
+[10.936615] (-) TimerEvent: {}
+[11.037094] (-) TimerEvent: {}
+[11.137600] (-) TimerEvent: {}
+[11.238091] (-) TimerEvent: {}
+[11.338588] (-) TimerEvent: {}
+[11.439072] (-) TimerEvent: {}
+[11.539792] (-) TimerEvent: {}
+[11.640272] (-) TimerEvent: {}
+[11.740776] (-) TimerEvent: {}
+[11.841261] (-) TimerEvent: {}
+[11.941773] (-) TimerEvent: {}
+[12.042247] (-) TimerEvent: {}
+[12.142725] (-) TimerEvent: {}
+[12.243189] (-) TimerEvent: {}
+[12.343711] (-) TimerEvent: {}
+[12.444254] (-) TimerEvent: {}
+[12.544777] (-) TimerEvent: {}
+[12.645261] (-) TimerEvent: {}
+[12.745740] (-) TimerEvent: {}
+[12.846205] (-) TimerEvent: {}
+[12.946682] (-) TimerEvent: {}
+[13.047156] (-) TimerEvent: {}
+[13.147639] (-) TimerEvent: {}
+[13.248110] (-) TimerEvent: {}
+[13.348577] (-) TimerEvent: {}
+[13.449025] (-) TimerEvent: {}
+[13.549510] (-) TimerEvent: {}
+[13.649988] (-) TimerEvent: {}
+[13.750470] (-) TimerEvent: {}
+[13.850947] (-) TimerEvent: {}
+[13.951435] (-) TimerEvent: {}
+[14.051915] (-) TimerEvent: {}
+[14.152414] (-) TimerEvent: {}
+[14.252895] (-) TimerEvent: {}
+[14.353399] (-) TimerEvent: {}
+[14.453893] (-) TimerEvent: {}
+[14.554395] (-) TimerEvent: {}
+[14.654894] (-) TimerEvent: {}
+[14.755374] (-) TimerEvent: {}
+[14.855828] (-) TimerEvent: {}
+[14.956324] (-) TimerEvent: {}
+[15.056791] (-) TimerEvent: {}
+[15.157270] (-) TimerEvent: {}
+[15.257743] (-) TimerEvent: {}
+[15.359393] (-) TimerEvent: {}
+[15.459873] (-) TimerEvent: {}
+[15.560354] (-) TimerEvent: {}
+[15.660834] (-) TimerEvent: {}
+[15.761319] (-) TimerEvent: {}
+[15.861793] (-) TimerEvent: {}
+[15.962255] (-) TimerEvent: {}
+[16.062727] (-) TimerEvent: {}
+[16.163208] (-) TimerEvent: {}
+[16.263707] (-) TimerEvent: {}
+[16.364149] (-) TimerEvent: {}
+[16.464608] (-) TimerEvent: {}
+[16.565053] (-) TimerEvent: {}
+[16.665530] (-) TimerEvent: {}
+[16.765974] (-) TimerEvent: {}
+[16.866420] (-) TimerEvent: {}
+[16.966844] (-) TimerEvent: {}
+[17.067282] (-) TimerEvent: {}
+[17.167752] (-) TimerEvent: {}
+[17.268214] (-) TimerEvent: {}
+[17.368676] (-) TimerEvent: {}
+[17.469128] (-) TimerEvent: {}
+[17.569610] (-) TimerEvent: {}
+[17.670069] (-) TimerEvent: {}
+[17.770518] (-) TimerEvent: {}
+[17.870953] (-) TimerEvent: {}
+[17.971406] (-) TimerEvent: {}
+[18.071844] (-) TimerEvent: {}
+[18.172321] (-) TimerEvent: {}
+[18.272800] (-) TimerEvent: {}
+[18.373273] (-) TimerEvent: {}
+[18.473770] (-) TimerEvent: {}
+[18.574329] (-) TimerEvent: {}
+[18.674844] (-) TimerEvent: {}
+[18.775341] (-) TimerEvent: {}
+[18.875797] (-) TimerEvent: {}
+[18.976245] (-) TimerEvent: {}
+[19.076720] (-) TimerEvent: {}
+[19.177210] (-) TimerEvent: {}
+[19.277682] (-) TimerEvent: {}
+[19.378106] (-) TimerEvent: {}
+[19.478544] (-) TimerEvent: {}
+[19.578979] (-) TimerEvent: {}
+[19.679421] (-) TimerEvent: {}
+[19.779853] (-) TimerEvent: {}
+[19.880312] (-) TimerEvent: {}
+[19.980780] (-) TimerEvent: {}
+[20.081214] (-) TimerEvent: {}
+[20.181668] (-) TimerEvent: {}
+[20.282110] (-) TimerEvent: {}
+[20.382567] (-) TimerEvent: {}
+[20.483027] (-) TimerEvent: {}
+[20.583485] (-) TimerEvent: {}
+[20.683920] (-) TimerEvent: {}
+[20.784378] (-) TimerEvent: {}
+[20.884836] (-) TimerEvent: {}
+[20.985348] (-) TimerEvent: {}
+[21.085794] (-) TimerEvent: {}
+[21.186236] (-) TimerEvent: {}
+[21.286710] (-) TimerEvent: {}
+[21.308373] (lra_vision) StdoutLine: {'line': b'[ 97%] \x1b[32m\x1b[1mLinking CXX executable camera_calibrator_node\x1b[0m\n'}
+[21.386873] (-) TimerEvent: {}
+[21.487344] (-) TimerEvent: {}
+[21.587798] (-) TimerEvent: {}
+[21.688267] (-) TimerEvent: {}
+[21.788730] (-) TimerEvent: {}
+[21.889185] (-) TimerEvent: {}
+[21.989703] (-) TimerEvent: {}
+[22.090161] (-) TimerEvent: {}
+[22.190636] (-) TimerEvent: {}
+[22.291074] (-) TimerEvent: {}
+[22.391393] (-) TimerEvent: {}
+[22.491761] (-) TimerEvent: {}
+[22.592175] (-) TimerEvent: {}
+[22.615079] (lra_vision) StdoutLine: {'line': b'[ 97%] Built target camera_calibrator_node\n'}
+[22.692329] (-) TimerEvent: {}
+[22.792727] (-) TimerEvent: {}
+[22.893165] (-) TimerEvent: {}
+[22.993609] (-) TimerEvent: {}
+[23.093974] (-) TimerEvent: {}
+[23.194490] (-) TimerEvent: {}
+[23.294956] (-) TimerEvent: {}
+[23.395399] (-) TimerEvent: {}
+[23.495839] (-) TimerEvent: {}
+[23.596260] (-) TimerEvent: {}
+[23.696691] (-) TimerEvent: {}
+[23.797176] (-) TimerEvent: {}
+[23.897791] (-) TimerEvent: {}
+[23.998258] (-) TimerEvent: {}
+[24.098736] (-) TimerEvent: {}
+[24.199181] (-) TimerEvent: {}
+[24.299661] (-) TimerEvent: {}
+[24.400121] (-) TimerEvent: {}
+[24.500662] (-) TimerEvent: {}
+[24.601085] (-) TimerEvent: {}
+[24.701523] (-) TimerEvent: {}
+[24.801913] (-) TimerEvent: {}
+[24.902372] (-) TimerEvent: {}
+[25.002848] (-) TimerEvent: {}
+[25.103238] (-) TimerEvent: {}
+[25.203641] (-) TimerEvent: {}
+[25.304000] (-) TimerEvent: {}
+[25.404393] (-) TimerEvent: {}
+[25.504976] (-) TimerEvent: {}
+[25.605611] (-) TimerEvent: {}
+[25.706182] (-) TimerEvent: {}
+[25.806785] (-) TimerEvent: {}
+[25.907429] (-) TimerEvent: {}
+[26.008051] (-) TimerEvent: {}
+[26.108802] (-) TimerEvent: {}
+[26.209286] (-) TimerEvent: {}
+[26.309709] (-) TimerEvent: {}
+[26.410125] (-) TimerEvent: {}
+[26.510598] (-) TimerEvent: {}
+[26.611062] (-) TimerEvent: {}
+[26.711524] (-) TimerEvent: {}
+[26.811984] (-) TimerEvent: {}
+[26.912423] (-) TimerEvent: {}
+[27.012872] (-) TimerEvent: {}
+[27.113331] (-) TimerEvent: {}
+[27.213766] (-) TimerEvent: {}
+[27.314241] (-) TimerEvent: {}
+[27.414719] (-) TimerEvent: {}
+[27.427113] (lra_vision) StdoutLine: {'line': b'[100%] \x1b[32m\x1b[1mLinking CXX executable aruco_detector_node\x1b[0m\n'}
+[27.514912] (-) TimerEvent: {}
+[27.615376] (-) TimerEvent: {}
+[27.715835] (-) TimerEvent: {}
+[27.816291] (-) TimerEvent: {}
+[27.916770] (-) TimerEvent: {}
+[28.017249] (-) TimerEvent: {}
+[28.117737] (-) TimerEvent: {}
+[28.218239] (-) TimerEvent: {}
+[28.318767] (-) TimerEvent: {}
+[28.419223] (-) TimerEvent: {}
+[28.519683] (-) TimerEvent: {}
+[28.620140] (-) TimerEvent: {}
+[28.720593] (-) TimerEvent: {}
+[28.821030] (-) TimerEvent: {}
+[28.890471] (lra_vision) StdoutLine: {'line': b'[100%] Built target aruco_detector_node\n'}
+[28.908091] (lra_vision) CommandEnded: {'returncode': 0}
+[28.910770] (lra_vision) JobProgress: {'identifier': 'lra_vision', 'progress': 'install'}
+[28.921103] (-) TimerEvent: {}
+[28.923767] (lra_vision) Command: {'cmd': ['/usr/bin/cmake', '--install', '/root/lra_ws/build/lra_vision'], 'cwd': '/root/lra_ws/build/lra_vision', 'env': OrderedDict([('HOSTNAME', '10e0c7b14f8e'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('HOME', '/root'), ('ROS_PYTHON_VERSION', '3'), ('ROS_DISTRO', 'humble'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('TERM', 'xterm'), ('ROS_LOCALHOST_ONLY', '0'), ('QT_X11_NO_MITSHM', '1'), ('PATH', '/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'), ('DISPLAY', ':0'), ('LANG', 'C.UTF-CE'), ('AMENT_PREFIX_PATH', '/opt/ros/humble'), ('DEBIAN_FRONTEND', 'noninteractive'), ('PWD', '/root/lra_ws/build/lra_vision'), ('LC_ALL', 'C.UTF-8'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('COLCON', '1'), ('CMAKE_PREFIX_PATH', '/opt/ros/humble')]), 'shell': False}
+[28.935255] (lra_vision) StdoutLine: {'line': b'-- Install configuration: ""\n'}
+[28.935725] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/share/ament_index/resource_index/rosidl_interfaces/lra_vision\n'}
+[28.936134] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision\n'}
+[28.936546] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg\n'}
+[28.936643] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg/detail\n'}
+[28.936712] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg/detail/calibration_status__functions.h\n'}
+[28.936784] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg/detail/calibration_status__functions.c\n'}
+[28.936840] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg/detail/calibration_status__type_support.h\n'}
+[28.936899] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg/detail/calibration_status__struct.h\n'}
+[28.936962] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg/rosidl_generator_c__visibility_control.h\n'}
+[28.937287] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg/calibration_status.h\n'}
+[28.937639] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/srv\n'}
+[28.937736] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/srv/detail\n'}
+[28.937802] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/srv/detail/calibrate_camera__functions.c\n'}
+[28.938100] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/srv/detail/calibrate_camera__functions.h\n'}
+[28.938203] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/srv/detail/calibrate_camera__type_support.h\n'}
+[28.938278] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/srv/detail/calibrate_camera__struct.h\n'}
+[28.938367] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/srv/calibrate_camera.h\n'}
+[28.938433] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/environment/library_path.sh\n'}
+[28.938503] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/environment/library_path.dsv\n'}
+[28.938570] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/lib/liblra_vision__rosidl_generator_c.so\n'}
+[28.938635] (lra_vision) StdoutLine: {'line': b'-- Set runtime path of "/root/lra_ws/install/lra_vision/lib/liblra_vision__rosidl_generator_c.so" to ""\n'}
+[28.938699] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision\n'}
+[28.938761] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg\n'}
+[28.938824] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg/detail\n'}
+[28.938889] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg/detail/calibration_status__rosidl_typesupport_fastrtps_c.h\n'}
+[28.938954] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg/rosidl_typesupport_fastrtps_c__visibility_control.h\n'}
+[28.939278] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/srv\n'}
+[28.939453] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/srv/detail\n'}
+[28.939532] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/srv/detail/calibrate_camera__rosidl_typesupport_fastrtps_c.h\n'}
+[28.939600] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/lib/liblra_vision__rosidl_typesupport_fastrtps_c.so\n'}
+[28.939666] (lra_vision) StdoutLine: {'line': b'-- Set runtime path of "/root/lra_ws/install/lra_vision/lib/liblra_vision__rosidl_typesupport_fastrtps_c.so" to ""\n'}
+[28.939732] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision\n'}
+[28.939798] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg\n'}
+[28.939861] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg/calibration_status.hpp\n'}
+[28.939963] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg/detail\n'}
+[28.940033] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg/detail/calibration_status__builder.hpp\n'}
+[28.940178] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg/detail/calibration_status__struct.hpp\n'}
+[28.940242] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg/detail/calibration_status__type_support.hpp\n'}
+[28.940312] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg/detail/calibration_status__traits.hpp\n'}
+[28.940384] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg/rosidl_generator_cpp__visibility_control.hpp\n'}
+[28.940449] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/srv\n'}
+[28.940516] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/srv/detail\n'}
+[28.940582] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/srv/detail/calibrate_camera__struct.hpp\n'}
+[28.940642] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/srv/detail/calibrate_camera__type_support.hpp\n'}
+[28.940704] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/srv/detail/calibrate_camera__traits.hpp\n'}
+[28.940765] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/srv/detail/calibrate_camera__builder.hpp\n'}
+[28.940825] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/srv/calibrate_camera.hpp\n'}
+[28.940884] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision\n'}
+[28.940942] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg\n'}
+[28.941038] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg/detail\n'}
+[28.941097] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg/detail/calibration_status__rosidl_typesupport_fastrtps_cpp.hpp\n'}
+[28.941159] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg/detail/dds_fastrtps\n'}
+[28.941222] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg/rosidl_typesupport_fastrtps_cpp__visibility_control.h\n'}
+[28.941284] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/srv\n'}
+[28.941357] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/srv/detail\n'}
+[28.941416] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/srv/detail/calibrate_camera__rosidl_typesupport_fastrtps_cpp.hpp\n'}
+[28.941479] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/srv/detail/dds_fastrtps\n'}
+[28.941540] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/lib/liblra_vision__rosidl_typesupport_fastrtps_cpp.so\n'}
+[28.941600] (lra_vision) StdoutLine: {'line': b'-- Set runtime path of "/root/lra_ws/install/lra_vision/lib/liblra_vision__rosidl_typesupport_fastrtps_cpp.so" to ""\n'}
+[28.941840] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision\n'}
+[28.941991] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg\n'}
+[28.942131] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg/detail\n'}
+[28.942206] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg/detail/calibration_status__type_support.c\n'}
+[28.942274] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg/detail/calibration_status__rosidl_typesupport_introspection_c.h\n'}
+[28.942360] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg/rosidl_typesupport_introspection_c__visibility_control.h\n'}
+[28.942427] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/srv\n'}
+[28.942489] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/srv/detail\n'}
+[28.942556] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/srv/detail/calibrate_camera__rosidl_typesupport_introspection_c.h\n'}
+[28.942617] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/srv/detail/calibrate_camera__type_support.c\n'}
+[28.942680] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/lib/liblra_vision__rosidl_typesupport_introspection_c.so\n'}
+[28.942740] (lra_vision) StdoutLine: {'line': b'-- Set runtime path of "/root/lra_ws/install/lra_vision/lib/liblra_vision__rosidl_typesupport_introspection_c.so" to ""\n'}
+[28.942804] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/lib/liblra_vision__rosidl_typesupport_c.so\n'}
+[28.942866] (lra_vision) StdoutLine: {'line': b'-- Set runtime path of "/root/lra_ws/install/lra_vision/lib/liblra_vision__rosidl_typesupport_c.so" to ""\n'}
+[28.942930] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision\n'}
+[28.942993] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg\n'}
+[28.943055] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg/detail\n'}
+[28.943119] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg/detail/calibration_status__rosidl_typesupport_introspection_cpp.hpp\n'}
+[28.943182] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg/detail/calibration_status__type_support.cpp\n'}
+[28.943245] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/srv\n'}
+[28.943318] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/srv/detail\n'}
+[28.943386] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/srv/detail/calibrate_camera__type_support.cpp\n'}
+[28.943446] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/srv/detail/calibrate_camera__rosidl_typesupport_introspection_cpp.hpp\n'}
+[28.943560] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/lib/liblra_vision__rosidl_typesupport_introspection_cpp.so\n'}
+[28.943729] (lra_vision) StdoutLine: {'line': b'-- Set runtime path of "/root/lra_ws/install/lra_vision/lib/liblra_vision__rosidl_typesupport_introspection_cpp.so" to ""\n'}
+[28.943800] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/lib/liblra_vision__rosidl_typesupport_cpp.so\n'}
+[28.943864] (lra_vision) StdoutLine: {'line': b'-- Set runtime path of "/root/lra_ws/install/lra_vision/lib/liblra_vision__rosidl_typesupport_cpp.so" to ""\n'}
+[28.943928] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/environment/pythonpath.sh\n'}
+[28.944028] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/environment/pythonpath.dsv\n'}
+[28.944091] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision-1.0.0-py3.10.egg-info\n'}
+[28.944156] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision-1.0.0-py3.10.egg-info/SOURCES.txt\n'}
+[28.944224] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision-1.0.0-py3.10.egg-info/top_level.txt\n'}
+[28.944287] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision-1.0.0-py3.10.egg-info/PKG-INFO\n'}
+[28.944368] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision-1.0.0-py3.10.egg-info/dependency_links.txt\n'}
+[28.944431] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision\n'}
+[28.944492] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision/lra_vision_s__rosidl_typesupport_introspection_c.cpython-310-x86_64-linux-gnu.so\n'}
+[28.944599] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision/msg\n'}
+[28.944668] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision/msg/_calibration_status_s.c\n'}
+[28.944735] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision/msg/_calibration_status.py\n'}
+[28.944805] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision/msg/__init__.py\n'}
+[28.944952] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision/lra_vision_s__rosidl_typesupport_c.cpython-310-x86_64-linux-gnu.so\n'}
+[28.945027] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision/liblra_vision__rosidl_generator_py.so\n'}
+[28.945090] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision/_lra_vision_s.ep.rosidl_typesupport_c.c\n'}
+[28.945152] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision/__init__.py\n'}
+[28.945248] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision/_lra_vision_s.ep.rosidl_typesupport_fastrtps_c.c\n'}
+[28.945322] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision/_lra_vision_s.ep.rosidl_typesupport_introspection_c.c\n'}
+[28.945382] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision/lra_vision_s__rosidl_typesupport_fastrtps_c.cpython-310-x86_64-linux-gnu.so\n'}
+[28.945442] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision/srv\n'}
+[28.945506] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision/srv/_calibrate_camera.py\n'}
+[28.945565] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision/srv/_calibrate_camera_s.c\n'}
+[28.945667] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision/srv/__init__.py\n'}
+[29.005205] (lra_vision) StdoutLine: {'line': b"Listing '/root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision'...\n"}
+[29.005567] (lra_vision) StdoutLine: {'line': b"Compiling '/root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision/__init__.py'...\n"}
+[29.005671] (lra_vision) StdoutLine: {'line': b"Listing '/root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision/msg'...\n"}
+[29.005755] (lra_vision) StdoutLine: {'line': b"Compiling '/root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision/msg/__init__.py'...\n"}
+[29.005835] (lra_vision) StdoutLine: {'line': b"Compiling '/root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision/msg/_calibration_status.py'...\n"}
+[29.005914] (lra_vision) StdoutLine: {'line': b"Listing '/root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision/srv'...\n"}
+[29.005990] (lra_vision) StdoutLine: {'line': b"Compiling '/root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision/srv/__init__.py'...\n"}
+[29.006065] (lra_vision) StdoutLine: {'line': b"Compiling '/root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision/srv/_calibrate_camera.py'...\n"}
+[29.011389] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision/lra_vision_s__rosidl_typesupport_fastrtps_c.cpython-310-x86_64-linux-gnu.so\n'}
+[29.011648] (lra_vision) StdoutLine: {'line': b'-- Set runtime path of "/root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision/lra_vision_s__rosidl_typesupport_fastrtps_c.cpython-310-x86_64-linux-gnu.so" to ""\n'}
+[29.011802] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision/lra_vision_s__rosidl_typesupport_introspection_c.cpython-310-x86_64-linux-gnu.so\n'}
+[29.012119] (lra_vision) StdoutLine: {'line': b'-- Set runtime path of "/root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision/lra_vision_s__rosidl_typesupport_introspection_c.cpython-310-x86_64-linux-gnu.so" to ""\n'}
+[29.012374] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision/lra_vision_s__rosidl_typesupport_c.cpython-310-x86_64-linux-gnu.so\n'}
+[29.012794] (lra_vision) StdoutLine: {'line': b'-- Set runtime path of "/root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision/lra_vision_s__rosidl_typesupport_c.cpython-310-x86_64-linux-gnu.so" to ""\n'}
+[29.012994] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/lib/liblra_vision__rosidl_generator_py.so\n'}
+[29.013155] (lra_vision) StdoutLine: {'line': b'-- Set runtime path of "/root/lra_ws/install/lra_vision/lib/liblra_vision__rosidl_generator_py.so" to ""\n'}
+[29.013757] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/share/ament_index/resource_index/rust_packages/lra_vision\n'}
+[29.013932] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/rust\n'}
+[29.014037] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/rust/Cargo.toml\n'}
+[29.014213] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/rust/build.rs\n'}
+[29.014332] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/rust/src\n'}
+[29.014614] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/rust/src/lib.rs\n'}
+[29.014779] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/rust/src/msg\n'}
+[29.014864] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/rust/src/msg/rmw.rs\n'}
+[29.014940] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/rust/src/srv.rs\n'}
+[29.015093] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/rust/src/msg.rs\n'}
+[29.015163] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/rust/src/srv\n'}
+[29.015234] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/rust/src/srv/rmw.rs\n'}
+[29.015316] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/msg/CalibrationStatus.idl\n'}
+[29.015585] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/srv/CalibrateCamera.idl\n'}
+[29.015745] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/msg/CalibrationStatus.msg\n'}
+[29.015829] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/srv/CalibrateCamera.srv\n'}
+[29.015901] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/srv/CalibrateCamera_Request.msg\n'}
+[29.015970] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/srv/CalibrateCamera_Response.msg\n'}
+[29.016081] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/lib/liblra_camera_utils.so\n'}
+[29.016746] (lra_vision) StdoutLine: {'line': b'-- Set runtime path of "/root/lra_ws/install/lra_vision/lib/liblra_camera_utils.so" to ""\n'}
+[29.016943] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/lib/lra_vision/camera_calibrator_node\n'}
+[29.018912] (lra_vision) StdoutLine: {'line': b'-- Set runtime path of "/root/lra_ws/install/lra_vision/lib/lra_vision/camera_calibrator_node" to ""\n'}
+[29.019055] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/lib/lra_vision/aruco_detector_node\n'}
+[29.021186] (-) TimerEvent: {}
+[29.024147] (lra_vision) StdoutLine: {'line': b'-- Set runtime path of "/root/lra_ws/install/lra_vision/lib/lra_vision/aruco_detector_node" to ""\n'}
+[29.024293] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include\n'}
+[29.024400] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision\n'}
+[29.024463] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/include/lra_vision/camera_calibration.hpp\n'}
+[29.024530] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/include/lra_vision/aruco_detector.hpp\n'}
+[29.024862] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/launch\n'}
+[29.025173] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/launch/camera_calibration.launch.py\n'}
+[29.025253] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/launch/camera_manager.launch.py\n'}
+[29.025343] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/launch/upload_urdf.launch.py\n'}
+[29.025403] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/launch/aruco_detector.launch.py\n'}
+[29.025458] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/config\n'}
+[29.025512] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/config/camera_params.yaml\n'}
+[29.025765] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/config/aruco_params.yaml\n'}
+[29.026089] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/config/calibration.yaml\n'}
+[29.026239] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/urdf\n'}
+[29.026423] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/urdf/camera.xacro\n'}
+[29.026550] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/rviz\n'}
+[29.026612] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/rviz/camera_view.rviz\n'}
+[29.026680] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/package.xml\n'}
+[29.026806] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/share/ament_index/resource_index/package_run_dependencies/lra_vision\n'}
+[29.026924] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/share/ament_index/resource_index/parent_prefix_path/lra_vision\n'}
+[29.027049] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/environment/ament_prefix_path.sh\n'}
+[29.027159] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/environment/ament_prefix_path.dsv\n'}
+[29.027263] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/environment/path.sh\n'}
+[29.027388] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/environment/path.dsv\n'}
+[29.027549] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/local_setup.bash\n'}
+[29.027677] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/local_setup.sh\n'}
+[29.027848] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/local_setup.zsh\n'}
+[29.027910] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/local_setup.dsv\n'}
+[29.028070] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/package.dsv\n'}
+[29.028243] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/share/ament_index/resource_index/packages/lra_vision\n'}
+[29.028346] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/cmake/export_lra_vision__rosidl_generator_cExport.cmake\n'}
+[29.028461] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/cmake/export_lra_vision__rosidl_generator_cExport-noconfig.cmake\n'}
+[29.028669] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/cmake/export_lra_vision__rosidl_typesupport_fastrtps_cExport.cmake\n'}
+[29.028798] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/cmake/export_lra_vision__rosidl_typesupport_fastrtps_cExport-noconfig.cmake\n'}
+[29.028945] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/cmake/export_lra_vision__rosidl_generator_cppExport.cmake\n'}
+[29.029106] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/cmake/export_lra_vision__rosidl_typesupport_fastrtps_cppExport.cmake\n'}
+[29.029205] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/cmake/export_lra_vision__rosidl_typesupport_fastrtps_cppExport-noconfig.cmake\n'}
+[29.029375] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/cmake/lra_vision__rosidl_typesupport_introspection_cExport.cmake\n'}
+[29.029566] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/cmake/lra_vision__rosidl_typesupport_introspection_cExport-noconfig.cmake\n'}
+[29.029675] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/cmake/lra_vision__rosidl_typesupport_cExport.cmake\n'}
+[29.029762] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/cmake/lra_vision__rosidl_typesupport_cExport-noconfig.cmake\n'}
+[29.029898] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/cmake/lra_vision__rosidl_typesupport_introspection_cppExport.cmake\n'}
+[29.029997] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/cmake/lra_vision__rosidl_typesupport_introspection_cppExport-noconfig.cmake\n'}
+[29.030099] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/cmake/lra_vision__rosidl_typesupport_cppExport.cmake\n'}
+[29.030284] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/cmake/lra_vision__rosidl_typesupport_cppExport-noconfig.cmake\n'}
+[29.030387] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/cmake/export_lra_vision__rosidl_generator_pyExport.cmake\n'}
+[29.030578] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/cmake/export_lra_vision__rosidl_generator_pyExport-noconfig.cmake\n'}
+[29.030741] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/cmake/rosidl_cmake-extras.cmake\n'}
+[29.030802] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/cmake/ament_cmake_export_dependencies-extras.cmake\n'}
+[29.030948] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/cmake/ament_cmake_export_include_directories-extras.cmake\n'}
+[29.031059] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/cmake/ament_cmake_export_libraries-extras.cmake\n'}
+[29.031207] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/cmake/ament_cmake_export_targets-extras.cmake\n'}
+[29.031273] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/cmake/rosidl_cmake_export_typesupport_targets-extras.cmake\n'}
+[29.031461] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/cmake/rosidl_cmake_export_typesupport_libraries-extras.cmake\n'}
+[29.031524] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/cmake/lra_visionConfig.cmake\n'}
+[29.031622] (lra_vision) StdoutLine: {'line': b'-- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/cmake/lra_visionConfig-version.cmake\n'}
+[29.031705] (lra_vision) StdoutLine: {'line': b'-- Up-to-date: /root/lra_ws/install/lra_vision/share/lra_vision/package.xml\n'}
+[29.035427] (lra_vision) CommandEnded: {'returncode': 0}
+[29.076492] (lra_vision) JobEnded: {'identifier': 'lra_vision', 'rc': 0}
+[29.077553] (-) EventReactorShutdown: {}

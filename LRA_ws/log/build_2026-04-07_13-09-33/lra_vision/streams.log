@@ -1,0 +1,354 @@
+[0.021s] Invoking command in '/root/lra_ws/build/lra_vision': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake /root/lra_ws/src/lra_vision -DCMAKE_INSTALL_PREFIX=/root/lra_ws/install/lra_vision
+[0.270s] -- The C compiler identification is GNU 11.4.0
+[0.399s] -- The CXX compiler identification is GNU 11.4.0
+[0.414s] -- Detecting C compiler ABI info
+[0.530s] -- Detecting C compiler ABI info - done
+[0.539s] -- Check for working C compiler: /usr/bin/cc - skipped
+[0.540s] -- Detecting C compile features
+[0.541s] -- Detecting C compile features - done
+[0.546s] -- Detecting CXX compiler ABI info
+[0.667s] -- Detecting CXX compiler ABI info - done
+[0.677s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[0.677s] -- Detecting CXX compile features
+[0.678s] -- Detecting CXX compile features - done
+[0.690s] -- Found ament_cmake: 1.3.14 (/opt/ros/humble/share/ament_cmake/cmake)
+[0.877s] -- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+[1.009s] -- Found rclcpp: 16.0.19 (/opt/ros/humble/share/rclcpp/cmake)
+[1.077s] -- Found rosidl_generator_c: 3.1.8 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[1.085s] -- Found rosidl_adapter: 3.1.8 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[1.101s] -- Found rosidl_generator_cpp: 3.1.8 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[1.126s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[1.153s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[1.227s] -- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[1.231s] -- Found rmw_fastrtps_cpp: 6.2.10 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)
+[1.389s] -- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.2")  
+[1.419s] -- Found FastRTPS: /opt/ros/humble/include  
+[1.465s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[1.478s] -- Looking for pthread.h
+[1.602s] -- Looking for pthread.h - found
+[1.603s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+[1.719s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+[1.721s] -- Found Threads: TRUE  
+[1.810s] -- Found rclpy: 3.3.21 (/opt/ros/humble/share/rclpy/cmake)
+[1.812s] -- Found std_srvs: 4.9.1 (/opt/ros/humble/share/std_srvs/cmake)
+[1.831s] -- Found sensor_msgs: 4.9.1 (/opt/ros/humble/share/sensor_msgs/cmake)
+[1.888s] -- Found visualization_msgs: 4.9.1 (/opt/ros/humble/share/visualization_msgs/cmake)
+[1.922s] -- Found image_transport: 3.1.12 (/opt/ros/humble/share/image_transport/cmake)
+[1.972s] -- Found cv_bridge: 3.2.1 (/opt/ros/humble/share/cv_bridge/cmake)
+[1.994s] -- Found tf2: 0.25.20 (/opt/ros/humble/share/tf2/cmake)
+[2.002s] -- Found tf2_ros: 0.25.20 (/opt/ros/humble/share/tf2_ros/cmake)
+[2.143s] -- Found tf2_geometry_msgs: 0.25.20 (/opt/ros/humble/share/tf2_geometry_msgs/cmake)
+[2.162s] -- Found eigen3_cmake_module: 0.1.1 (/opt/ros/humble/share/eigen3_cmake_module/cmake)
+[2.165s] -- Found Eigen3: TRUE (found version "3.4.0") 
+[2.165s] -- Ensuring Eigen3 include directory is part of orocos-kdl CMake target
+[2.169s] -- Found camera_info_manager: 3.1.12 (/opt/ros/humble/share/camera_info_manager/cmake)
+[2.192s] -- Found OpenCV: /usr (found version "4.5.4") found components: core imgproc imgcodecs highgui calib3d videoio 
+[2.195s] -- Found rosidl_default_generators: 1.2.1 (/opt/ros/humble/share/rosidl_default_generators/cmake)
+[2.678s] -- Found ament_cmake_ros: 0.10.0 (/opt/ros/humble/share/ament_cmake_ros/cmake)
+[3.273s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[3.489s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[3.515s] -- Found PythonInterp: /usr/bin/python3 (found suitable version "3.10.12", minimum required is "3.6") 
+[3.517s] -- Found python_cmake_module: 0.10.0 (/opt/ros/humble/share/python_cmake_module/cmake)
+[3.544s] -- Found PythonLibs: /usr/lib/x86_64-linux-gnu/libpython3.10.so (found suitable version "3.10.12", minimum required is "3.5") 
+[3.544s] -- Using PYTHON_EXECUTABLE: /usr/bin/python3
+[3.544s] -- Using PYTHON_INCLUDE_DIRS: /usr/include/python3.10
+[3.544s] -- Using PYTHON_LIBRARIES: /usr/lib/x86_64-linux-gnu/libpython3.10.so
+[3.565s] -- Found PythonExtra: .so  
+[3.794s] [0mCMake Deprecation Warning at /opt/ros/humble/share/rosidl_cmake/cmake/rosidl_target_interfaces.cmake:32 (message):
+[3.794s]   Use rosidl_get_typesupport_target() and target_link_libraries() instead of
+[3.794s]   rosidl_target_interfaces()
+[3.794s] Call Stack (most recent call first):
+[3.794s]   CMakeLists.txt:99 (rosidl_target_interfaces)
+[3.794s] 
+[3.794s] [0m
+[3.810s] -- Configuring done
+[3.892s] -- Generating done
+[3.919s] -- Build files have been written to: /root/lra_ws/build/lra_vision
+[3.944s] Invoked command in '/root/lra_ws/build/lra_vision' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake /root/lra_ws/src/lra_vision -DCMAKE_INSTALL_PREFIX=/root/lra_ws/install/lra_vision
+[3.949s] Invoking command in '/root/lra_ws/build/lra_vision': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /root/lra_ws/build/lra_vision -- -j22 -l22
+[4.026s] [  2%] [34m[1mGenerating C code for ROS interfaces[0m
+[4.045s] [  4%] [34m[1mGenerating Rust code for ROS interfaces[0m
+[4.050s] [  6%] [32mBuilding CXX object CMakeFiles/lra_camera_utils.dir/src/utils/camera_calibration.cpp.o[0m
+[4.057s] [  6%] Built target ament_cmake_python_copy_lra_vision
+[4.058s] [  8%] [32mBuilding CXX object CMakeFiles/lra_camera_utils.dir/src/utils/aruco_detector.cpp.o[0m
+[4.059s] [ 10%] [34m[1mGenerating C++ code for ROS interfaces[0m
+[4.318s] running egg_info
+[4.318s] creating lra_vision.egg-info
+[4.319s] writing lra_vision.egg-info/PKG-INFO
+[4.319s] writing dependency_links to lra_vision.egg-info/dependency_links.txt
+[4.319s] writing top-level names to lra_vision.egg-info/top_level.txt
+[4.319s] writing manifest file 'lra_vision.egg-info/SOURCES.txt'
+[4.322s] reading manifest file 'lra_vision.egg-info/SOURCES.txt'
+[4.322s] writing manifest file 'lra_vision.egg-info/SOURCES.txt'
+[4.373s] [ 10%] Built target ament_cmake_python_build_lra_vision_egg
+[4.445s] [ 10%] Built target lra_vision__rs
+[4.521s] [ 12%] [32mBuilding C object CMakeFiles/lra_vision__rosidl_generator_c.dir/rosidl_generator_c/lra_vision/msg/detail/calibration_status__functions.c.o[0m
+[4.522s] [ 14%] [32mBuilding C object CMakeFiles/lra_vision__rosidl_generator_c.dir/rosidl_generator_c/lra_vision/srv/detail/calibrate_camera__functions.c.o[0m
+[4.544s] [ 14%] Built target lra_vision__cpp
+[4.566s] [ 17%] [34m[1mGenerating C++ type support for eProsima Fast-RTPS[0m
+[4.569s] [ 21%] [34m[1mGenerating C++ introspection for ROS interfaces[0m
+[4.570s] [ 21%] [34m[1mGenerating C++ type support dispatch for ROS interfaces[0m
+[4.616s] [ 23%] [32m[1mLinking C shared library liblra_vision__rosidl_generator_c.so[0m
+[4.693s] [ 23%] Built target lra_vision__rosidl_generator_c
+[4.720s] [ 27%] [34m[1mGenerating C type support for eProsima Fast-RTPS[0m
+[4.721s] [ 29%] [34m[1mGenerating C type support dispatch for ROS interfaces[0m
+[4.721s] [ 29%] [34m[1mGenerating C introspection for ROS interfaces[0m
+[4.947s] [ 34%] [32mBuilding CXX object CMakeFiles/lra_vision__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/lra_vision/msg/calibration_status__type_support.cpp.o[0m
+[4.948s] [ 34%] [32mBuilding CXX object CMakeFiles/lra_vision__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/lra_vision/srv/calibrate_camera__type_support.cpp.o[0m
+[5.001s] [ 38%] [32mBuilding CXX object CMakeFiles/lra_vision__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/lra_vision/srv/detail/dds_fastrtps/calibrate_camera__type_support.cpp.o[0m
+[5.001s] [ 38%] [32mBuilding CXX object CMakeFiles/lra_vision__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/lra_vision/msg/detail/dds_fastrtps/calibration_status__type_support.cpp.o[0m
+[5.062s] [ 40%] [32mBuilding CXX object CMakeFiles/lra_vision__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/lra_vision/msg/detail/calibration_status__type_support.cpp.o[0m
+[5.072s] [ 42%] [32mBuilding CXX object CMakeFiles/lra_vision__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/lra_vision/srv/detail/calibrate_camera__type_support.cpp.o[0m
+[5.101s] [ 46%] [32mBuilding CXX object CMakeFiles/lra_vision__rosidl_typesupport_c.dir/rosidl_typesupport_c/lra_vision/srv/calibrate_camera__type_support.cpp.o[0m
+[5.102s] [ 46%] [32mBuilding CXX object CMakeFiles/lra_vision__rosidl_typesupport_c.dir/rosidl_typesupport_c/lra_vision/msg/calibration_status__type_support.cpp.o[0m
+[5.155s] [ 48%] [32mBuilding C object CMakeFiles/lra_vision__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/lra_vision/msg/detail/calibration_status__type_support.c.o[0m
+[5.162s] [ 51%] [32m[1mLinking CXX shared library liblra_vision__rosidl_typesupport_c.so[0m
+[5.164s] [ 53%] [32mBuilding C object CMakeFiles/lra_vision__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/lra_vision/srv/detail/calibrate_camera__type_support.c.o[0m
+[5.224s] [ 55%] [32m[1mLinking C shared library liblra_vision__rosidl_typesupport_introspection_c.so[0m
+[5.226s] [ 55%] Built target lra_vision__rosidl_typesupport_c
+[5.285s] [ 55%] Built target lra_vision__rosidl_typesupport_introspection_c
+[5.543s] [ 57%] [32m[1mLinking CXX shared library liblra_vision__rosidl_typesupport_fastrtps_cpp.so[0m
+[5.580s] [ 59%] [32mBuilding CXX object CMakeFiles/lra_vision__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/lra_vision/srv/detail/calibrate_camera__type_support_c.cpp.o[0m
+[5.582s] [ 61%] [32mBuilding CXX object CMakeFiles/lra_vision__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/lra_vision/msg/detail/calibration_status__type_support_c.cpp.o[0m
+[5.647s] [ 63%] [32m[1mLinking CXX shared library liblra_vision__rosidl_typesupport_cpp.so[0m
+[5.674s] [ 63%] Built target lra_vision__rosidl_typesupport_fastrtps_cpp
+[5.693s] [ 65%] [32m[1mLinking CXX shared library liblra_vision__rosidl_typesupport_introspection_cpp.so[0m
+[5.732s] [ 65%] Built target lra_vision__rosidl_typesupport_cpp
+[5.800s] [ 65%] Built target lra_vision__rosidl_typesupport_introspection_cpp
+[6.065s] [ 68%] [32m[1mLinking CXX shared library liblra_vision__rosidl_typesupport_fastrtps_c.so[0m
+[6.181s] [ 68%] Built target lra_vision__rosidl_typesupport_fastrtps_c
+[6.217s] [ 68%] Built target lra_vision
+[6.250s] [ 70%] [34m[1mGenerating Python code for ROS interfaces[0m
+[6.844s] [ 70%] Built target lra_vision__py
+[6.878s] [ 72%] [32mBuilding C object CMakeFiles/lra_vision__rosidl_generator_py.dir/rosidl_generator_py/lra_vision/srv/_calibrate_camera_s.c.o[0m
+[6.880s] [ 74%] [32mBuilding C object CMakeFiles/lra_vision__rosidl_generator_py.dir/rosidl_generator_py/lra_vision/msg/_calibration_status_s.c.o[0m
+[7.066s] [ 76%] [32m[1mLinking C shared library rosidl_generator_py/lra_vision/liblra_vision__rosidl_generator_py.so[0m
+[7.141s] [ 76%] Built target lra_vision__rosidl_generator_py
+[7.175s] [ 78%] [32mBuilding C object CMakeFiles/lra_vision__rosidl_typesupport_fastrtps_c__pyext.dir/rosidl_generator_py/lra_vision/_lra_vision_s.ep.rosidl_typesupport_fastrtps_c.c.o[0m
+[7.181s] [ 80%] [32mBuilding C object CMakeFiles/lra_vision__rosidl_typesupport_c__pyext.dir/rosidl_generator_py/lra_vision/_lra_vision_s.ep.rosidl_typesupport_c.c.o[0m
+[7.184s] [ 82%] [32mBuilding C object CMakeFiles/lra_vision__rosidl_typesupport_introspection_c__pyext.dir/rosidl_generator_py/lra_vision/_lra_vision_s.ep.rosidl_typesupport_introspection_c.c.o[0m
+[7.313s] [ 85%] [32m[1mLinking C shared library rosidl_generator_py/lra_vision/lra_vision_s__rosidl_typesupport_fastrtps_c.cpython-310-x86_64-linux-gnu.so[0m
+[7.321s] [ 87%] [32m[1mLinking C shared library rosidl_generator_py/lra_vision/lra_vision_s__rosidl_typesupport_c.cpython-310-x86_64-linux-gnu.so[0m
+[7.326s] [ 89%] [32m[1mLinking C shared library rosidl_generator_py/lra_vision/lra_vision_s__rosidl_typesupport_introspection_c.cpython-310-x86_64-linux-gnu.so[0m
+[7.389s] [ 89%] Built target lra_vision__rosidl_typesupport_fastrtps_c__pyext
+[7.389s] [ 89%] Built target lra_vision__rosidl_typesupport_c__pyext
+[7.391s] [ 89%] Built target lra_vision__rosidl_typesupport_introspection_c__pyext
+[8.377s] [ 91%] [32m[1mLinking CXX shared library liblra_camera_utils.so[0m
+[8.855s] [ 91%] Built target lra_camera_utils
+[8.896s] [ 93%] [32mBuilding CXX object CMakeFiles/camera_calibrator_node.dir/src/nodes/camera_calibrator_node.cpp.o[0m
+[8.899s] [ 95%] [32mBuilding CXX object CMakeFiles/aruco_detector_node.dir/src/nodes/aruco_detector_node.cpp.o[0m
+[21.308s] [ 97%] [32m[1mLinking CXX executable camera_calibrator_node[0m
+[22.614s] [ 97%] Built target camera_calibrator_node
+[27.426s] [100%] [32m[1mLinking CXX executable aruco_detector_node[0m
+[28.890s] [100%] Built target aruco_detector_node
+[28.907s] Invoked command in '/root/lra_ws/build/lra_vision' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /root/lra_ws/build/lra_vision -- -j22 -l22
+[28.923s] Invoking command in '/root/lra_ws/build/lra_vision': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --install /root/lra_ws/build/lra_vision
+[28.934s] -- Install configuration: ""
+[28.935s] -- Installing: /root/lra_ws/install/lra_vision/share/ament_index/resource_index/rosidl_interfaces/lra_vision
+[28.935s] -- Installing: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision
+[28.936s] -- Installing: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg
+[28.936s] -- Installing: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg/detail
+[28.936s] -- Installing: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg/detail/calibration_status__functions.h
+[28.936s] -- Installing: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg/detail/calibration_status__functions.c
+[28.936s] -- Installing: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg/detail/calibration_status__type_support.h
+[28.936s] -- Installing: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg/detail/calibration_status__struct.h
+[28.936s] -- Installing: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg/rosidl_generator_c__visibility_control.h
+[28.937s] -- Installing: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg/calibration_status.h
+[28.937s] -- Installing: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/srv
+[28.937s] -- Installing: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/srv/detail
+[28.937s] -- Installing: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/srv/detail/calibrate_camera__functions.c
+[28.937s] -- Installing: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/srv/detail/calibrate_camera__functions.h
+[28.937s] -- Installing: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/srv/detail/calibrate_camera__type_support.h
+[28.937s] -- Installing: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/srv/detail/calibrate_camera__struct.h
+[28.937s] -- Installing: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/srv/calibrate_camera.h
+[28.937s] -- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/environment/library_path.sh
+[28.938s] -- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/environment/library_path.dsv
+[28.938s] -- Installing: /root/lra_ws/install/lra_vision/lib/liblra_vision__rosidl_generator_c.so
+[28.938s] -- Set runtime path of "/root/lra_ws/install/lra_vision/lib/liblra_vision__rosidl_generator_c.so" to ""
+[28.938s] -- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision
+[28.938s] -- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg
+[28.938s] -- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg/detail
+[28.938s] -- Installing: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg/detail/calibration_status__rosidl_typesupport_fastrtps_c.h
+[28.938s] -- Installing: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg/rosidl_typesupport_fastrtps_c__visibility_control.h
+[28.938s] -- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/srv
+[28.938s] -- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/srv/detail
+[28.939s] -- Installing: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/srv/detail/calibrate_camera__rosidl_typesupport_fastrtps_c.h
+[28.939s] -- Installing: /root/lra_ws/install/lra_vision/lib/liblra_vision__rosidl_typesupport_fastrtps_c.so
+[28.939s] -- Set runtime path of "/root/lra_ws/install/lra_vision/lib/liblra_vision__rosidl_typesupport_fastrtps_c.so" to ""
+[28.939s] -- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision
+[28.939s] -- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg
+[28.939s] -- Installing: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg/calibration_status.hpp
+[28.939s] -- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg/detail
+[28.939s] -- Installing: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg/detail/calibration_status__builder.hpp
+[28.939s] -- Installing: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg/detail/calibration_status__struct.hpp
+[28.939s] -- Installing: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg/detail/calibration_status__type_support.hpp
+[28.939s] -- Installing: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg/detail/calibration_status__traits.hpp
+[28.939s] -- Installing: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg/rosidl_generator_cpp__visibility_control.hpp
+[28.939s] -- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/srv
+[28.940s] -- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/srv/detail
+[28.940s] -- Installing: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/srv/detail/calibrate_camera__struct.hpp
+[28.940s] -- Installing: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/srv/detail/calibrate_camera__type_support.hpp
+[28.940s] -- Installing: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/srv/detail/calibrate_camera__traits.hpp
+[28.940s] -- Installing: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/srv/detail/calibrate_camera__builder.hpp
+[28.940s] -- Installing: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/srv/calibrate_camera.hpp
+[28.940s] -- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision
+[28.940s] -- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg
+[28.940s] -- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg/detail
+[28.940s] -- Installing: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg/detail/calibration_status__rosidl_typesupport_fastrtps_cpp.hpp
+[28.940s] -- Installing: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg/detail/dds_fastrtps
+[28.940s] -- Installing: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg/rosidl_typesupport_fastrtps_cpp__visibility_control.h
+[28.940s] -- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/srv
+[28.940s] -- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/srv/detail
+[28.940s] -- Installing: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/srv/detail/calibrate_camera__rosidl_typesupport_fastrtps_cpp.hpp
+[28.940s] -- Installing: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/srv/detail/dds_fastrtps
+[28.941s] -- Installing: /root/lra_ws/install/lra_vision/lib/liblra_vision__rosidl_typesupport_fastrtps_cpp.so
+[28.941s] -- Set runtime path of "/root/lra_ws/install/lra_vision/lib/liblra_vision__rosidl_typesupport_fastrtps_cpp.so" to ""
+[28.941s] -- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision
+[28.941s] -- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg
+[28.941s] -- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg/detail
+[28.941s] -- Installing: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg/detail/calibration_status__type_support.c
+[28.941s] -- Installing: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg/detail/calibration_status__rosidl_typesupport_introspection_c.h
+[28.941s] -- Installing: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg/rosidl_typesupport_introspection_c__visibility_control.h
+[28.941s] -- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/srv
+[28.942s] -- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/srv/detail
+[28.942s] -- Installing: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/srv/detail/calibrate_camera__rosidl_typesupport_introspection_c.h
+[28.942s] -- Installing: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/srv/detail/calibrate_camera__type_support.c
+[28.942s] -- Installing: /root/lra_ws/install/lra_vision/lib/liblra_vision__rosidl_typesupport_introspection_c.so
+[28.942s] -- Set runtime path of "/root/lra_ws/install/lra_vision/lib/liblra_vision__rosidl_typesupport_introspection_c.so" to ""
+[28.942s] -- Installing: /root/lra_ws/install/lra_vision/lib/liblra_vision__rosidl_typesupport_c.so
+[28.942s] -- Set runtime path of "/root/lra_ws/install/lra_vision/lib/liblra_vision__rosidl_typesupport_c.so" to ""
+[28.942s] -- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision
+[28.942s] -- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg
+[28.942s] -- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg/detail
+[28.942s] -- Installing: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg/detail/calibration_status__rosidl_typesupport_introspection_cpp.hpp
+[28.942s] -- Installing: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/msg/detail/calibration_status__type_support.cpp
+[28.942s] -- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/srv
+[28.942s] -- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/srv/detail
+[28.942s] -- Installing: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/srv/detail/calibrate_camera__type_support.cpp
+[28.942s] -- Installing: /root/lra_ws/install/lra_vision/include/lra_vision/lra_vision/srv/detail/calibrate_camera__rosidl_typesupport_introspection_cpp.hpp
+[28.943s] -- Installing: /root/lra_ws/install/lra_vision/lib/liblra_vision__rosidl_typesupport_introspection_cpp.so
+[28.943s] -- Set runtime path of "/root/lra_ws/install/lra_vision/lib/liblra_vision__rosidl_typesupport_introspection_cpp.so" to ""
+[28.943s] -- Installing: /root/lra_ws/install/lra_vision/lib/liblra_vision__rosidl_typesupport_cpp.so
+[28.943s] -- Set runtime path of "/root/lra_ws/install/lra_vision/lib/liblra_vision__rosidl_typesupport_cpp.so" to ""
+[28.943s] -- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/environment/pythonpath.sh
+[28.943s] -- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/environment/pythonpath.dsv
+[28.943s] -- Installing: /root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision-1.0.0-py3.10.egg-info
+[28.943s] -- Installing: /root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision-1.0.0-py3.10.egg-info/SOURCES.txt
+[28.943s] -- Installing: /root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision-1.0.0-py3.10.egg-info/top_level.txt
+[28.943s] -- Installing: /root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision-1.0.0-py3.10.egg-info/PKG-INFO
+[28.943s] -- Installing: /root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision-1.0.0-py3.10.egg-info/dependency_links.txt
+[28.943s] -- Installing: /root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision
+[28.944s] -- Installing: /root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision/lra_vision_s__rosidl_typesupport_introspection_c.cpython-310-x86_64-linux-gnu.so
+[28.944s] -- Installing: /root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision/msg
+[28.944s] -- Installing: /root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision/msg/_calibration_status_s.c
+[28.944s] -- Installing: /root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision/msg/_calibration_status.py
+[28.944s] -- Installing: /root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision/msg/__init__.py
+[28.944s] -- Installing: /root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision/lra_vision_s__rosidl_typesupport_c.cpython-310-x86_64-linux-gnu.so
+[28.944s] -- Installing: /root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision/liblra_vision__rosidl_generator_py.so
+[28.944s] -- Installing: /root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision/_lra_vision_s.ep.rosidl_typesupport_c.c
+[28.944s] -- Installing: /root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision/__init__.py
+[28.944s] -- Installing: /root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision/_lra_vision_s.ep.rosidl_typesupport_fastrtps_c.c
+[28.944s] -- Installing: /root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision/_lra_vision_s.ep.rosidl_typesupport_introspection_c.c
+[28.944s] -- Installing: /root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision/lra_vision_s__rosidl_typesupport_fastrtps_c.cpython-310-x86_64-linux-gnu.so
+[28.944s] -- Installing: /root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision/srv
+[28.945s] -- Installing: /root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision/srv/_calibrate_camera.py
+[28.945s] -- Installing: /root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision/srv/_calibrate_camera_s.c
+[28.945s] -- Installing: /root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision/srv/__init__.py
+[29.004s] Listing '/root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision'...
+[29.005s] Compiling '/root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision/__init__.py'...
+[29.005s] Listing '/root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision/msg'...
+[29.005s] Compiling '/root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision/msg/__init__.py'...
+[29.005s] Compiling '/root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision/msg/_calibration_status.py'...
+[29.005s] Listing '/root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision/srv'...
+[29.005s] Compiling '/root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision/srv/__init__.py'...
+[29.005s] Compiling '/root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision/srv/_calibrate_camera.py'...
+[29.011s] -- Installing: /root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision/lra_vision_s__rosidl_typesupport_fastrtps_c.cpython-310-x86_64-linux-gnu.so
+[29.011s] -- Set runtime path of "/root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision/lra_vision_s__rosidl_typesupport_fastrtps_c.cpython-310-x86_64-linux-gnu.so" to ""
+[29.011s] -- Installing: /root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision/lra_vision_s__rosidl_typesupport_introspection_c.cpython-310-x86_64-linux-gnu.so
+[29.011s] -- Set runtime path of "/root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision/lra_vision_s__rosidl_typesupport_introspection_c.cpython-310-x86_64-linux-gnu.so" to ""
+[29.011s] -- Installing: /root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision/lra_vision_s__rosidl_typesupport_c.cpython-310-x86_64-linux-gnu.so
+[29.012s] -- Set runtime path of "/root/lra_ws/install/lra_vision/local/lib/python3.10/dist-packages/lra_vision/lra_vision_s__rosidl_typesupport_c.cpython-310-x86_64-linux-gnu.so" to ""
+[29.012s] -- Installing: /root/lra_ws/install/lra_vision/lib/liblra_vision__rosidl_generator_py.so
+[29.012s] -- Set runtime path of "/root/lra_ws/install/lra_vision/lib/liblra_vision__rosidl_generator_py.so" to ""
+[29.013s] -- Installing: /root/lra_ws/install/lra_vision/share/ament_index/resource_index/rust_packages/lra_vision
+[29.013s] -- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/rust
+[29.013s] -- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/rust/Cargo.toml
+[29.013s] -- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/rust/build.rs
+[29.013s] -- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/rust/src
+[29.014s] -- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/rust/src/lib.rs
+[29.014s] -- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/rust/src/msg
+[29.014s] -- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/rust/src/msg/rmw.rs
+[29.014s] -- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/rust/src/srv.rs
+[29.014s] -- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/rust/src/msg.rs
+[29.014s] -- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/rust/src/srv
+[29.014s] -- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/rust/src/srv/rmw.rs
+[29.014s] -- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/msg/CalibrationStatus.idl
+[29.015s] -- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/srv/CalibrateCamera.idl
+[29.015s] -- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/msg/CalibrationStatus.msg
+[29.015s] -- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/srv/CalibrateCamera.srv
+[29.015s] -- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/srv/CalibrateCamera_Request.msg
+[29.015s] -- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/srv/CalibrateCamera_Response.msg
+[29.015s] -- Installing: /root/lra_ws/install/lra_vision/lib/liblra_camera_utils.so
+[29.016s] -- Set runtime path of "/root/lra_ws/install/lra_vision/lib/liblra_camera_utils.so" to ""
+[29.016s] -- Installing: /root/lra_ws/install/lra_vision/lib/lra_vision/camera_calibrator_node
+[29.018s] -- Set runtime path of "/root/lra_ws/install/lra_vision/lib/lra_vision/camera_calibrator_node" to ""
+[29.018s] -- Installing: /root/lra_ws/install/lra_vision/lib/lra_vision/aruco_detector_node
+[29.023s] -- Set runtime path of "/root/lra_ws/install/lra_vision/lib/lra_vision/aruco_detector_node" to ""
+[29.023s] -- Up-to-date: /root/lra_ws/install/lra_vision/include
+[29.023s] -- Up-to-date: /root/lra_ws/install/lra_vision/include/lra_vision
+[29.023s] -- Installing: /root/lra_ws/install/lra_vision/include/lra_vision/camera_calibration.hpp
+[29.024s] -- Installing: /root/lra_ws/install/lra_vision/include/lra_vision/aruco_detector.hpp
+[29.024s] -- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/launch
+[29.024s] -- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/launch/camera_calibration.launch.py
+[29.024s] -- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/launch/camera_manager.launch.py
+[29.024s] -- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/launch/upload_urdf.launch.py
+[29.024s] -- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/launch/aruco_detector.launch.py
+[29.024s] -- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/config
+[29.025s] -- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/config/camera_params.yaml
+[29.025s] -- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/config/aruco_params.yaml
+[29.025s] -- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/config/calibration.yaml
+[29.025s] -- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/urdf
+[29.025s] -- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/urdf/camera.xacro
+[29.026s] -- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/rviz
+[29.026s] -- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/rviz/camera_view.rviz
+[29.026s] -- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/package.xml
+[29.026s] -- Installing: /root/lra_ws/install/lra_vision/share/ament_index/resource_index/package_run_dependencies/lra_vision
+[29.026s] -- Installing: /root/lra_ws/install/lra_vision/share/ament_index/resource_index/parent_prefix_path/lra_vision
+[29.026s] -- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/environment/ament_prefix_path.sh
+[29.026s] -- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/environment/ament_prefix_path.dsv
+[29.026s] -- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/environment/path.sh
+[29.026s] -- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/environment/path.dsv
+[29.027s] -- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/local_setup.bash
+[29.027s] -- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/local_setup.sh
+[29.027s] -- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/local_setup.zsh
+[29.027s] -- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/local_setup.dsv
+[29.027s] -- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/package.dsv
+[29.027s] -- Installing: /root/lra_ws/install/lra_vision/share/ament_index/resource_index/packages/lra_vision
+[29.027s] -- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/cmake/export_lra_vision__rosidl_generator_cExport.cmake
+[29.027s] -- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/cmake/export_lra_vision__rosidl_generator_cExport-noconfig.cmake
+[29.028s] -- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/cmake/export_lra_vision__rosidl_typesupport_fastrtps_cExport.cmake
+[29.028s] -- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/cmake/export_lra_vision__rosidl_typesupport_fastrtps_cExport-noconfig.cmake
+[29.028s] -- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/cmake/export_lra_vision__rosidl_generator_cppExport.cmake
+[29.028s] -- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/cmake/export_lra_vision__rosidl_typesupport_fastrtps_cppExport.cmake
+[29.028s] -- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/cmake/export_lra_vision__rosidl_typesupport_fastrtps_cppExport-noconfig.cmake
+[29.028s] -- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/cmake/lra_vision__rosidl_typesupport_introspection_cExport.cmake
+[29.029s] -- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/cmake/lra_vision__rosidl_typesupport_introspection_cExport-noconfig.cmake
+[29.029s] -- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/cmake/lra_vision__rosidl_typesupport_cExport.cmake
+[29.029s] -- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/cmake/lra_vision__rosidl_typesupport_cExport-noconfig.cmake
+[29.029s] -- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/cmake/lra_vision__rosidl_typesupport_introspection_cppExport.cmake
+[29.029s] -- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/cmake/lra_vision__rosidl_typesupport_introspection_cppExport-noconfig.cmake
+[29.029s] -- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/cmake/lra_vision__rosidl_typesupport_cppExport.cmake
+[29.029s] -- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/cmake/lra_vision__rosidl_typesupport_cppExport-noconfig.cmake
+[29.029s] -- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/cmake/export_lra_vision__rosidl_generator_pyExport.cmake
+[29.030s] -- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/cmake/export_lra_vision__rosidl_generator_pyExport-noconfig.cmake
+[29.030s] -- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/cmake/rosidl_cmake-extras.cmake
+[29.030s] -- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/cmake/ament_cmake_export_dependencies-extras.cmake
+[29.030s] -- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/cmake/ament_cmake_export_include_directories-extras.cmake
+[29.030s] -- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/cmake/ament_cmake_export_libraries-extras.cmake
+[29.030s] -- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/cmake/ament_cmake_export_targets-extras.cmake
+[29.030s] -- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/cmake/rosidl_cmake_export_typesupport_targets-extras.cmake
+[29.030s] -- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/cmake/rosidl_cmake_export_typesupport_libraries-extras.cmake
+[29.031s] -- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/cmake/lra_visionConfig.cmake
+[29.031s] -- Installing: /root/lra_ws/install/lra_vision/share/lra_vision/cmake/lra_visionConfig-version.cmake
+[29.031s] -- Up-to-date: /root/lra_ws/install/lra_vision/share/lra_vision/package.xml
+[29.035s] Invoked command in '/root/lra_ws/build/lra_vision' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --install /root/lra_ws/build/lra_vision

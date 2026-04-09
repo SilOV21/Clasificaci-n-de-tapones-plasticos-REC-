@@ -1,0 +1,14 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : [],
+		"nodes" : []
+	},
+	"installers" : [],
+	"paths" : 
+	{
+		"build" : "lra_vision__rs",
+		"source" : "/root/lra_ws/build/lra_vision/lra_vision__rs"
+	}
+}
