@@ -39,7 +39,7 @@ class UR3MoveItTest(Node):
         request.max_acceleration_scaling_factor = 0.1
 
         request.workspace_parameters = WorkspaceParameters()
-        request.workspace_parameters.header.frame_id = 'base_link'
+        request.workspace_parameters.header.frame_id = 'world'
         request.workspace_parameters.min_corner.x = -1.0
         request.workspace_parameters.min_corner.y = -1.0
         request.workspace_parameters.min_corner.z = -1.0
@@ -49,15 +49,13 @@ class UR3MoveItTest(Node):
 
         constraints = Constraints()
 
-        # OBJETIVO DE PRUEBA
-        # ajustaremos luego con vision
+        # OBJETIVO DE PRUEBA en frame world
         target_x = 0.20
         target_y = 0.00
         target_z = 0.20
 
-        # restricción de posición
         pos_constraint = PositionConstraint()
-        pos_constraint.header.frame_id = 'base_link'
+        pos_constraint.header.frame_id = 'world'
         pos_constraint.link_name = 'tool0'
 
         primitive = SolidPrimitive()
@@ -65,7 +63,7 @@ class UR3MoveItTest(Node):
         primitive.dimensions = [0.01, 0.01, 0.01]
 
         pose = PoseStamped()
-        pose.header.frame_id = 'base_link'
+        pose.header.frame_id = 'world'
         pose.pose.position.x = target_x
         pose.pose.position.y = target_y
         pose.pose.position.z = target_z
@@ -78,12 +76,9 @@ class UR3MoveItTest(Node):
         pos_constraint.constraint_region = bounding_volume
         pos_constraint.weight = 1.0
 
-        # restricción de orientación
         ori_constraint = OrientationConstraint()
-        ori_constraint.header.frame_id = 'base_link'
+        ori_constraint.header.frame_id = 'world'
         ori_constraint.link_name = 'tool0'
-
-        # orientación inicial simple, luego la ajustamos
         ori_constraint.orientation.x = 0.0
         ori_constraint.orientation.y = 1.0
         ori_constraint.orientation.z = 0.0
