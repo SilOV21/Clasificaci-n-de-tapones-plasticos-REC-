@@ -22,7 +22,7 @@ sudo ip link set eno1 up
 ip -4 addr show eno1
 
 ---
-ping -c 4 169.254.12.20
+ping -c 4 169.254.12.28
 
 
 source /opt/ros/humble/setup.bash
