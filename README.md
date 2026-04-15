@@ -45,3 +45,14 @@ Terminal 4
 source /opt/ros/humble/setup.bash
 source ~/ros2_ws/install/setup.bash
 ros2 run ur3_vision_control ur3_pick_sort --ros-args -p simulate_gripper:=false
+
+
+=========================================
+Cómo lanzarlo en simulación
+
+Primero compila tu workspace:
+
+cd ~/ros2_ws
+source /opt/ros/humble/setup.bash
+colcon build --symlink-install
+source ~/ros2_ws/install/setup.bash
