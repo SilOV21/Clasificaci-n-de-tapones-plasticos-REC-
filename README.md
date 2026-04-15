@@ -18,11 +18,10 @@ Para lanzar este repositorio es con estos comandos
 
 
 cd ~/ros2_ws
-colcon build --packages-select ur3_vision_control
-cd ~/ros2_ws
 source /opt/ros/humble/setup.bash
 colcon build --symlink-install --packages-select eurobot_sim
 source ~/ros2_ws/install/setup.bash
+
 
 
 
