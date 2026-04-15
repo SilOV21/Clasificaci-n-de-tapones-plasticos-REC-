@@ -62,41 +62,26 @@ Terminal 1: UR3 en fake hardware
 cd ~/ros2_ws
 source /opt/ros/humble/setup.bash
 source ~/ros2_ws/install/setup.bash
+ros2 launch ur_robot_driver ur_control.launch.py ur_type:=ur3 robot_ip:=192.168.0.1 use_fake_hardware:=true launch_dashboard_client:=false headless_mode:=true launch_rviz:=false
 
-ros2 launch ur_robot_driver ur_control.launch.py \
-  ur_type:=ur3 \
-  robot_ip:=192.168.0.1 \
-  use_fake_hardware:=true \
-  launch_dashboard_client:=false \
-  headless_mode:=true \
-  launch_rviz:=false
 
 Terminal 2: MoveIt + RViz
 
 cd ~/ros2_ws
 source /opt/ros/humble/setup.bash
 source ~/ros2_ws/install/setup.bash
-
-ros2 launch ur_moveit_config ur_moveit.launch.py \
-  ur_type:=ur3 \
-  launch_rviz:=true \
-  launch_servo:=false
+ros2 launch ur_moveit_config ur_moveit.launch.py ur_type:=ur3 launch_rviz:=true launch_servo:=false
 
 Terminal 3: visión falsa
 
 cd ~/ros2_ws
 source /opt/ros/humble/setup.bash
 source ~/ros2_ws/install/setup.bash
-
 ros2 run ur3_vision_control vision_fake_sort
 
 Terminal 4: pick and place en simulación
-
 cd ~/ros2_ws
 source /opt/ros/humble/setup.bash
 source ~/ros2_ws/install/setup.bash
-
 ros2 run ur3_vision_control ur3_pick_sort --ros-args -p simulate_gripper:=true
-
-
 
