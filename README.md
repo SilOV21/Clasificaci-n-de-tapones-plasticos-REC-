@@ -14,10 +14,6 @@ ros2 service call /io_and_status_controller/set_io ur_msgs/srv/SetIO "{fun: 1, p
 ros2 service call /io_and_status_controller/set_io ur_msgs/srv/SetIO "{fun: 1, pin: 17, state: 1}"
 
 
-RUTH ALEJANDRA BASTIDAS ALVA <rbastidasalva@gmail.com>
-mié, 8 abr, 14:29 (hace 7 días)
-para mí
-
 ip -4 addr show eno1   ------  debo ver inet 169.254.12.10/24
 
 sudo ip addr flush dev eno1
