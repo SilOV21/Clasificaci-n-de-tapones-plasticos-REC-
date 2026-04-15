@@ -19,27 +19,58 @@ Para lanzar este repositorio es con estos comandos
 
 cd ~/ros2_ws
 colcon build --packages-select ur3_vision_control
+cd ~/ros2_ws
+source /opt/ros/humble/setup.bash
+colcon build --symlink-install --packages-select eurobot_sim
+source ~/ros2_ws/install/setup.bash
 
 
-Terminal 1
+
+# Terminal 1: levantar la simulación
+
+
+cd ~/ros2_ws
 source /opt/ros/humble/setup.bash
 source ~/ros2_ws/install/setup.bash
-ros2 launch ur_robot_driver ur_control.launch.py ur_type:=ur3 robot_ip:=192.168.0.1 use_fake_hardware:=true launch_dashboard_client:=false headless_mode:=true launch_rviz:=false
+ros2 launch eurobot_sim simulation.launch.py
 
 
-Terminal 2
+# Terminal 2: ver si la cámara simulada publica
+
+
+cd ~/ros2_ws
 source /opt/ros/humble/setup.bash
 source ~/ros2_ws/install/setup.bash
-ros2 launch ur_moveit_config ur_moveit.launch.py ur_type:=ur3 launch_rviz:=true launch_servo:=false
+ros2 topic list | grep -E "image|camera"
 
 
-Terminal 3
+
+# Terminal 3: ver la imagen de la cámara
+
+cd ~/ros2_ws
 source /opt/ros/humble/setup.bash
 source ~/ros2_ws/install/setup.bash
-ros2 run ur3_vision_control vision_fake_sort
+ros2 run rqt_image_view rqt_image_view
+
+Y dentro de la ventana selecciona:
+
+/eurobot_camera/image_raw
 
 
-Terminal 4
+# Terminal 4: correr tu nodo ArUco en simulación
+
+
+cd ~/ros2_ws
 source /opt/ros/humble/setup.bash
 source ~/ros2_ws/install/setup.bash
-ros2 run ur3_vision_control ur3_pick_sort --ros-args -p simulate_gripper:=true
+ros2 run aruco_tracker objects_state --ros-args -p use_sim_camera:=true -p image_topic:=/eurobot_camera/image_raw
+
+
+
+
+# Terminal 5: ver si publica resultados
+
+cd ~/ros2_ws
+source /opt/ros/humble/setup.bash
+source ~/ros2_ws/install/setup.bash
+ros2 topic echo /objects_state
