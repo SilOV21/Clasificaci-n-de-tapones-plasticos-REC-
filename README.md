@@ -4,6 +4,15 @@ En este proyecto se utilizará un robot UR3 y se dispondrá de una webcam / opci
 
 Se necesita descargar los drivers del UR3 para ejecutarlos y escoger el tipo de ros.
 
+Para activar y desactivar la ventosa es con estos comandos
+
+Activar:
+ros2 service call /io_and_status_controller/set_io ur_msgs/srv/SetIO "{fun: 1, pin: 4, state: 1.0}"
+
+Desactivar:
+ros2 service call /io_and_status_controller/set_io ur_msgs/srv/SetIO "{fun: 1, pin: 4, state: 0.0}"
+
+
 Para abrir y cerrar la pinza ficamente es con estos comandos
 
 ros2 service call /io_and_status_controller/set_io ur_msgs/srv/SetIO "{fun: 1, pin: 17, state: 0}"
