@@ -24,6 +24,7 @@ setup(
             'color_calibrator_node = rec_vision.color_calibrator_node:main',
             'detector_tapones      = rec_vision.detector_tapones:main',
             'mcap_publisher        = rec_vision.mcap_publisher:main',
+            'gui_control_node = rec_vision.gui_control_node:main',
         ],
     },
 )
