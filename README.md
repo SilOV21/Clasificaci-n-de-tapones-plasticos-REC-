@@ -11,8 +11,7 @@ Este repositorio contiene la integración del sistema de visión artificial y co
 Para compilar y preparar el entorno en tu máquina:
 
 ```bash
-# 1. Navega a la raíz de tu workspace de ROS 2 (ej. LRA_ws)
-cd ~/tu_workspace_ros2
+# 1. Navega a la raíz de tu workspace
 
 # 2. Compila los paquetes de visión y control
 colcon build --packages-select rec_vision ur3_vision_control
