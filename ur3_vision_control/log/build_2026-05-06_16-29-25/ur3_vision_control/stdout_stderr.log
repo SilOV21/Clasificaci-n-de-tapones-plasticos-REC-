@@ -1,0 +1,55 @@
+running egg_info
+creating ../build/ur3_vision_control/ur3_vision_control.egg-info
+writing ../build/ur3_vision_control/ur3_vision_control.egg-info/PKG-INFO
+writing dependency_links to ../build/ur3_vision_control/ur3_vision_control.egg-info/dependency_links.txt
+writing entry points to ../build/ur3_vision_control/ur3_vision_control.egg-info/entry_points.txt
+writing requirements to ../build/ur3_vision_control/ur3_vision_control.egg-info/requires.txt
+writing top-level names to ../build/ur3_vision_control/ur3_vision_control.egg-info/top_level.txt
+writing manifest file '../build/ur3_vision_control/ur3_vision_control.egg-info/SOURCES.txt'
+reading manifest file '../build/ur3_vision_control/ur3_vision_control.egg-info/SOURCES.txt'
+writing manifest file '../build/ur3_vision_control/ur3_vision_control.egg-info/SOURCES.txt'
+running build
+running build_py
+creating /home/delia/Documents/MUAR/ProyectoREC/ur3_vision_control/build/ur3_vision_control/build
+creating /home/delia/Documents/MUAR/ProyectoREC/ur3_vision_control/build/ur3_vision_control/build/lib
+creating /home/delia/Documents/MUAR/ProyectoREC/ur3_vision_control/build/ur3_vision_control/build/lib/ur3_vision_control
+copying ur3_vision_control/vision_fake_sort.py -> /home/delia/Documents/MUAR/ProyectoREC/ur3_vision_control/build/ur3_vision_control/build/lib/ur3_vision_control
+copying ur3_vision_control/inicio.py -> /home/delia/Documents/MUAR/ProyectoREC/ur3_vision_control/build/ur3_vision_control/build/lib/ur3_vision_control
+copying ur3_vision_control/vision_fake.py -> /home/delia/Documents/MUAR/ProyectoREC/ur3_vision_control/build/ur3_vision_control/build/lib/ur3_vision_control
+copying ur3_vision_control/ur3_controller.py -> /home/delia/Documents/MUAR/ProyectoREC/ur3_vision_control/build/ur3_vision_control/build/lib/ur3_vision_control
+copying ur3_vision_control/ur3_pick_sort.py -> /home/delia/Documents/MUAR/ProyectoREC/ur3_vision_control/build/ur3_vision_control/build/lib/ur3_vision_control
+copying ur3_vision_control/ur3_moveit_test.py -> /home/delia/Documents/MUAR/ProyectoREC/ur3_vision_control/build/ur3_vision_control/build/lib/ur3_vision_control
+copying ur3_vision_control/__init__.py -> /home/delia/Documents/MUAR/ProyectoREC/ur3_vision_control/build/ur3_vision_control/build/lib/ur3_vision_control
+running install
+running install_lib
+creating /home/delia/Documents/MUAR/ProyectoREC/ur3_vision_control/install/ur3_vision_control/lib/python3.10/site-packages/ur3_vision_control
+copying /home/delia/Documents/MUAR/ProyectoREC/ur3_vision_control/build/ur3_vision_control/build/lib/ur3_vision_control/vision_fake_sort.py -> /home/delia/Documents/MUAR/ProyectoREC/ur3_vision_control/install/ur3_vision_control/lib/python3.10/site-packages/ur3_vision_control
+copying /home/delia/Documents/MUAR/ProyectoREC/ur3_vision_control/build/ur3_vision_control/build/lib/ur3_vision_control/inicio.py -> /home/delia/Documents/MUAR/ProyectoREC/ur3_vision_control/install/ur3_vision_control/lib/python3.10/site-packages/ur3_vision_control
+copying /home/delia/Documents/MUAR/ProyectoREC/ur3_vision_control/build/ur3_vision_control/build/lib/ur3_vision_control/vision_fake.py -> /home/delia/Documents/MUAR/ProyectoREC/ur3_vision_control/install/ur3_vision_control/lib/python3.10/site-packages/ur3_vision_control
+copying /home/delia/Documents/MUAR/ProyectoREC/ur3_vision_control/build/ur3_vision_control/build/lib/ur3_vision_control/ur3_controller.py -> /home/delia/Documents/MUAR/ProyectoREC/ur3_vision_control/install/ur3_vision_control/lib/python3.10/site-packages/ur3_vision_control
+copying /home/delia/Documents/MUAR/ProyectoREC/ur3_vision_control/build/ur3_vision_control/build/lib/ur3_vision_control/ur3_pick_sort.py -> /home/delia/Documents/MUAR/ProyectoREC/ur3_vision_control/install/ur3_vision_control/lib/python3.10/site-packages/ur3_vision_control
+copying /home/delia/Documents/MUAR/ProyectoREC/ur3_vision_control/build/ur3_vision_control/build/lib/ur3_vision_control/ur3_moveit_test.py -> /home/delia/Documents/MUAR/ProyectoREC/ur3_vision_control/install/ur3_vision_control/lib/python3.10/site-packages/ur3_vision_control
+copying /home/delia/Documents/MUAR/ProyectoREC/ur3_vision_control/build/ur3_vision_control/build/lib/ur3_vision_control/__init__.py -> /home/delia/Documents/MUAR/ProyectoREC/ur3_vision_control/install/ur3_vision_control/lib/python3.10/site-packages/ur3_vision_control
+byte-compiling /home/delia/Documents/MUAR/ProyectoREC/ur3_vision_control/install/ur3_vision_control/lib/python3.10/site-packages/ur3_vision_control/vision_fake_sort.py to vision_fake_sort.cpython-310.pyc
+byte-compiling /home/delia/Documents/MUAR/ProyectoREC/ur3_vision_control/install/ur3_vision_control/lib/python3.10/site-packages/ur3_vision_control/inicio.py to inicio.cpython-310.pyc
+byte-compiling /home/delia/Documents/MUAR/ProyectoREC/ur3_vision_control/install/ur3_vision_control/lib/python3.10/site-packages/ur3_vision_control/vision_fake.py to vision_fake.cpython-310.pyc
+byte-compiling /home/delia/Documents/MUAR/ProyectoREC/ur3_vision_control/install/ur3_vision_control/lib/python3.10/site-packages/ur3_vision_control/ur3_controller.py to ur3_controller.cpython-310.pyc
+byte-compiling /home/delia/Documents/MUAR/ProyectoREC/ur3_vision_control/install/ur3_vision_control/lib/python3.10/site-packages/ur3_vision_control/ur3_pick_sort.py to ur3_pick_sort.cpython-310.pyc
+byte-compiling /home/delia/Documents/MUAR/ProyectoREC/ur3_vision_control/install/ur3_vision_control/lib/python3.10/site-packages/ur3_vision_control/ur3_moveit_test.py to ur3_moveit_test.cpython-310.pyc
+byte-compiling /home/delia/Documents/MUAR/ProyectoREC/ur3_vision_control/install/ur3_vision_control/lib/python3.10/site-packages/ur3_vision_control/__init__.py to __init__.cpython-310.pyc
+running install_data
+creating /home/delia/Documents/MUAR/ProyectoREC/ur3_vision_control/install/ur3_vision_control/share/ament_index
+creating /home/delia/Documents/MUAR/ProyectoREC/ur3_vision_control/install/ur3_vision_control/share/ament_index/resource_index
+creating /home/delia/Documents/MUAR/ProyectoREC/ur3_vision_control/install/ur3_vision_control/share/ament_index/resource_index/packages
+copying resource/ur3_vision_control -> /home/delia/Documents/MUAR/ProyectoREC/ur3_vision_control/install/ur3_vision_control/share/ament_index/resource_index/packages
+copying package.xml -> /home/delia/Documents/MUAR/ProyectoREC/ur3_vision_control/install/ur3_vision_control/share/ur3_vision_control
+running install_egg_info
+Copying ../build/ur3_vision_control/ur3_vision_control.egg-info to /home/delia/Documents/MUAR/ProyectoREC/ur3_vision_control/install/ur3_vision_control/lib/python3.10/site-packages/ur3_vision_control-0.0.0-py3.10.egg-info
+running install_scripts
+Installing inicio script to /home/delia/Documents/MUAR/ProyectoREC/ur3_vision_control/install/ur3_vision_control/lib/ur3_vision_control
+Installing ur3_controller script to /home/delia/Documents/MUAR/ProyectoREC/ur3_vision_control/install/ur3_vision_control/lib/ur3_vision_control
+Installing ur3_moveit_test script to /home/delia/Documents/MUAR/ProyectoREC/ur3_vision_control/install/ur3_vision_control/lib/ur3_vision_control
+Installing ur3_pick_sort script to /home/delia/Documents/MUAR/ProyectoREC/ur3_vision_control/install/ur3_vision_control/lib/ur3_vision_control
+Installing vision_fake script to /home/delia/Documents/MUAR/ProyectoREC/ur3_vision_control/install/ur3_vision_control/lib/ur3_vision_control
+Installing vision_fake_sort script to /home/delia/Documents/MUAR/ProyectoREC/ur3_vision_control/install/ur3_vision_control/lib/ur3_vision_control
+writing list of installed files to '/home/delia/Documents/MUAR/ProyectoREC/ur3_vision_control/build/ur3_vision_control/install.log'
