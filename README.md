@@ -27,55 +27,6 @@ source install/setup.bash
 
 Sigue el orden de las terminales para arrancar el sistema completo. Recuerda hacer `source` de tu workspace en cada nueva terminal que abras.
 
-### 🔹 Modo 1: Ejecución por Nodos Individuales (Pruebas)
-
-#### **Terminal 1: Driver del Robot Real**
-
-Establece la comunicación directa con el brazo UR3 real:
-
-```bash
-ros2 launch ur_robot_driver ur_control.launch.py ur_type:=ur3 robot_ip:=169.254.12.28 launch_rviz:=false
-
-```
-
-#### **Terminal 2: MoveIt & Transformación Estática**
-
-Lanza el entorno de planificación de trayectorias (MoveIt + RViz):
-
-```bash
-ros2 launch ur_moveit_config ur_moveit.launch.py ur_type:=ur3 launch_rviz:=true launch_servo:=false
-
-```
-
-*En una pestaña nueva o en esta misma terminal, publica el frame base del mundo:*
-
-```bash
-ros2 run tf2_ros static_transform_publisher 0 0 0 0 0 0 world base_link
-
-```
-
-#### **Terminal 3: Nodo de Simulación de Visión (Fake Sort)**
-
-```bash
-source /opt/ros/humble/setup.bash
-source install/setup.bash
-ros2 run ur3_vision_control vision_fake_sort
-
-```
-
-#### **Terminal 4: Nodo Principal de Clasificación (Pick & Place)**
-
-Arranca el algoritmo de control real desactivando la simulación de la pinza:
-
-```bash
-source /opt/ros/humble/setup.bash
-source install/setup.bash
-ros2 run ur3_vision_control ur3_pick_sort --ros-args -p simulate_gripper:=false
-
-```
-
----
-
 ### 🔹 Modo 2: Sistema Integrado (Launch Completo)
 
 Para lanzar el pipeline optimizado con la cámara y calibración reales:
@@ -90,7 +41,7 @@ ros2 launch ur_robot_driver ur_control.launch.py ur_type:=ur3 robot_ip:=169.254.
 *En otra pestaña de esta terminal, publica la transformación estática de la cámara respecto al robot:*
 
 ```bash
-ros2 run tf2_ros static_transform_publisher --x 0.0 --y 0.0 --z 0.5 --yaw 0 --pitch 3.1415 --roll 0 --frame-id base_link --child-frame-id camera_optical_frame
+ros2 run tf2_ros static_transform_publisher 0 0 0 0 0 0 world base_link
 
 ```
 
