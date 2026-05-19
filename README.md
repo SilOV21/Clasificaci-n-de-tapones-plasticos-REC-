@@ -1,14 +1,18 @@
+
+```markdown
 # Proyecto REC: Clasificación de Tapones Plásticos (Visión + Control UR3)
 
 Este repositorio contiene la integración del sistema de visión artificial y control para el brazo robótico UR3 utilizando **ROS 2 Humble**.
 
 ---
 
-##  Requisitos Previos e Instalación
+## 📋 Requisitos Previos e Instalación
 
 Para compilar y preparar el entorno en tu máquina:
 
-# 1. Navega a la raíz de tu workspace
+```bash
+# 1. Navega a la raíz de tu workspace de ROS 2 (ej. LRA_ws)
+cd ~/tu_workspace_ros2
 
 # 2. Compila los paquetes de visión y control
 colcon build --packages-select rec_vision ur3_vision_control
@@ -16,9 +20,11 @@ colcon build --packages-select rec_vision ur3_vision_control
 # 3. Recarga el entorno de tu workspace
 source install/setup.bash
 
+```
+
 ---
 
-## Instrucciones de Ejecución
+## 🚀 Instrucciones de Ejecución
 
 Sigue el orden de las terminales para arrancar el sistema completo. Recuerda hacer `source` de tu workspace en cada nueva terminal que abras.
 
