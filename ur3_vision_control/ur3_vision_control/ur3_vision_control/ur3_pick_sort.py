@@ -1077,6 +1077,7 @@ class UR3PickSort(Node):
             self.update_home_marker_from_tf()
             
             # ── Lanzar el sistema de visión cuando el robot llega a HOME ──
+            # cambiar direc
             script_path = os.path.expanduser(
             '~/Documents/MUAR/ProyectoREC/Clasificaci-n-de-tapones-plasticos-REC--vision-Humble/LRA_ws/src/launch_vision.sh'
         )

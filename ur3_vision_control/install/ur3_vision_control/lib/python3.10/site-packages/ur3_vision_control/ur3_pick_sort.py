@@ -178,9 +178,24 @@ class UR3PickSort(Node):
 
 
         # Candidatos de altura para hacer fallback por etapa
-        self.pick_approach_offset_candidates = [0.16, 0.14, 0.12, 0.15]
-        self.pick_contact_offset_candidates = [0.08, 0.06, 0.04, 0.08]
-        self.pick_retreat_offset_candidates = [0.16, 0.18, 0.20]
+        
+        self.pick_approach_offset_candidates = [
+            self.pick_approach_offset_z,
+            self.pick_approach_offset_z - 0.02,
+            self.pick_approach_offset_z + 0.02
+        ]
+        
+        self.pick_contact_offset_candidates = [
+            self.pick_contact_offset_z,
+            self.pick_contact_offset_z - 0.005, # Intenta un pelín más abajo si no hay IK
+            self.pick_contact_offset_z + 0.005  # Intenta un pelín más arriba
+        ]
+        
+        self.pick_retreat_offset_candidates = [
+            self.pick_retreat_offset_z,
+            self.pick_retreat_offset_z + 0.02,
+            self.pick_retreat_offset_z + 0.04
+        ]
 
         # Tiempo más generoso para IK
         self.ik_timeout_sec = 1.0
@@ -1077,6 +1092,7 @@ class UR3PickSort(Node):
             self.update_home_marker_from_tf()
             
             # ── Lanzar el sistema de visión cuando el robot llega a HOME ──
+            # cambiar direc
             script_path = os.path.expanduser(
             '~/Documents/MUAR/ProyectoREC/Clasificaci-n-de-tapones-plasticos-REC--vision-Humble/LRA_ws/src/launch_vision.sh'
         )

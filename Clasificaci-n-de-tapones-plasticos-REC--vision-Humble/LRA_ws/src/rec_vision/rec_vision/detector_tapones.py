@@ -239,36 +239,46 @@ class VisionNode(Node):
         self.get_logger().info(f'Publicado: pos=({robot_point.x:.3f}, {robot_point.y:.3f}) -> Caja {caja_asignada}')
 
     def transformar_pixel_dinamico(self, u, v):
-        try:
-            t = self.tf_buffer.lookup_transform(
-                self.get_parameter('target_frame').value,
-                self.get_parameter('camera_frame').value,
-                rclpy.time.Time(), timeout=Duration(seconds=0.1)
-            )
-            cx, cy = self.camera_matrix[0, 2], self.camera_matrix[1, 2]
-            fx, fy = self.camera_matrix[0, 0], self.camera_matrix[1, 1]
+       try:
+        t = self.tf_buffer.lookup_transform(
+            self.get_parameter('target_frame').value,
+            self.get_parameter('camera_frame').value,
+            rclpy.time.Time(), timeout=Duration(seconds=0.1)
+        )
 
-            vx = (u - cx) / fx
-            vy = (v - cy) / fy
+        # 1. Píxel -> rayo normalizado, corrigiendo distorsión
+        pts = np.array([[[u, v]]], dtype=np.float32)
+        undist = cv2.undistortPoints(pts, self.camera_matrix, self.dist_coeffs)
+        vx, vy = undist[0, 0]
+        ray_cam = np.array([vx, vy, 1.0])   # frame óptico: x derecha, y abajo, z hacia escena
 
-            cam_z = t.transform.translation.z
-            cam_x = t.transform.translation.x
-            cam_y = t.transform.translation.y
+        # 2. Rotación de la TF (cuaternión -> matriz)
+        q = t.transform.rotation
+        x, y, z, w = q.x, q.y, q.z, q.w
+        R = np.array([
+            [1-2*(y*y+z*z),   2*(x*y-z*w),   2*(x*z+y*w)],
+            [2*(x*y+z*w),   1-2*(x*x+z*z),   2*(y*z-x*w)],
+            [2*(x*z-y*w),     2*(y*z+x*w), 1-2*(x*x+y*y)],
+        ])
+        T = np.array([t.transform.translation.x,
+                      t.transform.translation.y,
+                      t.transform.translation.z])
 
-            z_tapon_mundo = 0.02
-            distancia_z = cam_z - z_tapon_mundo
-
-            real_x = cam_x - (vy * distancia_z)
-            real_y = cam_y - (vx * distancia_z)
-
-            p = Point()
-            p.x = real_x
-            p.y = real_y
-            p.z = z_tapon_mundo
-            return p
-        except Exception as e:
-            self.get_logger().error(f"ERROR EN TF: {e}") # <--- ESTO ES CLAVE
+        # 3. Rayo en base_link e intersección con el plano z = z_tapon
+        ray_base = R @ ray_cam
+        z_tapon = 0.02
+        if abs(ray_base[2]) < 1e-6:
+            self.get_logger().error("Rayo paralelo al plano")
             return None
+        s = (z_tapon - T[2]) / ray_base[2]
+        P = T + s * ray_base
+
+        p = Point()
+        p.x, p.y, p.z = float(P[0]), float(P[1]), z_tapon
+        return p
+    except Exception as e:
+        self.get_logger().error(f"ERROR EN TF: {e}")
+        return None
 
     # --- DETECCION ---
 
