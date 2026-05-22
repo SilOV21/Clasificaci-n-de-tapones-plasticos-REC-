@@ -1,8 +1,0 @@
-[console_scripts]
-inicio = ur3_vision_control.inicio:main
-ur3_controller = ur3_vision_control.ur3_controller:main
-ur3_moveit_test = ur3_vision_control.ur3_moveit_test:main
-ur3_pick_sort = ur3_vision_control.ur3_pick_sort:main
-vision_fake = ur3_vision_control.vision_fake:main
-vision_fake_sort = ur3_vision_control.vision_fake_sort:main
-
