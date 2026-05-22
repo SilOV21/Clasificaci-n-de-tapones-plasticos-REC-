@@ -1,0 +1,112 @@
+<URProgram name="tapones" installation="default" installationRelativePath="default" directory="/programs" createdIn="5.12.4.1101661" lastSavedIn="5.12.4.1101661" robotSerialNumber="20225301149" crcValue="1853221662">
+  <kinematics status="LINEARIZED" validChecksum="true">
+    <deltaTheta value="-7.569287027719973E-8, 0.4455451247778203, 4.641839415627375, 1.195801596980581, 4.113010364537387E-6, 1.040911489047329E-7"/>
+    <a value="-1.8426430349366527E-4, -0.22005308252405786, -0.07822685550087088, 1.6388513831569265E-4, -1.2695032667420778E-4, 0.0"/>
+    <d value="0.15190445718950393, 31.170945851495688, 63.67660909067628, -94.71656144073062, 0.08536112707818656, 0.09226011573214508"/>
+    <alpha value="1.5708638350886375, 0.0033714404847057333, -0.002095346475646905, 1.5724964763617928, -1.5727406278480711, 0.0"/>
+    <jointChecksum value="-1494005242, -1492564791, 653806029, -1499375090, -1499918558, -1499855138"/>
+  </kinematics>
+  <children>
+    <MainProgram runOnlyOnce="false" InitVariablesNode="false">
+      <children>
+        <Contributed strategyClass="com.fzi.externalcontrol.ExternalControlNode" strategyProgramNodeType="External Control" strategyURCapDeveloper="FZI Research Center for Information Technology" strategyURCapName="External Control">
+          <dataModel/>
+        </Contributed>
+        <Contributed strategyClass="com.fzi.externalcontrol.ExternalControlNode" strategyProgramNodeType="External Control" strategyURCapDeveloper="FZI Research Center for Information Technology" strategyURCapName="External Control">
+          <dataModel/>
+        </Contributed>
+        <Assignment valueSource="Expression">
+          <variable name="gripper_cmd" prefersPersistentValue="false">
+            <initializeExpression/>
+          </variable>
+          <expression>
+            <ExpressionChar character="0"/>
+          </expression>
+        </Assignment>
+        <Loop type="Forever">
+          <children>
+            <Contributed strategyClass="com.fzi.externalcontrol.ExternalControlNode" strategyProgramNodeType="External Control" strategyURCapDeveloper="FZI Research Center for Information Technology" strategyURCapName="External Control">
+              <dataModel/>
+            </Contributed>
+            <If type="If" checkContinuously="false">
+              <expression>
+                <ExpressionChar character="g"/>
+                <ExpressionChar character="r"/>
+                <ExpressionChar character="i"/>
+                <ExpressionChar character="p"/>
+                <ExpressionChar character="p"/>
+                <ExpressionChar character="e"/>
+                <ExpressionChar character="r"/>
+                <ExpressionChar character="_"/>
+                <ExpressionChar character="c"/>
+                <ExpressionChar character="m"/>
+                <ExpressionChar character="d"/>
+                <ExpressionChar character="="/>
+                <ExpressionChar character="="/>
+                <ExpressionChar character="1"/>
+              </expression>
+              <children>
+                <Set type="DigitalOutput">
+                  <pin referencedName="tool_out[0]"/>
+                  <digitalValue>1</digitalValue>
+                </Set>
+              </children>
+            </If>
+            <If type="If" checkContinuously="false">
+              <expression>
+                <ExpressionChar character="g"/>
+                <ExpressionChar character="r"/>
+                <ExpressionChar character="i"/>
+                <ExpressionChar character="p"/>
+                <ExpressionChar character="p"/>
+                <ExpressionChar character="e"/>
+                <ExpressionChar character="r"/>
+                <ExpressionChar character="_"/>
+                <ExpressionChar character="c"/>
+                <ExpressionChar character="m"/>
+                <ExpressionChar character="d"/>
+                <ExpressionChar character="="/>
+                <ExpressionChar character="="/>
+                <ExpressionChar character="0"/>
+              </expression>
+              <children>
+                <Set type="DigitalOutput">
+                  <pin reference="../../../../If/children/Set/pin"/>
+                  <digitalValue>0</digitalValue>
+                </Set>
+              </children>
+            </If>
+          </children>
+        </Loop>
+        <Set type="DigitalOutput">
+          <pin reference="../../Loop/children/If/children/Set/pin"/>
+          <digitalValue>1</digitalValue>
+        </Set>
+        <Wait type="Sleep">
+          <waitTime>1.0</waitTime>
+        </Wait>
+        <Set type="DigitalOutput">
+          <pin reference="../../Loop/children/If/children/Set/pin"/>
+          <digitalValue>0</digitalValue>
+        </Set>
+        <Wait type="Sleep">
+          <waitTime>1.0</waitTime>
+        </Wait>
+        <Set type="DigitalOutput">
+          <pin referencedName="tool_out[1]"/>
+          <digitalValue>1</digitalValue>
+        </Set>
+        <Wait type="Sleep">
+          <waitTime>1.0</waitTime>
+        </Wait>
+        <Set type="DigitalOutput">
+          <pin reference="../../Set[3]/pin"/>
+          <digitalValue>0</digitalValue>
+        </Set>
+        <Wait type="Sleep">
+          <waitTime>1.0</waitTime>
+        </Wait>
+      </children>
+    </MainProgram>
+  </children>
+</URProgram>

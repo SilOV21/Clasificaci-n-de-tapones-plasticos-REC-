@@ -1,0 +1,76 @@
+# =============================================================================
+# LRA Vision Package - Camera Calibration Configuration
+# Chessboard pattern calibration settings
+# ROS2 Jazzy Jalisco
+# =============================================================================
+
+# Chessboard Pattern Parameters
+calibration:
+  # Pattern Size (inner corners, NOT squares)
+  board_width: 9
+  board_height: 6
+  
+  # Square Size
+  square_size: 0.025  # 25mm (adjust to your printed pattern)
+  
+  # Calibration Process Parameters
+  min_images: 30
+  max_images: 100
+  max_iterations: 30
+  reprojection_error_threshold: 0.5
+  
+  # Image Capture Settings
+  auto_capture: true
+  capture_interval: 2.0  # seconds between auto-captures
+  capture_timeout: 5.0   # seconds to wait for manual capture
+  
+  # Output Settings
+  save_path: "~/.ros/camera_calibration/"
+  save_format: "yaml"
+  save_images: true  # Save captured images for documentation
+  
+  # Detection Parameters
+  detection:
+    adaptive_thresh: true
+    normalize_image: true
+    filter_quads: true
+    fast_check: true
+    
+    # Corner Refinement
+    corner_refinement:
+      method: "subpix"  # "none", "corner", "subpix"
+      win_size: 11
+      win_size_max: 23
+      zero_zone: -1
+      criteria_max_count: 30
+      criteria_epsilon: 0.001
+
+# Camera-Specific Settings
+camera:
+  name: "logitech_streamcam"
+  
+  # Expected camera matrix (approximate, for initialization)
+  initial_camera_matrix:
+    rows: 3
+    cols: 3
+    data: [1000.0, 0.0, 960.0,
+           0.0, 1000.0, 540.0,
+           0.0, 0.0, 1.0]
+  
+  # Expected distortion (typically low for webcams)
+  initial_distortion:
+    model: "plumb_bob"
+    rows: 5
+    cols: 1
+    data: [0.0, 0.0, 0.0, 0.0, 0.0]
+
+# Calibration Quality Thresholds
+quality:
+  max_rms_error: 1.0  # Maximum acceptable RMS error
+  max_reprojection_error: 0.5
+  min_coverage: 0.8  # Minimum pattern coverage in image
+  
+  # Quality indicators
+  acceptable_rms: 0.3
+  good_rms: 0.2
+  excellent_rms: 0.1

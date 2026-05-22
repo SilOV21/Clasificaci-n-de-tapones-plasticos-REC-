@@ -1,0 +1,9 @@
+LRA_ws/build/
+LRA_ws/install/
+LRA_ws/log/
+build/
+install/
+log/
+*.pyc
+__pycache__/
+.ros/
