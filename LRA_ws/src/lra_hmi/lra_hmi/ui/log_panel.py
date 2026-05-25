@@ -1,4 +1,4 @@
-"""Tabbed log viewer: one tab per subsystem + an aggregate tab."""
+"""Visor de registros con pestañas: una por subsistema más una agregada."""
 from __future__ import annotations
 
 import time
@@ -17,6 +17,15 @@ from PyQt5.QtWidgets import (
 
 MAX_BLOCKS = 5000
 
+SOURCE_LABELS = {
+    "driver": "Driver UR",
+    "tf":     "Publicador TF",
+    "vision": "Visión",
+    "ros":    "Puente ROS",
+    "system": "Sistema",
+    "all":    "Todos",
+}
+
 
 class LogPanel(QWidget):
 
@@ -31,10 +40,10 @@ class LogPanel(QWidget):
 
         toolbar = QHBoxLayout()
         toolbar.setContentsMargins(4, 4, 4, 4)
-        btn_clear = QPushButton("Clear current tab")
+        btn_clear = QPushButton("Limpiar pestaña")
         btn_clear.clicked.connect(self._clear_current)
         toolbar.addWidget(btn_clear)
-        btn_clear_all = QPushButton("Clear all")
+        btn_clear_all = QPushButton("Limpiar todo")
         btn_clear_all.clicked.connect(self._clear_all)
         toolbar.addWidget(btn_clear_all)
         toolbar.addStretch(1)
@@ -42,8 +51,8 @@ class LogPanel(QWidget):
 
         layout.addWidget(self._tabs, 1)
 
-        self._ensure_tab("all", "All")
-        self._ensure_tab("ros", "ROS bridge")
+        self._ensure_tab("all", SOURCE_LABELS["all"])
+        self._ensure_tab("ros", SOURCE_LABELS["ros"])
 
     def append(self, source: str, line: str) -> None:
         ts = time.strftime("%H:%M:%S")
@@ -61,24 +70,14 @@ class LogPanel(QWidget):
         view = QPlainTextEdit()
         view.setReadOnly(True)
         view.setMaximumBlockCount(MAX_BLOCKS)
-        view.setStyleSheet(
-            "QPlainTextEdit { background:#1e1e1e; color:#d4d4d4; "
-            "font-family:monospace; font-size:11px; }"
-        )
+        view.setObjectName("logView")
         self._views[key] = view
         self._tabs.addTab(view, label)
         return view
 
     @staticmethod
     def _label_for(source: str) -> str:
-        return {
-            "driver": "UR Driver",
-            "tf": "TF Publisher",
-            "vision": "Vision",
-            "ros": "ROS bridge",
-            "system": "System",
-            "all": "All",
-        }.get(source, source)
+        return SOURCE_LABELS.get(source, source)
 
     def _append_line(self, view: QPlainTextEdit, text: str) -> None:
         sb = view.verticalScrollBar()

@@ -15,6 +15,7 @@ from .connection_monitor import ConnectionMonitor
 from .process_manager import ProcessManager
 from .ros_bridge import RosBridge
 from .ui.main_window import MainWindow
+from .ui.theme import apply_theme
 
 
 def _default_config_path() -> str | None:
@@ -31,24 +32,22 @@ def main() -> int:
         rclpy.init(args=sys.argv)
 
     app = QApplication(sys.argv)
-    app.setApplicationName("LRA HMI")
+    app.setApplicationName("REC HMI")
+    apply_theme(app)
 
     settings = load_settings(_default_config_path())
 
     sim_mode = ProcessManager.is_sim_mode()
     if sim_mode:
         print("=" * 60)
-        print("  LRA HMI — SIMULATION mode (LRA_HMI_SIM is set)")
-        print("  Fake nodes from lra_hmi_sim will be launched.")
-        print("  Connection LED targets 127.0.0.1.")
+        print("  REC HMI — modo SIMULACIÓN (LRA_HMI_SIM está activo)")
+        print("  Se lanzarán nodos simulados de lra_hmi_sim.")
+        print("  El LED de conexión apunta a 127.0.0.1.")
         print("=" * 60, flush=True)
         settings.robot_ip = "127.0.0.1"
 
     ros_bridge = RosBridge()
-    process_manager = ProcessManager(
-        robot_ip=settings.robot_ip,
-        ur_type=settings.ur_type,
-    )
+    process_manager = ProcessManager(settings=settings)
     connection_monitor = ConnectionMonitor(settings.robot_ip)
 
     window = MainWindow(

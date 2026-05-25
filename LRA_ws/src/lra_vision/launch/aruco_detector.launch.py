@@ -1,8 +1,4 @@
 # =============================================================================
-# LRA Vision Package - ArUco Detector Launch
-# ArUco marker detection for hand-eye calibration
-# ROS2 Humble Hawksbill
-# =============================================================================
 
 from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument, LogInfo
@@ -12,10 +8,8 @@ from launch_ros.substitutions import FindPackageShare
 
 
 def generate_launch_description():
-    # Get package directory
     pkg_dir = FindPackageShare('lra_vision')
     
-    # Declare launch arguments
     image_topic_arg = DeclareLaunchArgument(
         'image_topic',
         default_value='camera/image_raw',
@@ -64,7 +58,6 @@ def generate_launch_description():
         description='Path to camera calibration file (optional)'
     )
     
-    # ArUco detector node
     aruco_detector_node = Node(
         package='lra_vision',
         executable='aruco_detector_node',

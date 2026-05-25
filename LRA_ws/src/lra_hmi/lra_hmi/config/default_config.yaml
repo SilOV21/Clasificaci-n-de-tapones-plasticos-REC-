@@ -1,3 +1,43 @@
 robot_ip: 169.254.12.28
 ur_type: ur3e
 num_boxes: 4
+
+camera:
+  video_device: /dev/video2
+  width: 640
+  height: 480
+  framerate: 30
+  pixel_format: YUYV
+  frame_id: camera_optical_frame
+
+camera_urdf:
+  height: 0.045
+  parent_frame: tool0
+  camera_name: camera
+
+calibrator:
+  frames_muestreo: 30
+  show_debug: false
+  hough:
+    min_radius: 33
+    max_radius: 54
+    min_dist: 75
+    hough_param1: 21
+    hough_param2: 27
+
+detector:
+  frames_muestreo: 30
+  show_debug: true
+  target_frame: base_link
+  camera_frame: camera_optical_frame
+  hough:
+    min_radius: 33
+    max_radius: 54
+    min_dist: 75
+    hough_param1: 21
+    hough_param2: 27
+
+pick_sort:
+  simulate_gripper: false
+  offset_x: 0.0
+  offset_y: 0.0

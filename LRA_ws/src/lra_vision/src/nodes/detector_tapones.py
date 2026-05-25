@@ -15,7 +15,6 @@ class VisionNode(Node):
     def __init__(self):
         super().__init__('vision_node')
 
-        # --- PARÁMETROS CONFIGURABLES ORIGINALES ---
         self.declare_parameter('min_radius', 18)
         self.declare_parameter('max_radius', 27)
         self.declare_parameter('min_dist', 40)
@@ -26,17 +25,14 @@ class VisionNode(Node):
         self.declare_parameter('target_frame', 'base_link')
         self.declare_parameter('camera_frame', 'camera_optical_frame')
         
-        # --- NUEVOS PARÁMETROS DE ESTABILIDAD ---
         self.declare_parameter('frames_muestreo', 30) 
 
-        # --- CONFIGURACIÓN PNP / GEOMETRÍA ---
         self.camera_matrix = np.array([[1000.0, 0.0, 320.0], [0.0, 1000.0, 240.0], [0.0, 0.0, 1.0]], dtype=np.float32)
         self.dist_coeffs = np.zeros((5, 1))
 
         self.tf_buffer = tf2_ros.Buffer()
         self.tf_listener = tf2_ros.TransformListener(self.tf_buffer, self)
 
-        # Historiales y Estados
         self.pos_history = deque(maxlen=10)
         self.cantidad_historial = deque(maxlen=5)
         self.acumulador_muestreo = [] 
@@ -62,15 +58,12 @@ class VisionNode(Node):
     def image_callback(self, msg):
         frame = self.bridge.imgmsg_to_cv2(msg, desired_encoding='bgr8')
         
-        # 1. Tu detección original con ROI y Caja
         circles, debug_img = self.detectar_tapones(frame)
 
-        # 2. Estabilizar cantidad
         self.cantidad_historial.append(len(circles))
         cantidad_estable = int(np.median(list(self.cantidad_historial)))
         self.pub_count.publish(Int32(data=cantidad_estable))
 
-        # 3. Lógica de "Pausa y Elección"
         if self.buscando_objetivo:
             self.get_logger().info(f"DEBUG: He encontrado {len(circles)} circulos") # Añade esta línea
             if circles:
@@ -84,7 +77,6 @@ class VisionNode(Node):
             if self.contador_muestreo >= self.get_parameter('frames_muestreo').value:
                 self.procesar_estabilidad_final()
         
-        # 4. Si ya elegimos el mejor, dibujamos el resultado persistente
         if self.objetivo_fijado:
             u, v, r, robot_p, diam_m = self.objetivo_fijado
             cv2.circle(debug_img, (int(u), int(v)), int(r), (0, 255, 0), 3)
@@ -107,10 +99,8 @@ class VisionNode(Node):
             self.buscando_objetivo = True
             return
 
-        # Unimos todas las detecciones de la pausa
         todas = [c for frame in self.acumulador_muestreo for c in frame]
         
-        # Agrupamos por proximidad para ver cuál es el tapón que más aparece
         clusters = []
         for det in todas:
             encontrado = False
@@ -125,12 +115,10 @@ class VisionNode(Node):
             self.get_logger().error("No se han podido agrupar los tapones")
             return
             
-        # El ganador es el cluster con más detecciones (más estable en el tiempo)
         ganador = max(clusters, key=len)
         self.get_logger().info(f"Ganador encontrado con {len(ganador)} apariciones")
         avg_u, avg_v, avg_r = np.mean(ganador, axis=0)
 
-        # 4. Tu Transformación Dinámica PnP
         robot_point, dist_z = self.transformar_pixel_dinamico(avg_u, avg_v)
         
         if robot_point is None:
@@ -141,7 +129,6 @@ class VisionNode(Node):
             focal_avg = (self.camera_matrix[0,0] + self.camera_matrix[1,1]) / 2.0
             diametro_metros = (2 * avg_r * dist_z) / focal_avg
 
-            # Guardamos para el dibujo y publicamos una sola vez
             self.objetivo_fijado = (avg_u, avg_v, avg_r, robot_point, diametro_metros)
             self.pub_robot_pos.publish(robot_point)
             self.pub_target_diameter.publish(Float32(data=float(diametro_metros)))
@@ -209,7 +196,6 @@ class VisionNode(Node):
         if circles is not None:
             for cx, cy, r in circles[0]:
                 res.append([cx + x, cy + y, r])
-                # Dibujamos todos en Cian (escaneando)
                 cv2.circle(debug_img, (int(cx+x), int(cy+y)), int(r), (255, 255, 0), 1)
         return res, debug_img
 

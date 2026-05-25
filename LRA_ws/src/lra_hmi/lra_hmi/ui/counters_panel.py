@@ -1,4 +1,4 @@
-"""Per-box and total cap counters with reset and session report."""
+"""Contadores por caja y total, con reinicio y exportación de informe."""
 from __future__ import annotations
 
 import json
@@ -23,15 +23,13 @@ from PyQt5.QtWidgets import (
 class _BoxCard(QGroupBox):
 
     def __init__(self, box_id: int, parent=None):
-        super().__init__(f"Box {box_id}", parent)
+        super().__init__(f"Caja {box_id}", parent)
         self._count = 0
         layout = QVBoxLayout(self)
         layout.setContentsMargins(8, 6, 8, 6)
         self._count_label = QLabel("0")
+        self._count_label.setObjectName("numericReadoutBig")
         self._count_label.setAlignment(Qt.AlignCenter)
-        self._count_label.setStyleSheet(
-            "font-size: 28px; font-weight: bold; color: #2c3e50;"
-        )
         layout.addWidget(self._count_label)
 
     def increment(self) -> None:
@@ -51,7 +49,7 @@ class CountersPanel(QGroupBox):
     reset_requested = pyqtSignal()
 
     def __init__(self, default_boxes: int = 4, parent=None):
-        super().__init__("Counters", parent)
+        super().__init__("Contadores", parent)
         self._total = 0
         self._boxes: Dict[int, _BoxCard] = {}
         self._session_started_at: float = time.time()
@@ -60,11 +58,9 @@ class CountersPanel(QGroupBox):
 
         top = QHBoxLayout()
         self._total_label = QLabel("Total: 0")
-        self._total_label.setStyleSheet(
-            "font-size: 20px; font-weight: bold; color: #2c3e50;"
-        )
-        self._rate_label = QLabel("0.00 caps/min")
-        self._rate_label.setStyleSheet("color:#666;")
+        self._total_label.setObjectName("numericReadout")
+        self._rate_label = QLabel("0.00 tapones/min")
+        self._rate_label.setObjectName("mutedLabel")
         top.addWidget(self._total_label)
         top.addStretch(1)
         top.addWidget(self._rate_label)
@@ -79,10 +75,10 @@ class CountersPanel(QGroupBox):
         self._rebuild_grid(default_boxes)
 
         bottom = QHBoxLayout()
-        btn_reset = QPushButton("Reset counters")
+        btn_reset = QPushButton("Restablecer contadores")
         btn_reset.clicked.connect(self._on_reset_clicked)
         bottom.addWidget(btn_reset)
-        btn_save = QPushButton("Save session report…")
+        btn_save = QPushButton("Guardar informe de sesión…")
         btn_save.clicked.connect(self._save_report)
         bottom.addWidget(btn_save)
         bottom.addStretch(1)
@@ -127,22 +123,22 @@ class CountersPanel(QGroupBox):
     def _update_rate(self) -> None:
         elapsed_min = max((time.time() - self._session_started_at) / 60.0, 1e-6)
         rate = self._total / elapsed_min
-        self._rate_label.setText(f"{rate:.2f} caps/min")
+        self._rate_label.setText(f"{rate:.2f} tapones/min")
 
     def _on_reset_clicked(self) -> None:
         self._total = 0
         self._session_started_at = time.time()
         self._total_label.setText("Total: 0")
-        self._rate_label.setText("0.00 caps/min")
+        self._rate_label.setText("0.00 tapones/min")
         for card in self._boxes.values():
             card.reset()
         self.reset_requested.emit()
 
     def _save_report(self) -> None:
-        default_name = time.strftime("lra_session_%Y%m%d_%H%M%S.json")
+        default_name = time.strftime("rec_sesion_%Y%m%d_%H%M%S.json")
         default_path = os.path.join(os.path.expanduser("~"), default_name)
         path, _ = QFileDialog.getSaveFileName(
-            self, "Save session report", default_path, "JSON (*.json)"
+            self, "Guardar informe de sesión", default_path, "JSON (*.json)"
         )
         if not path:
             return
@@ -157,6 +153,6 @@ class CountersPanel(QGroupBox):
             with open(path, "w") as f:
                 json.dump(report, f, indent=2)
         except OSError as exc:
-            QMessageBox.warning(self, "Save failed", str(exc))
+            QMessageBox.warning(self, "Error al guardar", str(exc))
             return
-        QMessageBox.information(self, "Saved", f"Report saved to {path}")
+        QMessageBox.information(self, "Informe guardado", f"Informe guardado en {path}")

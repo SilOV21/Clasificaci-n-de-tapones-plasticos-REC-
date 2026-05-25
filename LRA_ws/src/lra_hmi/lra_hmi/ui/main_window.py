@@ -1,4 +1,4 @@
-"""Main window: top bar with E-stop, tabbed body, wiring of all signals."""
+"""Ventana principal del HMI: barra superior con E-stop, cuerpo con pestañas, cableado de señales."""
 from __future__ import annotations
 
 from PyQt5.QtCore import Qt
@@ -19,11 +19,13 @@ from PyQt5.QtWidgets import (
 from ..connection_monitor import ConnectionMonitor
 from ..process_manager import ProcessManager
 from ..ros_bridge import RosBridge
+from ..settings import HmiSettings
+from .about_panel import AboutPanel
 from .camera_panel import CameraPanel
 from .counters_panel import CountersPanel
 from .launcher_panel import LauncherPanel
 from .log_panel import LogPanel
-from .settings_dialog import HmiSettings, SettingsDialog
+from .settings_panel import SettingsPanel
 from .status_panel import StatusPanel
 from .widgets import LedIndicator
 
@@ -43,29 +45,25 @@ class MainWindow(QMainWindow):
         self._conn = connection_monitor
         self._settings = settings
 
-        self.setWindowTitle("LRA HMI — UR3e Bottle Cap Sorter")
-        self.resize(1280, 820)
+        self.setWindowTitle("REC · Clasificación de Tapones Plásticos")
+        self.resize(1320, 840)
 
         self._build_menu()
         self._build_central()
         self._wire_signals()
 
         self.setStatusBar(QStatusBar(self))
-        self.statusBar().showMessage("Ready.")
+        self.statusBar().showMessage("Sistema listo.")
 
     def _build_menu(self) -> None:
         menubar = self.menuBar()
-        m_file = menubar.addMenu("&File")
-        act_settings = QAction("&Settings…", self)
-        act_settings.triggered.connect(self._open_settings)
-        m_file.addAction(act_settings)
-        m_file.addSeparator()
-        act_quit = QAction("&Quit", self)
+        m_file = menubar.addMenu("&Archivo")
+        act_quit = QAction("&Salir", self)
         act_quit.triggered.connect(self.close)
         m_file.addAction(act_quit)
 
-        m_help = menubar.addMenu("&Help")
-        act_about = QAction("&About", self)
+        m_help = menubar.addMenu("A&yuda")
+        act_about = QAction("&Acerca de", self)
         act_about.triggered.connect(self._show_about)
         m_help.addAction(act_about)
 
@@ -83,7 +81,7 @@ class MainWindow(QMainWindow):
         self._launcher_panel = LauncherPanel(self._pm)
         self._status_panel = StatusPanel()
         self._counters_panel = CountersPanel(default_boxes=self._settings.num_boxes)
-        self._camera_panel_dashboard = CameraPanel(title="Live view")
+        self._camera_panel_dashboard = CameraPanel(title="Vista en vivo")
 
         dashboard = QWidget()
         dash_layout = QHBoxLayout(dashboard)
@@ -95,47 +93,67 @@ class MainWindow(QMainWindow):
         right.addWidget(self._camera_panel_dashboard, 1)
         dash_layout.addLayout(left, 1)
         dash_layout.addLayout(right, 1)
-        self._tabs.addTab(dashboard, "Dashboard")
+        self._tabs.addTab(dashboard, "Panel")
 
-        self._camera_panel_full = CameraPanel(title="Camera (full)")
-        self._tabs.addTab(self._camera_panel_full, "Camera")
+        self._camera_panel_full = CameraPanel(title="Cámara (vista completa)")
+        self._tabs.addTab(self._camera_panel_full, "Cámara")
 
         self._log_panel = LogPanel()
-        self._tabs.addTab(self._log_panel, "Logs")
+        self._tabs.addTab(self._log_panel, "Registros")
+
+        self._settings_panel = SettingsPanel(self._settings)
+        self._tabs.addTab(self._settings_panel, "Ajustes")
+
+        self._about_panel = AboutPanel()
+        self._tabs.addTab(self._about_panel, "Acerca de")
 
     def _build_top_bar(self) -> QHBoxLayout:
         bar = QHBoxLayout()
+        bar.setSpacing(10)
 
-        title = QLabel("LRA — UR3e Bottle Cap Sorter")
-        title.setStyleSheet("font-size:18px; font-weight:bold;")
+        title = QLabel("REC · CLASIFICACIÓN DE TAPONES")
+        title.setObjectName("topBarTitle")
         bar.addWidget(title)
 
         bar.addStretch(1)
 
-        bar.addWidget(QLabel("UR3e:"))
+        ur_lbl = QLabel("UR3e:")
+        ur_lbl.setObjectName("mutedLabel")
+        bar.addWidget(ur_lbl)
         self._top_conn_led = LedIndicator(diameter=18)
         bar.addWidget(self._top_conn_led)
         self._top_ip_label = QLabel(self._settings.robot_ip)
-        self._top_ip_label.setStyleSheet("color:#444; font-family:monospace;")
+        self._top_ip_label.setObjectName("ipLabel")
         bar.addWidget(self._top_ip_label)
 
         bar.addSpacing(20)
 
-        self._estop_btn = QPushButton("EMERGENCY  STOP")
-        font = QFont()
-        font.setBold(True)
-        font.setPointSize(11)
-        self._estop_btn.setFont(font)
+        self._estop_btn = QPushButton("PARADA DE EMERGENCIA")
+        estop_font = QFont()
+        estop_font.setBold(True)
+        estop_font.setPointSize(11)
+        self._estop_btn.setFont(estop_font)
         self._estop_btn.setMinimumHeight(40)
-        self._estop_btn.setMinimumWidth(200)
-        self._estop_btn.setStyleSheet(
-            "QPushButton { background:#c0392b; color:white; border:2px solid #7d241a; "
-            "border-radius:6px; }"
-            "QPushButton:hover { background:#e74c3c; }"
-            "QPushButton:pressed { background:#922b21; }"
-        )
+        self._estop_btn.setMinimumWidth(220)
+        self._estop_btn.setObjectName("estopBtn")
+        self._estop_btn.setToolTip("Detiene todos los subsistemas y desactiva la visión.")
         self._estop_btn.clicked.connect(self._on_estop)
         bar.addWidget(self._estop_btn)
+
+        self._rehab_btn = QPushButton("REHABILITAR")
+        rehab_font = QFont()
+        rehab_font.setBold(True)
+        rehab_font.setPointSize(11)
+        self._rehab_btn.setFont(rehab_font)
+        self._rehab_btn.setMinimumHeight(40)
+        self._rehab_btn.setMinimumWidth(170)
+        self._rehab_btn.setObjectName("rehabBtn")
+        self._rehab_btn.setToolTip(
+            "Reactiva la visión tras una parada de emergencia. "
+            "Los subsistemas deben reiniciarse desde el lanzador."
+        )
+        self._rehab_btn.clicked.connect(self._on_rehab)
+        bar.addWidget(self._rehab_btn)
 
         return bar
 
@@ -163,68 +181,76 @@ class MainWindow(QMainWindow):
             self._ros.publish_vision_enable
         )
 
+        self._settings_panel.applied.connect(self._on_settings_applied)
+        self._settings_panel.changed_keys.connect(self._on_settings_changed_keys)
+
     def _on_start_all(self) -> None:
-        self.statusBar().showMessage("Starting all subsystems…")
+        self.statusBar().showMessage("Iniciando todos los subsistemas…")
         self._pm.start_all()
 
     def _on_stop_all(self) -> None:
-        self.statusBar().showMessage("Stopping all subsystems…")
+        self.statusBar().showMessage("Deteniendo todos los subsistemas…")
         self._pm.stop_all()
 
     def _on_estop(self) -> None:
-        self.statusBar().showMessage("EMERGENCY STOP triggered.")
+        self.statusBar().showMessage("PARADA DE EMERGENCIA activada.")
         try:
             self._ros.publish_vision_enable(False)
         except Exception:
             pass
         self._pm.emergency_stop()
+        self._status_panel.vision_enable_checkbox.setChecked(False)
         QMessageBox.critical(
             self,
-            "Emergency Stop",
-            "All subsystems were force-killed.\nVision was disabled.",
+            "Parada de Emergencia",
+            "Todos los subsistemas se han detenido forzosamente.\n"
+            "La visión se ha desactivado.\n\n"
+            "Pulse «REHABILITAR» para reactivar la visión y reinicie los "
+            "subsistemas desde el lanzador.",
         )
+
+    def _on_rehab(self) -> None:
+        self.statusBar().showMessage(
+            "Sistema rehabilitado. La visión se ha reactivado.", 5000
+        )
+        try:
+            self._ros.publish_vision_enable(True)
+        except Exception:
+            pass
+        self._status_panel.vision_enable_checkbox.setChecked(True)
 
     def _on_connection_changed(self, reachable: bool, rtt_ms: float) -> None:
         self._top_conn_led.set_color("ok" if reachable else "fail")
         self._status_panel.set_connection(reachable, rtt_ms)
 
-    def _open_settings(self) -> None:
-        dlg = SettingsDialog(self._settings, self)
-        if dlg.exec_() == SettingsDialog.Accepted:
-            new = dlg.result_settings()
-            if new is None:
-                return
-            ip_changed = new.robot_ip != self._settings.robot_ip
-            ur_changed = new.ur_type != self._settings.ur_type
-            boxes_changed = new.num_boxes != self._settings.num_boxes
-            self._settings = new
-            self._top_ip_label.setText(new.robot_ip)
-            self._pm.set_robot_ip(new.robot_ip)
-            self._pm.set_ur_type(new.ur_type)
-            self._conn.set_robot_ip(new.robot_ip)
-            if boxes_changed:
-                self._counters_panel.on_num_boxes(new.num_boxes)
-            note = []
-            if ip_changed or ur_changed:
-                note.append("Restart the UR Driver to apply IP/type changes.")
-            if note:
-                self.statusBar().showMessage(" ".join(note), 6000)
+    def _on_settings_applied(self, new: HmiSettings) -> None:
+        from ..config_io import save_settings
+        self._settings = new
+        self._top_ip_label.setText(new.robot_ip)
+        self._pm.set_settings(new)
+        self._conn.set_robot_ip(new.robot_ip)
+        self._counters_panel.on_num_boxes(new.num_boxes)
+        save_settings(new)
+
+    def _on_settings_changed_keys(self, keys) -> None:
+        running = [k for k in keys if self._pm.state(k).value == "running"]
+        if running:
+            labels = ", ".join(self._pm.label(k) for k in running if k in self._pm.keys())
+            self.statusBar().showMessage(
+                f"Ajustes guardados. Reinicie para aplicar: {labels}", 10000
+            )
+        else:
+            self.statusBar().showMessage("Ajustes guardados.", 4000)
 
     def _show_about(self) -> None:
-        QMessageBox.about(
-            self,
-            "About LRA HMI",
-            "<b>LRA HMI</b><br>"
-            "Graphical launcher &amp; monitor for the UR3e bottle-cap sorter.<br><br>"
-            "ROS 2 Humble · PyQt5",
-        )
+        self._tabs.setCurrentWidget(self._about_panel)
 
     def closeEvent(self, event) -> None:
         if any(self._pm.state(k).value == "running" for k in self._pm.keys()):
             answer = QMessageBox.question(
                 self,
-                "Quit",
-                "Subsystems are still running. Stop them and quit?",
+                "Salir",
+                "Hay subsistemas en ejecución. ¿Detenerlos y salir?",
                 QMessageBox.Yes | QMessageBox.No,
                 QMessageBox.No,
             )

@@ -1,8 +1,4 @@
 # =============================================================================
-# LRA Vision Package - Camera Manager Launch
-# Manages v4l2_camera with auto-detection and monitoring
-# ROS2 Humble Hawksbill
-# =============================================================================
 
 import os
 import yaml
@@ -17,13 +13,11 @@ def get_best_video_device(default_device, auto_detect):
     if not auto_detect:
         return default_device
 
-    # Prefer these devices in order
     preferred = ['/dev/video2', '/dev/video3', '/dev/video0', '/dev/video1']
     for dev in preferred:
         if os.path.exists(dev):
             return dev
 
-    # Fallback to any available video device
     available = glob.glob('/dev/video*')
     if available:
         return sorted(available)[0]
@@ -47,9 +41,7 @@ def read_camera_params():
         config['camera']['auto_detect']
     )
 
-    # Flatten nested structure for ROS2 parameters
     params = {
-        # Camera settings
         'camera.video_device': video_device,
         'camera.name': config['camera']['name'],
         'camera.resolution.width': config['camera']['resolution']['width'],
@@ -58,11 +50,9 @@ def read_camera_params():
         'camera.pixel_format': config['camera']['pixel_format'],
         'camera.auto_detect': False,  # handled in python
 
-        # Topics
         'topics.image_raw': config['topics']['image_raw'],
         'topics.camera_info': config['topics']['camera_info'],
 
-        # Frames
         'frames.optical_frame': config['frames']['optical_frame']
     }
 
@@ -70,10 +60,8 @@ def read_camera_params():
 
 
 def generate_launch_description():
-    # Read parameters from YAML
     params = read_camera_params()
 
-    # v4l2_camera node
     v4l2_camera_node = Node(
         package='v4l2_camera',
         executable='v4l2_camera_node',

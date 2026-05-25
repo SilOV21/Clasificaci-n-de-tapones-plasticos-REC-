@@ -1,4 +1,4 @@
-"""Process manager for the three launch groups: UR driver, TF publisher, vision stack."""
+"""Process manager: spawns and monitors each ROS node as a separate subprocess."""
 from __future__ import annotations
 
 import os
@@ -11,6 +11,8 @@ from threading import Lock, Thread
 from typing import Callable, Dict, List, Optional
 
 from PyQt5.QtCore import QObject, pyqtSignal
+
+from .settings import HmiSettings
 
 
 class GroupState(Enum):
@@ -26,6 +28,7 @@ class GroupSpec:
     key: str
     label: str
     argv_factory: Callable[[], List[str]]
+    section: str = "hardware"
     startup_delay_s: float = 0.0
 
 
@@ -45,10 +48,9 @@ class ProcessManager(QObject):
 
     MAX_LOG_LINES = 2000
 
-    def __init__(self, robot_ip: str = "169.254.12.28", ur_type: str = "ur3e"):
+    def __init__(self, settings: Optional[HmiSettings] = None):
         super().__init__()
-        self._robot_ip = robot_ip
-        self._ur_type = ur_type
+        self._settings: HmiSettings = settings if settings is not None else HmiSettings()
         self._lock = Lock()
 
         self._groups: Dict[str, GroupSpec] = {}
@@ -60,51 +62,127 @@ class ProcessManager(QObject):
         return os.environ.get("LRA_HMI_SIM", "").strip() not in ("", "0", "false", "False")
 
     def _register_default_groups(self) -> None:
-        sim = self.is_sim_mode()
-        prefix = "[SIM] " if sim else ""
-
-        if sim:
-            driver_argv = lambda: ["ros2", "run", "lra_hmi_sim", "fake_ur_driver"]
-            vision_argv = lambda: [
-                "ros2", "launch", "lra_hmi_sim", "simulation.launch.py",
-            ]
+        if self.is_sim_mode():
+            self._register_sim_groups()
         else:
-            driver_argv = lambda: [
-                "ros2", "launch", "ur_robot_driver", "ur_control.launch.py",
-                f"ur_type:={self._ur_type}",
-                f"robot_ip:={self._robot_ip}",
-            ]
-            vision_argv = lambda: [
-                "ros2", "launch", "ur3_vision_control", "launch.py",
-            ]
+            self._register_real_groups()
 
-        self._register(
-            GroupSpec(
-                key="driver",
-                label=f"{prefix}UR Driver",
-                argv_factory=driver_argv,
-                startup_delay_s=2.0,
-            )
-        )
-        self._register(
-            GroupSpec(
-                key="tf",
-                label=f"{prefix}TF Publisher",
-                argv_factory=lambda: [
-                    "ros2", "run", "tf2_ros", "static_transform_publisher",
-                    "0", "0", "0", "0", "0", "0", "world", "base_link",
-                ],
-                startup_delay_s=0.5,
-            )
-        )
-        self._register(
-            GroupSpec(
-                key="vision",
-                label=f"{prefix}Vision & MoveIt",
-                argv_factory=vision_argv,
-                startup_delay_s=0.0,
-            )
-        )
+    def _register_real_groups(self) -> None:
+        s = lambda: self._settings  # late-bound lookup so set_settings takes effect
+
+        self._register(GroupSpec(
+            key="driver",
+            label="UR Driver",
+            section="hardware",
+            startup_delay_s=2.0,
+            argv_factory=lambda: [
+                "ros2", "launch", "ur_robot_driver", "ur_control.launch.py",
+                f"ur_type:={s().ur_type}",
+                f"robot_ip:={s().robot_ip}",
+            ],
+        ))
+
+        self._register(GroupSpec(
+            key="tf",
+            label="TF Publisher",
+            section="hardware",
+            startup_delay_s=0.5,
+            argv_factory=lambda: [
+                "ros2", "run", "tf2_ros", "static_transform_publisher",
+                "0", "0", "0", "0", "0", "0", "world", "base_link",
+            ],
+        ))
+
+        self._register(GroupSpec(
+            key="moveit",
+            label="MoveIt",
+            section="control",
+            startup_delay_s=4.0,
+            argv_factory=lambda: [
+                "ros2", "launch", "ur_moveit_config", "ur_moveit.launch.py",
+                f"ur_type:={s().ur_type}",
+                "launch_rviz:=false",
+                "launch_servo:=false",
+            ],
+        ))
+
+        self._register(GroupSpec(
+            key="camera",
+            label="Camera (v4l2)",
+            section="vision",
+            startup_delay_s=1.0,
+            argv_factory=lambda: _build_camera_argv(s().camera),
+        ))
+
+        self._register(GroupSpec(
+            key="camera_urdf",
+            label="Camera URDF / TF",
+            section="vision",
+            startup_delay_s=0.5,
+            argv_factory=lambda: [
+                "ros2", "launch", "lra_vision", "upload_urdf.launch.py",
+                f"parent_frame:={s().camera_urdf.parent_frame}",
+                f"camera_name:={s().camera_urdf.camera_name}",
+            ],
+        ))
+
+        self._register(GroupSpec(
+            key="calibrator",
+            label="Color Calibrator",
+            section="vision",
+            startup_delay_s=1.0,
+            argv_factory=lambda: _build_calibrator_argv(s()),
+        ))
+
+        self._register(GroupSpec(
+            key="pick_sort",
+            label="Pick-Sort",
+            section="control",
+            startup_delay_s=3.0,
+            argv_factory=lambda: [
+                "ros2", "run", "ur3_vision_control", "ur3_pick_sort",
+                "--ros-args",
+                "-p", f"simulate_gripper:={_bool_arg(s().pick_sort.simulate_gripper)}",
+                "-p", f"offset_x:={s().pick_sort.offset_x}",
+                "-p", f"offset_y:={s().pick_sort.offset_y}",
+            ],
+        ))
+
+        self._register(GroupSpec(
+            key="detector",
+            label="Detector",
+            section="vision",
+            startup_delay_s=2.0,
+            argv_factory=lambda: _build_detector_argv(s()),
+        ))
+
+    def _register_sim_groups(self) -> None:
+        self._register(GroupSpec(
+            key="driver",
+            label="[SIM] UR Driver",
+            section="hardware",
+            startup_delay_s=2.0,
+            argv_factory=lambda: ["ros2", "run", "lra_hmi_sim", "fake_ur_driver"],
+        ))
+        self._register(GroupSpec(
+            key="tf",
+            label="[SIM] TF Publisher",
+            section="hardware",
+            startup_delay_s=0.5,
+            argv_factory=lambda: [
+                "ros2", "run", "tf2_ros", "static_transform_publisher",
+                "0", "0", "0", "0", "0", "0", "world", "base_link",
+            ],
+        ))
+        self._register(GroupSpec(
+            key="vision_pipeline",
+            label="[SIM] Vision Pipeline",
+            section="vision",
+            startup_delay_s=0.0,
+            argv_factory=lambda: [
+                "ros2", "launch", "lra_hmi_sim", "simulation.launch.py",
+            ],
+        ))
 
     def _register(self, spec: GroupSpec) -> None:
         self._groups[spec.key] = spec
@@ -116,17 +194,21 @@ class ProcessManager(QObject):
     def label(self, key: str) -> str:
         return self._groups[key].label
 
+    def section(self, key: str) -> str:
+        return self._groups[key].section
+
     def state(self, key: str) -> GroupState:
         return self._runtime[key].state
 
-    def set_robot_ip(self, ip: str) -> None:
-        self._robot_ip = ip
+    def set_settings(self, settings: HmiSettings) -> None:
+        """Update the settings consulted by argv factories (takes effect on next start)."""
+        self._settings = settings
 
-    def set_ur_type(self, ur_type: str) -> None:
-        self._ur_type = ur_type
+    def settings(self) -> HmiSettings:
+        return self._settings
 
     def robot_ip(self) -> str:
-        return self._robot_ip
+        return self._settings.robot_ip
 
     def start(self, key: str) -> bool:
         with self._lock:
@@ -281,3 +363,87 @@ class ProcessManager(QObject):
     def shutdown(self) -> None:
         for key in self.keys():
             self.stop(key, hard=True, timeout_s=1.0)
+
+
+def _bool_arg(value: bool) -> str:
+    return "true" if value else "false"
+
+
+def _camera_info_url() -> str:
+    """Best-effort lookup of the lra_vision calibration YAML."""
+    try:
+        from ament_index_python.packages import (
+            PackageNotFoundError,
+            get_package_share_directory,
+        )
+        try:
+            share = get_package_share_directory("lra_vision")
+            return "file://" + os.path.join(share, "calibration_data", "camera_info.yaml")
+        except PackageNotFoundError:
+            pass
+    except ImportError:
+        pass
+    return ""
+
+
+def _build_camera_argv(cam) -> List[str]:
+    argv = [
+        "ros2", "run", "v4l2_camera", "v4l2_camera_node",
+        "--ros-args",
+        "-p", f"video_device:={cam.video_device}",
+        "-p", f"image_size:=[{cam.width},{cam.height}]",
+        "-p", f"time_per_frame:=[1,{cam.framerate}]",
+        "-p", f"pixel_format:={cam.pixel_format}",
+        "-p", f"camera_frame_id:={cam.frame_id}",
+    ]
+    url = _camera_info_url()
+    if url:
+        argv.extend(["-p", f"camera_info_url:={url}"])
+    argv.extend([
+        "-r", "image_raw:=camera/image_raw",
+        "-r", "camera_info:=camera/camera_info",
+    ])
+    return argv
+
+
+def _build_calibrator_argv(s: HmiSettings) -> List[str]:
+    h = s.calibrator.hough
+    argv = [
+        "ros2", "run", "rec_vision", "color_calibrator_node",
+        "--ros-args",
+        "-p", f"num_cajas:={s.num_boxes}",
+        "-p", f"frames_muestreo:={s.calibrator.frames_muestreo}",
+        "-p", f"show_debug:={_bool_arg(s.calibrator.show_debug)}",
+        "-p", "image_topic:=camera/image_raw",
+        "-p", f"min_radius:={h.min_radius}",
+        "-p", f"max_radius:={h.max_radius}",
+        "-p", f"min_dist:={h.min_dist}",
+        "-p", f"hough_param1:={h.hough_param1}",
+        "-p", f"hough_param2:={h.hough_param2}",
+    ]
+    url = _camera_info_url()
+    if url:
+        argv.extend(["-p", f"camera_info_yaml:={url.removeprefix('file://')}"])
+    return argv
+
+
+def _build_detector_argv(s: HmiSettings) -> List[str]:
+    h = s.detector.hough
+    argv = [
+        "ros2", "run", "rec_vision", "detector_tapones",
+        "--ros-args",
+        "-p", f"frames_muestreo:={s.detector.frames_muestreo}",
+        "-p", f"show_debug:={_bool_arg(s.detector.show_debug)}",
+        "-p", f"target_frame:={s.detector.target_frame}",
+        "-p", f"camera_frame:={s.detector.camera_frame}",
+        "-p", "image_topic:=camera/image_raw",
+        "-p", f"min_radius:={h.min_radius}",
+        "-p", f"max_radius:={h.max_radius}",
+        "-p", f"min_dist:={h.min_dist}",
+        "-p", f"hough_param1:={h.hough_param1}",
+        "-p", f"hough_param2:={h.hough_param2}",
+    ]
+    url = _camera_info_url()
+    if url:
+        argv.extend(["-p", f"camera_info_yaml:={url.removeprefix('file://')}"])
+    return argv

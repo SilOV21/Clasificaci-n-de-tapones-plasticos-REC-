@@ -1,9 +1,54 @@
+# ROS / ROS 2 build artifacts
 LRA_ws/build/
 LRA_ws/install/
 LRA_ws/log/
 build/
 install/
 log/
-*.pyc
-__pycache__/
 .ros/
+.colcon/
+colcon_*.meta
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.tox/
+*.egg-info/
+dist/
+.venv/
+venv/
+env/
+.env
+
+# C++ / CMake build outputs
+CMakeCache.txt
+CMakeFiles/
+CMakeSettings.json
+cmake_install.cmake
+Makefile
+*.o
+*.a
+*.so
+*.dylib
+
+# IDEs / Editors
+.vscode/
+.idea/
+*.swp
+*~
+.project
+.cproject
+.settings/
+.qtcreator/
+*.user
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# Generated PDF / Graphviz logs or frames
+frames_*.gv
+frames_*.pdf

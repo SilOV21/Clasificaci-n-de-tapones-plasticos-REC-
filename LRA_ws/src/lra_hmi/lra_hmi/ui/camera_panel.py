@@ -1,4 +1,4 @@
-"""Camera viewer that renders /image_raw or /tapones/imagen_debug."""
+"""Visor de cámara: renderiza /image_raw o /tapones/imagen_debug."""
 from __future__ import annotations
 
 import cv2
@@ -16,10 +16,10 @@ from PyQt5.QtWidgets import (
 
 class CameraPanel(QGroupBox):
 
-    SOURCE_RAW = "Raw camera (/image_raw)"
-    SOURCE_DEBUG = "Detector overlay (/tapones/imagen_debug)"
+    SOURCE_RAW = "Cámara cruda (/image_raw)"
+    SOURCE_DEBUG = "Superposición del detector (/tapones/imagen_debug)"
 
-    def __init__(self, title: str = "Camera", parent=None):
+    def __init__(self, title: str = "Cámara", parent=None):
         super().__init__(title, parent)
         self._latest_raw: np.ndarray | None = None
         self._latest_debug: np.ndarray | None = None
@@ -27,22 +27,23 @@ class CameraPanel(QGroupBox):
         outer = QVBoxLayout(self)
 
         top = QHBoxLayout()
-        top.addWidget(QLabel("Source:"))
+        top.addWidget(QLabel("Fuente:"))
         self._source = QComboBox()
         self._source.addItems([self.SOURCE_DEBUG, self.SOURCE_RAW])
         self._source.currentIndexChanged.connect(self._refresh)
         top.addWidget(self._source)
         top.addStretch(1)
         self._size_label = QLabel("—")
-        self._size_label.setStyleSheet("color:#666;")
+        self._size_label.setObjectName("mutedLabel")
         top.addWidget(self._size_label)
         outer.addLayout(top)
 
         self._view = QLabel()
+        self._view.setObjectName("cameraView")
         self._view.setAlignment(Qt.AlignCenter)
         self._view.setMinimumSize(320, 240)
-        self._view.setStyleSheet("background-color:#000; color:#888;")
-        self._view.setText("(no image yet)")
+        self._view.setStyleSheet("background-color:#000;")
+        self._view.setText("(sin imagen aún)")
         outer.addWidget(self._view, 1)
 
     def on_image_raw(self, image: np.ndarray) -> None:
@@ -61,7 +62,7 @@ class CameraPanel(QGroupBox):
         elif self._source.currentText() == self.SOURCE_DEBUG and self._latest_debug is not None:
             self._render(self._latest_debug)
         else:
-            self._view.setText("(no image yet)")
+            self._view.setText("(sin imagen aún)")
 
     def _render(self, bgr: np.ndarray) -> None:
         if bgr is None or bgr.size == 0:
