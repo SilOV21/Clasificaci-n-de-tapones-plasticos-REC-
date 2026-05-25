@@ -388,7 +388,7 @@ CalibrationResult CameraCalibrator::calibrate()
     dist_coeffs,
     rvecs,
     tvecs,
-    cv::CALIB_FIX_PRINCIPAL_POINT | cv::CALIB_ZERO_TANGENT_DIST,
+    0,
     cv::TermCriteria(cv::TermCriteria::EPS + cv::TermCriteria::MAX_ITER, config_.max_iterations, 1e-6)
   );
 

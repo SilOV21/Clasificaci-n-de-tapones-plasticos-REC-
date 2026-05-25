@@ -273,7 +273,7 @@ class VisionNode(Node):
             P = T + s * ray_base
 
             p = Point()
-            p.x, p.y, p.z = float(P[0]) + 0.044, float(P[1]) + 0.03, z_tapon
+            p.x, p.y, p.z = float(P[0]), float(P[1]), z_tapon
             return p
         except Exception as e:
             self.get_logger().error(f"ERROR EN TF: {e}")
