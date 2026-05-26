@@ -265,7 +265,7 @@ class VisionNode(Node):
 
             # 3. Rayo en base_link e intersección con el plano z = z_tapon
             ray_base = R @ ray_cam
-            z_tapon = 0.005
+            z_tapon = 0.002
             if abs(ray_base[2]) < 1e-6:
                 self.get_logger().error("Rayo paralelo al plano")
                 return None
@@ -273,7 +273,7 @@ class VisionNode(Node):
             P = T + s * ray_base
 
             p = Point()
-            p.x, p.y, p.z = float(P[0]), float(P[1]), z_tapon
+            p.x, p.y, p.z = float(P[0]) + 0.018, float(P[1]) + 0.025, z_tapon
             return p
         except Exception as e:
             self.get_logger().error(f"ERROR EN TF: {e}")

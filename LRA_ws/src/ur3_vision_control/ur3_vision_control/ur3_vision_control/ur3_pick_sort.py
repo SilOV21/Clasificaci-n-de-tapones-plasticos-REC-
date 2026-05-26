@@ -1435,37 +1435,8 @@ class UR3PickSort(Node):
 
         x = float(target.x)
         y = float(target.y)
-        z = float(target.z)
-
-        # =========================================================
-        # CORRECCIÓN FINA DE VISIÓN REAL
-        # =========================================================
-        # La cámara detecta bien el tapón, pero el punto puede caer
-        # ligeramente hacia una esquina. Ajustar aquí en metros.
-        x_original = x
-        y_original = y
-
+        z = float(target.z)    
         
-        x = x + 0.000
-        y = y + 0.000
-
-        # Límite suave para no mandar al robot demasiado al fondo.
-        # Pero NO lo bajamos brutalmente a 0.40, porque eso desplaza el punto real.
-        if y > 0.430:
-            y = 0.420
-            self.get_logger().warn(
-                f'Y limitada suavemente para IK: y_original={y_original:.3f} -> y_usada={y:.3f}'
-            )
-
-        self.get_logger().warn(
-            f'Corrección visión: '
-            f'x={x_original:.3f}->{x:.3f}, '
-            f'y={y_original:.3f}->{y:.3f}, '
-            f'z={z:.3f}'
-        )
-        
-        
-
         if not self.is_target_in_workspace(x, y, z):
             self.get_logger().warn(
                 f'Target fuera de workspace: x={x:.3f}, y={y:.3f}, z={z:.3f}'
@@ -1508,8 +1479,8 @@ class UR3PickSort(Node):
 
         ok = self.move_to_joint_waypoint_blocking(
             q_approach,
-            move_time_sec=10,
-            timeout_sec=25.0
+            move_time_sec=5,
+            timeout_sec=8.0
         )
         if not ok:
             self.return_home_and_wait(timeout_sec=7.0)
@@ -1543,8 +1514,8 @@ class UR3PickSort(Node):
 
         ok = self.move_to_joint_waypoint_blocking(
             q_pick,
-            move_time_sec=8,
-            timeout_sec=20.0
+            move_time_sec=3,
+            timeout_sec=6.0
         )
         if not ok:
             self.return_home_and_wait(timeout_sec=7.0)
@@ -1579,8 +1550,8 @@ class UR3PickSort(Node):
 
         ok = self.move_to_joint_waypoint_blocking(
             q_retreat,
-            move_time_sec=8,
-            timeout_sec=20.0
+            move_time_sec=3,
+            timeout_sec=6.0
         )
         if not ok:
             self.return_home_and_wait(timeout_sec=7.0)
