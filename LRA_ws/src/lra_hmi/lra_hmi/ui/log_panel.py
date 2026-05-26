@@ -4,6 +4,7 @@ from __future__ import annotations
 import time
 from typing import Dict
 
+from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QTextCursor
 from PyQt5.QtWidgets import (
     QHBoxLayout,
@@ -13,6 +14,7 @@ from PyQt5.QtWidgets import (
     QVBoxLayout,
     QWidget,
 )
+from .widgets import WideTabBar
 
 
 MAX_BLOCKS = 5000
@@ -32,7 +34,9 @@ class LogPanel(QWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
         self._tabs = QTabWidget()
+        self._tabs.setTabBar(WideTabBar())
         self._tabs.setTabsClosable(False)
+        self._tabs.tabBar().setElideMode(Qt.ElideNone)
         self._views: Dict[str, QPlainTextEdit] = {}
 
         layout = QVBoxLayout(self)

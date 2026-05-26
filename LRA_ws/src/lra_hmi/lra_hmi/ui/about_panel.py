@@ -54,8 +54,3 @@ class AboutPanel(QWidget):
             layout.addWidget(row)
 
         layout.addStretch(1)
-
-        footer = QLabel("UR3e · ROS 2 Humble · PyQt5")
-        footer.setObjectName("aboutFooter")
-        footer.setAlignment(Qt.AlignCenter)
-        layout.addWidget(footer)

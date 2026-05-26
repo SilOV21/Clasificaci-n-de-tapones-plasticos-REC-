@@ -72,7 +72,7 @@ class RosBridge(QObject):
             self._node.create_subscription(
                 JointState, "/joint_states", self._on_joint_state, sensor_qos),
             self._node.create_subscription(
-                Image, "/image_raw", self._on_image_raw, sensor_qos),
+                Image, "/camera/image_raw", self._on_image_raw, sensor_qos),
             self._node.create_subscription(
                 Image, "/tapones/imagen_debug", self._on_image_debug, sensor_qos),
         ]

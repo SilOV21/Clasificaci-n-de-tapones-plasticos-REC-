@@ -66,9 +66,9 @@ QTabWidget::pane {{
 QTabBar::tab {{
     background:{BG_BASE};
     color:{TEXT_SECONDARY};
-    padding:8px 18px;
+    padding:10px 22px;
+    min-width:160px;
     font-weight:600;
-    letter-spacing:0.5px;
     border:1px solid transparent;
     border-bottom:none;
 }}

@@ -16,7 +16,7 @@ from PyQt5.QtWidgets import (
 
 class CameraPanel(QGroupBox):
 
-    SOURCE_RAW = "Cámara cruda (/image_raw)"
+    SOURCE_RAW = "Cámara cruda (/camera/image_raw)"
     SOURCE_DEBUG = "Superposición del detector (/tapones/imagen_debug)"
 
     def __init__(self, title: str = "Cámara", parent=None):

@@ -1,9 +1,23 @@
-"""Small shared widgets: LED indicator, color swatch."""
+"""Small shared widgets: LED indicator, color swatch, wide tab bar."""
 from __future__ import annotations
 
 from PyQt5.QtCore import QSize, Qt
 from PyQt5.QtGui import QBrush, QColor, QPainter
-from PyQt5.QtWidgets import QLabel, QWidget
+from PyQt5.QtWidgets import QLabel, QTabBar, QWidget
+
+
+class WideTabBar(QTabBar):
+    """QTabBar that enforces a minimum tab width so labels never get elided."""
+
+    _MIN_W = 160
+
+    def tabSizeHint(self, index: int) -> QSize:
+        s = super().tabSizeHint(index)
+        return QSize(max(s.width(), self._MIN_W), s.height())
+
+    def minimumTabSizeHint(self, index: int) -> QSize:
+        s = super().minimumTabSizeHint(index)
+        return QSize(max(s.width(), self._MIN_W), s.height())
 
 
 STATE_COLORS = {

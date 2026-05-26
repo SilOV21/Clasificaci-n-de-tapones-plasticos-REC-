@@ -5,6 +5,7 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QFont
 from PyQt5.QtWidgets import (
     QAction,
+    QApplication,
     QHBoxLayout,
     QLabel,
     QMainWindow,
@@ -27,7 +28,7 @@ from .launcher_panel import LauncherPanel
 from .log_panel import LogPanel
 from .settings_panel import SettingsPanel
 from .status_panel import StatusPanel
-from .widgets import LedIndicator
+from .widgets import LedIndicator, WideTabBar
 
 
 class MainWindow(QMainWindow):
@@ -46,7 +47,11 @@ class MainWindow(QMainWindow):
         self._settings = settings
 
         self.setWindowTitle("REC · Clasificación de Tapones Plásticos")
-        self.resize(1320, 840)
+        screen = QApplication.primaryScreen().availableGeometry()
+        w = max(960, min(1320, screen.width() - 80))
+        h = max(680, min(840, screen.height() - 80))
+        self.resize(w, h)
+        self.setMinimumSize(900, 640)
 
         self._build_menu()
         self._build_central()
@@ -76,6 +81,8 @@ class MainWindow(QMainWindow):
         outer.addLayout(self._build_top_bar())
 
         self._tabs = QTabWidget()
+        self._tabs.setTabBar(WideTabBar())
+        self._tabs.tabBar().setElideMode(Qt.ElideNone)
         outer.addWidget(self._tabs, 1)
 
         self._launcher_panel = LauncherPanel(self._pm)
