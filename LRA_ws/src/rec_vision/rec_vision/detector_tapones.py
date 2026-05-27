@@ -235,7 +235,7 @@ class VisionNode(Node):
         self.objetivo_fijado = (avg_u, avg_v, avg_r, robot_point, caja_asignada)
         self.pub_robot_pos.publish(robot_point)
         self.pub_caja.publish(Int32(data=caja_asignada))
-        self.get_logger().info(f'Publicado: pos=({robot_point.x:.3f}, {robot_point.y:.3f}) -> Caja {caja_asignada}')
+        self.get_logger().info(f'Publicado: pos=({robot_point.x:.3f}, {robot_point.y:.3f}, {robot_point.z:.3f}) -> Caja {caja_asignada}')
 
     def transformar_pixel_dinamico(self, u, v):
         try:
@@ -273,7 +273,7 @@ class VisionNode(Node):
             P = T + s * ray_base
 
             p = Point()
-            p.x, p.y, p.z = float(P[0]) + 0.018, float(P[1]) + 0.025, z_tapon
+            p.x, p.y, p.z = float(P[0]) + 0.048, float(P[1]) + 0.027, 0.002 #float(P[2])
             return p
         except Exception as e:
             self.get_logger().error(f"ERROR EN TF: {e}")

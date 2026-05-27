@@ -642,7 +642,7 @@ class UR3PickSort(Node):
             'x_max': 0.80,
             'y_min': -0.30,
             'y_max': 0.55,
-            'z_min': 0.001,
+            'z_min': 0.0001,
             'z_max': 0.30,
         }
 
@@ -1529,35 +1529,7 @@ class UR3PickSort(Node):
         # ---------------------------------------------------------
         # 3) RETREAT: subir con varias opciones
         # ---------------------------------------------------------
-        retreat_z_candidates = [
-            z + dz for dz in self.pick_retreat_offset_candidates
-        ]
 
-        q_retreat, used_retreat_z = self.solve_stage_ik(
-            x=x,
-            y=y,
-            z_candidates=retreat_z_candidates,
-            preferred_seed=q_pick,
-            stage_name='retreat'
-        )
-
-        if q_retreat is None:
-            self.get_logger().warn('No se pudo resolver IK para retreat.')
-            self.return_home_and_wait(timeout_sec=7.0)
-            self.busy = False
-            self.enable_vision(True)
-            return
-
-        ok = self.move_to_joint_waypoint_blocking(
-            q_retreat,
-            move_time_sec=3,
-            timeout_sec=6.0
-        )
-        if not ok:
-            self.return_home_and_wait(timeout_sec=7.0)
-            self.busy = False
-            self.enable_vision(True)
-            return
 
         # ---------------------------------------------------------
         # 4) Volver a HOME
