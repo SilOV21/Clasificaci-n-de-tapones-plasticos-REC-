@@ -12,11 +12,12 @@ from rclpy.node import Node
 from rclpy.qos import QoSProfile, DurabilityPolicy, ReliabilityPolicy
 from sensor_msgs.msg import Image, CameraInfo
 from geometry_msgs.msg import Point
-from std_msgs.msg import Int32, Float32MultiArray
+from std_msgs.msg import Int32, Float32MultiArray, Bool
 from cv_bridge import CvBridge
 from collections import deque
 import cv2
 import numpy as np
+import math
 import tf2_ros
 from rclpy.duration import Duration
 
@@ -24,6 +25,9 @@ from rclpy.duration import Duration
 class VisionNode(Node):
     def __init__(self):
         super().__init__('vision_node')
+
+        # Semilla fija de OpenCV: detección/clustering reproducibles entre arranques.
+        cv2.setRNGSeed(0)
 
         # --- PARÁMETROS ---
         self.declare_parameter('min_radius', 33)
@@ -46,6 +50,9 @@ class VisionNode(Node):
            self.get_logger().error('No se ha proporcionado camera_info_yaml. Deteniendo nodo.')
            raise RuntimeError('Parametro camera_info_yaml obligatorio')
         self.camera_matrix, self.dist_coeffs = self.cargar_calibracion(yaml_path)
+        # El YAML es la fuente autoritativa de intrínsecos; no se sobrescriben con
+        # camera_info en vivo cada frame (evita deriva de coordenadas entre arranques).
+        self._intrinsics_applied = True
 
 
         self.tf_buffer = tf2_ros.Buffer()
@@ -58,6 +65,11 @@ class VisionNode(Node):
         self.contador_muestreo = 0
         self.buscando_objetivo = True
         self.objetivo_fijado = None
+
+        # Gating por /vision_enable: ur3_pick_sort lo pone a True cuando está
+        # libre y a False mientras hace pick-and-place. Arranca deshabilitado;
+        # cada flanco de subida produce UNA detección nueva.
+        self.vision_enabled = False
 
         # --- CENTROS HSV del Nodo 1 (None hasta que lleguen) ---
         self.centros_hsv = None
@@ -81,8 +93,13 @@ class VisionNode(Node):
             Float32MultiArray, '/clasificador/centros_hsv', self.centros_callback, qos_latched)
         self.sub_num_cajas = self.create_subscription(
             Int32, '/clasificador/num_cajas', self.num_cajas_callback, qos_latched)
-            
-                
+
+        # /vision_enable lo publica ur3_pick_sort de forma "latched", por eso
+        # usamos el mismo QoS: un detector que arranca después igualmente recibe
+        # el último estado.
+        self.sub_vision_enable = self.create_subscription(
+            Bool, '/vision_enable', self.vision_enable_callback, qos_latched)
+
         # --- PUBLICADORES ---
         self.pub_robot_pos = self.create_publisher(Point, '/ur3/target_point', 10)
         self.pub_count = self.create_publisher(Int32, '/tapones/cantidad', 10)
@@ -91,7 +108,79 @@ class VisionNode(Node):
 
         self.get_logger().info('Nodo detector iniciado: esperando calibracion de color...')
        
-    # --- Leer el .YAML ---
+    # ─── EXTRACCIÓN ROBUSTA DE COLOR (idéntica en ambos nodos) ────────────────
+
+    def extraer_color_hsv(self, hsv_roi, cx, cy, r):
+        """
+        Devuelve [H, S, V] representativo del tapón, robusto a:
+          - reflejos especulares (brillo blanco central)
+          - borde del tapón / sombras
+          - circularidad de H (matiz)
+        Usa un anillo interior (0.25r..0.75r), descarta reflejos,
+        mediana de S y V, y media CIRCULAR de H.
+        """
+        h_img, w_img = hsv_roi.shape[:2]
+        r = int(r)
+
+        mask = np.zeros((h_img, w_img), dtype=np.uint8)
+        cv2.circle(mask, (int(cx), int(cy)), max(int(r * 0.75), 2), 255, -1)
+        cv2.circle(mask, (int(cx), int(cy)), int(r * 0.25), 0, -1)
+
+        ys, xs = np.where(mask == 255)
+        if len(xs) == 0:
+            cv2.circle(mask, (int(cx), int(cy)), max(r - 2, 1), 255, -1)
+            ys, xs = np.where(mask == 255)
+            if len(xs) == 0:
+                return [0.0, 0.0, 0.0]
+
+        pix = hsv_roi[ys, xs].astype(np.float32)
+        H = pix[:, 0]; S = pix[:, 1]; V = pix[:, 2]
+
+        valid = (V < 245) & (V > 25) & ~((V > 220) & (S < 40))
+        if np.count_nonzero(valid) > 10:
+            H, S, V = H[valid], S[valid], V[valid]
+
+        S_med = float(np.median(S))
+        V_med = float(np.median(V))
+
+        ang = H * (2.0 * np.pi / 180.0)
+        sin_m = float(np.mean(np.sin(ang)))
+        cos_m = float(np.mean(np.cos(ang)))
+        H_med = (math.atan2(sin_m, cos_m) * 180.0 / (2.0 * np.pi)) % 180.0
+
+        return [H_med, S_med, V_med]
+
+    def distancia_color(self, c1, c2):
+        """
+        Distancia entre dos colores HSV teniendo en cuenta:
+          - circularidad de H (0 y 180 son el mismo matiz)
+          - que en colores poco saturados (negro/blanco/gris) el H es ruido,
+            así que se pondera H por la saturación.
+        c1, c2: [H, S, V]  (H en 0..180, S/V en 0..255)
+        """
+        h1, s1, v1 = float(c1[0]), float(c1[1]), float(c1[2])
+        h2, s2, v2 = float(c2[0]), float(c2[1]), float(c2[2])
+
+        # Diferencia circular de H -> 0..90 (en escala OpenCV)
+        dh = abs(h1 - h2)
+        dh = min(dh, 180.0 - dh)
+        # Normalizar dh a 0..1 (90 = opuesto)
+        dh_n = dh / 90.0
+
+        ds_n = abs(s1 - s2) / 255.0
+        dv_n = abs(v1 - v2) / 255.0
+
+        # Peso de H proporcional a cuán saturados son ambos colores:
+        # si alguno es casi gris, el matiz no es fiable.
+        sat_factor = min(s1, s2) / 255.0   # 0..1
+
+        w_h = 2.0 * sat_factor   # H pesa más cuanto más saturado
+        w_s = 1.0
+        w_v = 1.0
+
+        return math.sqrt((w_h * dh_n) ** 2 + (w_s * ds_n) ** 2 + (w_v * dv_n) ** 2)
+
+    # --- LEER EL .YAML ---
     def cargar_calibracion(self, yaml_path):
      import yaml
      try:
@@ -112,13 +201,15 @@ class VisionNode(Node):
     # --- CALLBACKS DE SUSCRIPCION ---
 
     def info_callback(self, msg):
-        # Solo actualizar si la matriz no es toda ceros
+        # Los intrínsecos se fijan UNA vez (YAML al arrancar). camera_info en vivo
+        # solo se usa como respaldo si aún no hubiera intrínsecos válidos.
+        if self._intrinsics_applied:
+            return
         k = np.array(msg.k).reshape((3, 3))
         if k[0, 0] > 0 and k[1, 1] > 0:
             self.camera_matrix = k
             self.dist_coeffs = np.array(msg.d)
-        else:
-            self.get_logger().warn('camera_info recibido con matriz a ceros, ignorando y usando YAML')
+            self._intrinsics_applied = True
 
     def centros_callback(self, msg):
         """ Recibe los centros HSV del Nodo 1 y los guarda """
@@ -128,6 +219,21 @@ class VisionNode(Node):
 
     def num_cajas_callback(self, msg):
         self.num_cajas = msg.data
+
+    def vision_enable_callback(self, msg):
+        """Habilita/inhabilita el muestreo. Cada flanco de subida reinicia el
+        estado para producir una única detección nueva."""
+        enabled = bool(msg.data)
+        if enabled and not self.vision_enabled:
+            self.buscando_objetivo = True
+            self.contador_muestreo = 0
+            self.acumulador_muestreo = []
+            self.objetivo_fijado = None
+            self.get_logger().info('Visión habilitada: reiniciando muestreo.')
+        elif not enabled and self.vision_enabled:
+            self.buscando_objetivo = False
+            self.get_logger().info('Visión deshabilitada: muestreo detenido.')
+        self.vision_enabled = enabled
 
     # --- LOGICA PRINCIPAL ---
 
@@ -147,8 +253,8 @@ class VisionNode(Node):
             cv2.putText(debug_img, "Esperando calibracion de color (Nodo 1)...",
                         (20, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 0, 255), 2)
 
-        # 3. Logica de "Pausa y Eleccion"
-        if self.buscando_objetivo:
+        # 3. Logica de "Pausa y Eleccion" (solo si la visión está habilitada)
+        if self.vision_enabled and self.buscando_objetivo:
             self.get_logger().info(f"DEBUG: He encontrado {len(circles)} circulos") # Añade esta línea
             if circles:
                 self.acumulador_muestreo.append(circles)
@@ -214,11 +320,29 @@ class VisionNode(Node):
         # --- CLASIFICACION POR COLOR ---
         # Comparamos el color del ganador con los centros HSV del Nodo 1
         if self.centros_hsv is not None:
-            color_ganador = np.array(np.mean(ganador, axis=0)[3:6], dtype=np.float32)
-            distancias = np.linalg.norm(self.centros_hsv - color_ganador, axis=1)
+            # Promedio del color del ganador entre frames:
+            # S y V con mediana, H con media circular (no lineal)
+            ganador_arr = np.array(ganador, dtype=np.float32)
+            H_vals = ganador_arr[:, 3]
+            S_med = float(np.median(ganador_arr[:, 4]))
+            V_med = float(np.median(ganador_arr[:, 5]))
+            ang = H_vals * (2.0 * np.pi / 180.0)
+            H_med = (math.atan2(float(np.mean(np.sin(ang))),
+                                float(np.mean(np.cos(ang)))) * 180.0 / (2.0 * np.pi)) % 180.0
+            color_ganador = np.array([H_med, S_med, V_med], dtype=np.float32)
+
+            # Distancia que respeta la circularidad de H y pondera por saturación
+            distancias = [
+                self.distancia_color(color_ganador, centro)
+                for centro in self.centros_hsv
+            ]
             # +1 porque las cajas van de 1 a N (no de 0 a N-1)
             caja_asignada = int(np.argmin(distancias)) + 1
-            self.get_logger().info(f'Tapon clasificado -> Caja {caja_asignada}')
+            self.get_logger().info(
+                f'Tapon clasificado -> Caja {caja_asignada} '
+                f'(HSV={color_ganador[0]:.0f},{color_ganador[1]:.0f},{color_ganador[2]:.0f} '
+                f'| dists={[round(d,3) for d in distancias]})'
+            )
         else:
             # Si el Nodo 1 aun no calibro, enviamos -1 como aviso al robot
             caja_asignada = -1
@@ -228,7 +352,12 @@ class VisionNode(Node):
         robot_point = self.transformar_pixel_dinamico(avg_u, avg_v)
 
         if robot_point is None:
-            self.get_logger().error("Robot point es None. No se puede publicar.")
+            # Suele ser TF aún no disponible: re-armamos el muestreo para reintentar
+            # en vez de quedarnos bloqueados sin volver a publicar.
+            self.get_logger().error("Robot point es None (¿TF no lista?). Reintentando muestreo.")
+            self.buscando_objetivo = True
+            self.contador_muestreo = 0
+            self.acumulador_muestreo = []
             return
 
         # Guardamos para el dibujo y publicamos
@@ -242,7 +371,7 @@ class VisionNode(Node):
             t = self.tf_buffer.lookup_transform(
                 self.get_parameter('target_frame').value,
                 self.get_parameter('camera_frame').value,
-                rclpy.time.Time(), timeout=Duration(seconds=0.1)
+                rclpy.time.Time(), timeout=Duration(seconds=0.5)
             )
 
             # 1. Píxel -> rayo normalizado, corrigiendo distorsión
@@ -309,13 +438,11 @@ class VisionNode(Node):
 
         res = []
         if circles is not None:
+            hsv_roi = cv2.cvtColor(roi, cv2.COLOR_BGR2HSV)
             for cx, cy, r in circles[0]:
-                # Extraemos el color medio en HSV dentro del circulo detectado
-                mascara = np.zeros(roi.shape[:2], dtype=np.uint8)
-                cv2.circle(mascara, (int(cx), int(cy)), int(r)-2, 255, -1)
-                hsv_roi = cv2.cvtColor(roi, cv2.COLOR_BGR2HSV)
-                color_medio = cv2.mean(hsv_roi, mask=mascara)[:3]  # H, S, V
-                res.append([cx + x, cy + y, r, color_medio[0], color_medio[1], color_medio[2]])
+                # Color robusto (anillo interior, sin reflejos, H circular)
+                H, S, V = self.extraer_color_hsv(hsv_roi, cx, cy, r)
+                res.append([cx + x, cy + y, r, H, S, V])
                 # Dibujamos todos en Cian (escaneando)
                 cv2.circle(debug_img, (int(cx+x), int(cy+y)), int(r), (255, 255, 0), 1)
         return res, debug_img

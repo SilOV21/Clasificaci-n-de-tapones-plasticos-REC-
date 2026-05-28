@@ -14,11 +14,16 @@ from std_msgs.msg import Int32, Float32MultiArray, MultiArrayDimension
 from cv_bridge import CvBridge
 import cv2
 import numpy as np
+import math
 
 
 class ColorCalibratorNode(Node):
     def __init__(self):
         super().__init__('color_calibrator_node')
+
+        # Semilla fija de OpenCV: K-Means (KMEANS_RANDOM_CENTERS) reproducible, así
+        # un mismo color se asigna a la misma caja en cada arranque.
+        cv2.setRNGSeed(0)
 
         # --- PARÁMETROS ---
         self.declare_parameter('num_cajas', 3)          # N cajas (1-6)
@@ -38,6 +43,9 @@ class ColorCalibratorNode(Node):
             self.get_logger().error('No se ha proporcionado camera_info_yaml. Deteniendo nodo.')
             raise RuntimeError('Parametro camera_info_yaml obligatorio')
         self.camera_matrix, self.dist_coeffs = self.cargar_calibracion(yaml_path)
+        # El YAML es la fuente autoritativa de intrínsecos; no se sobrescriben con
+        # camera_info en vivo cada frame (calibración fijada UNA vez al arrancar).
+        self._intrinsics_applied = True
 
         # --- ESTADO INTERNO ---
         self.acumulador_muestreo = []
@@ -87,13 +95,15 @@ class ColorCalibratorNode(Node):
             raise
     
     def info_callback(self, msg):
-        # Solo actualizar si la matriz no es toda ceros
+        # Los intrínsecos se fijan UNA vez (YAML al arrancar). camera_info en vivo
+        # solo se usa como respaldo si aún no hubiera intrínsecos válidos.
+        if self._intrinsics_applied:
+            return
         k = np.array(msg.k).reshape((3, 3))
         if k[0, 0] > 0 and k[1, 1] > 0:
             self.camera_matrix = k
             self.dist_coeffs = np.array(msg.d)
-        else:
-            self.get_logger().warn('camera_info recibido con matriz a ceros, ignorando y usando YAML')
+            self._intrinsics_applied = True
 
     def image_callback(self, msg):
         # Una vez calibrado, este nodo no hace nada más
@@ -162,6 +172,54 @@ class ColorCalibratorNode(Node):
         self.calibracion_hecha = True
         self.get_logger().info(f'Calibración completada: {k} cajas definidas. Nodo en espera.')
 
+    # ─── EXTRACCIÓN ROBUSTA DE COLOR (idéntica en ambos nodos) ────────────────
+
+    def extraer_color_hsv(self, hsv_roi, cx, cy, r):
+        """
+        Devuelve [H, S, V] representativo del tapón, robusto a:
+          - reflejos especulares (brillo blanco central)
+          - borde del tapón / sombras
+          - circularidad de H (matiz)
+        Usa un anillo interior (0.25r..0.75r), descarta reflejos,
+        mediana de S y V, y media CIRCULAR de H.
+        """
+        h_img, w_img = hsv_roi.shape[:2]
+        r = int(r)
+
+        # Máscara de anillo interior: evita el reflejo central y el borde.
+        mask = np.zeros((h_img, w_img), dtype=np.uint8)
+        cv2.circle(mask, (int(cx), int(cy)), max(int(r * 0.75), 2), 255, -1)
+        cv2.circle(mask, (int(cx), int(cy)), int(r * 0.25), 0, -1)
+
+        ys, xs = np.where(mask == 255)
+        if len(xs) == 0:
+            # fallback: círculo lleno
+            cv2.circle(mask, (int(cx), int(cy)), max(r - 2, 1), 255, -1)
+            ys, xs = np.where(mask == 255)
+            if len(xs) == 0:
+                return [0.0, 0.0, 0.0]
+
+        pix = hsv_roi[ys, xs].astype(np.float32)   # (N,3) H,S,V
+        H = pix[:, 0]; S = pix[:, 1]; V = pix[:, 2]
+
+        # Descartar reflejos especulares (muy brillante + poco saturado)
+        # y sombras muy oscuras.
+        valid = (V < 245) & (V > 25) & ~((V > 220) & (S < 40))
+        if np.count_nonzero(valid) > 10:
+            H, S, V = H[valid], S[valid], V[valid]
+
+        # Mediana de S y V (robusta a outliers)
+        S_med = float(np.median(S))
+        V_med = float(np.median(V))
+
+        # Media CIRCULAR de H (OpenCV: 0..180 = 0..360°)
+        ang = H * (2.0 * np.pi / 180.0)
+        sin_m = float(np.mean(np.sin(ang)))
+        cos_m = float(np.mean(np.cos(ang)))
+        H_med = (math.atan2(sin_m, cos_m) * 180.0 / (2.0 * np.pi)) % 180.0
+
+        return [H_med, S_med, V_med]
+
     # ─── DETECCIÓN (igual que en detector_tapones) ────────────────────────────
 
     def detectar_caja(self, frame):
@@ -192,13 +250,11 @@ class ColorCalibratorNode(Node):
 
         res = []
         if circles is not None:
+            hsv_roi = cv2.cvtColor(roi, cv2.COLOR_BGR2HSV)
             for cx, cy, r in circles[0]:
-                # Extraemos el color medio en HSV dentro del círculo detectado
-                mascara = np.zeros(roi.shape[:2], dtype=np.uint8)
-                cv2.circle(mascara, (int(cx), int(cy)), int(r)-2, 255, -1)
-                hsv_roi = cv2.cvtColor(roi, cv2.COLOR_BGR2HSV)
-                color_medio = cv2.mean(hsv_roi, mask=mascara)[:3]  # H, S, V
-                res.append([cx + x, cy + y, r, color_medio[0], color_medio[1], color_medio[2]])
+                # Color robusto (anillo interior, sin reflejos, H circular)
+                H, S, V = self.extraer_color_hsv(hsv_roi, cx, cy, r)
+                res.append([cx + x, cy + y, r, H, S, V])
                 # Dibujamos todos en Naranja (calibrando)
                 cv2.circle(debug_img, (int(cx+x), int(cy+y)), int(r), (0, 165, 255), 1)
         return res, debug_img

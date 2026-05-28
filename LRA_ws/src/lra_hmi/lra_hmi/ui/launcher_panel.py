@@ -54,6 +54,9 @@ class LauncherPanel(QGroupBox):
         self._btn_start_all.setObjectName("startBtn")
         self._btn_stop_all = QPushButton("■  Detener todo")
         self._btn_stop_all.setObjectName("stopBtn")
+        for b in (self._btn_start_all, self._btn_stop_all):
+            b.setMinimumHeight(40)
+            b.setMinimumWidth(150)
         self._btn_start_all.clicked.connect(self.start_all_clicked)
         self._btn_stop_all.clicked.connect(self.stop_all_clicked)
         global_bar.addWidget(self._btn_start_all)
@@ -110,7 +113,8 @@ class LauncherPanel(QGroupBox):
         btn_stop = QPushButton("Detener")
         btn_restart = QPushButton("Reiniciar")
         for b in (btn_start, btn_stop, btn_restart):
-            b.setMinimumWidth(80)
+            b.setMinimumWidth(96)
+            b.setMinimumHeight(34)
 
         btn_start.clicked.connect(lambda _=False, k=key: self._pm.start(k))
         btn_stop.clicked.connect(lambda _=False, k=key: self._pm.stop(k))
