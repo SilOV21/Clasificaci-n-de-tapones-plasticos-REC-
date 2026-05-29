@@ -5,7 +5,6 @@ Se ejecuta con cada tapón a clasificar.
 Detecta y estabiliza la posición del tapón, se suscribe a los centros HSV
 publicados por el Nodo 1 (color_calibrator_node) y asigna el número de caja
 según el color del tapón. Publica la posición y la caja al robot.
-NO calcula el diámetro (recogida por ventosa).
 """
 import rclpy
 from rclpy.node import Node
@@ -33,7 +32,7 @@ class VisionNode(Node):
         self.declare_parameter('min_radius', 33)
         self.declare_parameter('max_radius', 54)
         self.declare_parameter('min_dist', 75)
-        self.declare_parameter('hough_param1', 21) #30
+        self.declare_parameter('hough_param1', 21) 
         self.declare_parameter('hough_param2', 27)
         self.declare_parameter('show_debug', True)
         self.declare_parameter('image_topic', '/image_raw')
@@ -108,8 +107,7 @@ class VisionNode(Node):
 
         self.get_logger().info('Nodo detector iniciado: esperando calibracion de color...')
        
-    # ─── EXTRACCIÓN ROBUSTA DE COLOR (idéntica en ambos nodos) ────────────────
-
+    # EXTRACCIÓN ROBUSTA DE COLOR 
     def extraer_color_hsv(self, hsv_roi, cx, cy, r):
         """
         Devuelve [H, S, V] representativo del tapón, robusto a:
@@ -235,15 +233,15 @@ class VisionNode(Node):
             self.get_logger().info('Visión deshabilitada: muestreo detenido.')
         self.vision_enabled = enabled
 
-    # --- LOGICA PRINCIPAL ---
+    # LOGICA PRINCIPAL
 
     def image_callback(self, msg):
         frame = self.bridge.imgmsg_to_cv2(msg, desired_encoding='bgr8')
 
-        # 1. Tu deteccion original con ROI y Caja
+        # Detección de ROI 
         circles, debug_img = self.detectar_tapones(frame)
 
-        # 2. Estabilizar cantidad
+        #  Estabilizar cantidad
         self.cantidad_historial.append(len(circles))
         cantidad_estable = int(np.median(list(self.cantidad_historial)))
         self.pub_count.publish(Int32(data=cantidad_estable))
@@ -255,11 +253,11 @@ class VisionNode(Node):
 
         # 3. Logica de "Pausa y Eleccion" (solo si la visión está habilitada)
         if self.vision_enabled and self.buscando_objetivo:
-            self.get_logger().info(f"DEBUG: He encontrado {len(circles)} circulos") # Añade esta línea
+            self.get_logger().info(f"DEBUG: He encontrado {len(circles)} circulos") 
             if circles:
                 self.acumulador_muestreo.append(circles)
                 self.contador_muestreo += 1
-                self.get_logger().info(f"Contador subiendo: {self.contador_muestreo}") # Y esta
+                self.get_logger().info(f"Contador subiendo: {self.contador_muestreo}") 
 
             cv2.putText(debug_img, f"MUESTREO: {self.contador_muestreo}/{self.get_parameter('frames_muestreo').value}",
                         (20, 50), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 255, 0), 2)
@@ -267,7 +265,7 @@ class VisionNode(Node):
             if self.contador_muestreo >= self.get_parameter('frames_muestreo').value:
                 self.procesar_estabilidad_final()
 
-        # 4. Si ya elegimos el mejor, dibujamos el resultado persistente
+        # Si ya elegimos el mejor, dibujamos el resultado persistente
         if self.objetivo_fijado:
             u, v, r, robot_p, caja = self.objetivo_fijado
             cv2.circle(debug_img, (int(u), int(v)), int(r), (0, 255, 0), 3)
@@ -374,13 +372,13 @@ class VisionNode(Node):
                 rclpy.time.Time(), timeout=Duration(seconds=0.5)
             )
 
-            # 1. Píxel -> rayo normalizado, corrigiendo distorsión
+            # Píxel -> rayo normalizado, corrigiendo distorsión
             pts = np.array([[[u, v]]], dtype=np.float32)
             undist = cv2.undistortPoints(pts, self.camera_matrix, self.dist_coeffs)
             vx, vy = undist[0, 0]
             ray_cam = np.array([vx, vy, 1.0])   # frame óptico: x derecha, y abajo, z hacia escena
 
-            # 2. Rotación de la TF (cuaternión -> matriz)
+            # Rotación de la TF (cuaternión -> matriz)
             q = t.transform.rotation
             x, y, z, w = q.x, q.y, q.z, q.w
             R = np.array([
@@ -392,7 +390,7 @@ class VisionNode(Node):
                           t.transform.translation.y,
                           t.transform.translation.z])
 
-            # 3. Rayo en base_link e intersección con el plano z = z_tapon
+            # Rayo en base_link e intersección con el plano z = z_tapon
             ray_base = R @ ray_cam
             z_tapon = 0.002
             if abs(ray_base[2]) < 1e-6:
