@@ -108,25 +108,51 @@ Both nodes use Hough Circle Transforms to locate caps in the image. Key extracti
 To ensure consistent cluster assignment across runs:
 1. The calibrator initializes the random number generator seed using `cv2.setRNGSeed(0)`.
 2. It collects HSV feature vectors:
-   $$X = \{[h_i, s_i, v_i]^T \}_{i=1}^N$$
+
+$$
+X = \{[h_i, s_i, v_i]^T \}_{i=1}^N
+$$
+
 3. The K-Means algorithm runs to minimize the sum of squared distances to the cluster centroids:
-   $$J = \sum_{j=1}^{K} \sum_{x \in S_j} \|x - \mu_j\|^2$$
+
+$$
+J = \sum_{j=1}^{K} \sum_{x \in S_j} \|x - \mu_j\|^2
+$$
+
    where $\mu_j$ represents the HSV centroid of the $j$-th color group.
 4. These centroids are published as a flat 1D array (`[H0, S0, V0, H1, S1, V1, ...]`) and saved by the detector node.
 5. In the detection phase, the color of a new cap $x_{new}$ is classified by finding the closest centroid:
-   $$\text{box\_id} = \arg\min_{j \in \{1,\dots,K\}} \|x_{new} - \mu_j\|$$
+
+$$
+\text{box\_id} = \arg\min_{j \in \{1,\dots,K\}} \|x_{new} - \mu_j\|
+$$
 
 ### 3.3 3D Position Reconstruction
 The detector projects the cap center from 2D pixel coordinates $(u, v)$ to a 3D coordinate point $P_{\text{cam}} = [X_c, Y_c, Z_c]^T$ in the camera frame:
 1. It queries the camera matrix $K$ loaded from [camera_info.yaml](file:///home/asil/Desktop/Clasificaci-n-de-tapones-plasticos-REC-/LRA_ws/src/lra_hmi/lra_hmi/config/default_config.yaml):
-   $$K = \begin{bmatrix} f_x & 0 & c_x \\ 0 & f_y & c_y \\ 0 & 0 & 1 \end{bmatrix}$$
+
+$$
+K = \begin{bmatrix} f_x & 0 & c_x \\ 0 & f_y & c_y \\ 0 & 0 & 1 \end{bmatrix}
+$$
+
 2. Pixel coordinates are normalized:
-   $$x_n = \frac{u - c_x}{f_x}, \quad y_n = \frac{v - c_y}{f_y}$$
+
+$$
+x_n = \frac{u - c_x}{f_x}, \quad y_n = \frac{v - c_y}{f_y}
+$$
+
 3. The Z-coordinate is set to a constant physical distance $Z_c$ (distance from camera to table surface).
 4. The 3D coordinates in the camera frame are computed as:
-   $$X_c = x_n \cdot Z_c, \quad Y_c = y_n \cdot Z_c$$
+
+$$
+X_c = x_n \cdot Z_c, \quad Y_c = y_n \cdot Z_c
+$$
+
 5. Using a TF transform listener, the point is transformed into the robot's frame:
-   $$P_{\text{base}} = T_{\text{base}}^{\text{camera}} \cdot P_{\text{cam}}$$
+
+$$
+P_{\text{base}} = T_{\text{base}}^{\text{camera}} \cdot P_{\text{cam}}
+$$
 
 ---
 

@@ -59,25 +59,36 @@ The project consists of three main blocks: the **HMI Dashboard**, the **Vision S
 
 ```mermaid
 graph TD
-    subgraph Host OS
-        H[X11 Server]
+    subgraph Host_OS ["Host OS"]
+        H["X11 Server"]
     end
 
-    subgraph Docker Container (rec_hmi)
-        HMI[lra_hmi Node / PyQt5 GUI] <--> |Qt Signals / ROS Topics| RB[RosBridge]
-        PM[ProcessManager] --> |subprocess.Popen| Driver[ur_robot_driver]
-        PM --> |subprocess.Popen| TF[static_transform_publisher]
-        PM --> |subprocess.Popen| MoveIt[ur_moveit_config]
-        PM --> |subprocess.Popen| Camera[v4l2_camera_node]
-        PM --> |subprocess.Popen| Calibrator[rec_vision: ColorCalibratorNode]
-        PM --> |subprocess.Popen| Detector[rec_vision: DetectorTapones]
-        PM --> |subprocess.Popen| Manipulator[ur3_vision_control: ur3_pick_sort]
+    subgraph Docker_Container ["Docker Container (rec_hmi)"]
+        HMI["lra_hmi Node / PyQt5 GUI"]
+        RB["RosBridge"]
+        PM["ProcessManager"]
+        Driver["ur_robot_driver"]
+        TF["static_transform_publisher"]
+        MoveIt["ur_moveit_config"]
+        Camera["v4l2_camera_node"]
+        Calibrator["rec_vision: ColorCalibratorNode"]
+        Detector["rec_vision: DetectorTapones"]
+        Manipulator["ur3_vision_control: ur3_pick_sort"]
+
+        HMI --- RB
+        PM --> Driver
+        PM --> TF
+        PM --> MoveIt
+        PM --> Camera
+        PM --> Calibrator
+        PM --> Detector
+        PM --> Manipulator
     end
 
-    HMI <--> |X11 Forwarding| H
-    Camera <--> |V4L2 Video Device| PhysicalCam[USB Webcam / RealSense]
-    Driver <--> |Ethernet / TCP/IP| UR3[UR3 / UR3e Robot Arm]
-    Manipulator --> |IO Services| UR3
+    HMI --- H
+    Camera --- PhysicalCam["USB Webcam / RealSense"]
+    Driver --- UR3["UR3 / UR3e Robot Arm"]
+    Manipulator --> UR3
 ```
 
 ---
@@ -133,9 +144,10 @@ docker compose up
 
 > [!TIP]
 > The container builds the workspace packages using `colcon` on startup. To speed up subsequent starts, set `REC_INCREMENTAL=1` as an environment variable to skip cleaning directories:
-> ```bash
-> REC_INCREMENTAL=1 docker compose up
-> ```
+
+```bash
+REC_INCREMENTAL=1 docker compose up
+```
 
 ### 6.4 Offline Simulation Mode (Without physical hardware)
 To test the HMI interface and simulate behavior without connecting to a physical camera or robot, launch the container with the `LRA_HMI_SIM` variable enabled:

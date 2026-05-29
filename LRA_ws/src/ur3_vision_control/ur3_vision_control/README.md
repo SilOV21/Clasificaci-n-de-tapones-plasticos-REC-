@@ -97,11 +97,23 @@ The robot manipulator is controlled by executing joint trajectories computed usi
 ### 3.1 Inverse Kinematics Resolution
 For each detected cap, the system uses MoveIt's `/compute_ik` service to find joint states. 
 1. The target pose is defined with the gripper perpendicular to the table surface:
-   $$q_{\text{orient}} = [w=0, x=1, y=0, z=0]^T \quad (\text{Roll } 180^{\circ})$$
+
+$$
+q_{\text{orient}} = [w=0, x=1, y=0, z=0]^T \quad (\text{Roll } 180^{\circ})
+$$
+
 2. In cases where joint limits are reached, the system rotates the wrist to try alternate orientations:
-   $$\theta_{\text{wrist3}} \in \{0, \frac{\pi}{2}, -\frac{\pi}{2}, \pi\}$$
+
+$$
+\theta_{\text{wrist3}} \in \{0, \frac{\pi}{2}, -\frac{\pi}{2}, \pi\}
+$$
+
 3. A joint distance metric is applied to select the solution closest to the current joint positions:
-   $$\text{cost} = \sum_{i=1}^{6} w_i \cdot |q_i - q_{i,\text{current}}|^2$$
+
+$$
+\text{cost} = \sum_{i=1}^{6} w_i \cdot |q_i - q_{i,\text{current}}|^2
+$$
+
    where $w_i$ represents the joint weights configured in the node parameters.
 
 ### 3.2 Suction Cup & Gripper Dimensions
