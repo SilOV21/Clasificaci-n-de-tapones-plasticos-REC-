@@ -15,7 +15,6 @@ def generate_launch_description():
         'frames_muestreo', default_value='30',
         description='Frames a acumular para estabilizar posicion')
 
-    # Construimos la ruta dinámica hacia el archivo YAML dentro de lra_vision
     camera_info_path = PathJoinSubstitution([
         FindPackageShare('lra_vision'),
         'calibration_data',
@@ -28,7 +27,7 @@ def generate_launch_description():
         name='vision_node',
         output='screen',
         parameters=[{
-            'camera_info_yaml': camera_info_path,  # ← ¡Ruta dinámica aplicada aquí también!
+            'camera_info_yaml': camera_info_path,  
             'frames_muestreo':  LaunchConfiguration('frames_muestreo'),
             'image_topic':      'camera/image_raw',
             'show_debug':       LaunchConfiguration('show_debug'),
