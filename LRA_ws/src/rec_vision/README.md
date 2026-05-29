@@ -124,7 +124,7 @@ $$
 5. In the detection phase, the color of a new cap $x_{new}$ is classified by finding the closest centroid:
 
 $$
-\text{box\_id} = \arg\min_{j \in \{1,\dots,K\}} \|x_{new} - \mu_j\|
+\text{box-id} = \arg\min_{j \in \{1,\dots,K\}} \|x_{\text{new}} - \mu_j\|
 $$
 
 ### 3.3 3D Position Reconstruction
