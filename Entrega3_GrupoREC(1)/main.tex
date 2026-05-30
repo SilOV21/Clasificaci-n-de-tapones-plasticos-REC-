@@ -12,6 +12,7 @@
 \usepackage{helvet}
 \renewcommand{\familydefault}{\sfdefault}
 \usepackage{microtype}
+\usepackage{pdflscape}
 
 %--------------------------------------------------------------
 % GEOMETRIA DE PAGINA
@@ -159,9 +160,6 @@
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.17}
 \usetikzlibrary{arrows.meta,positioning,calc,shapes.geometric,fit,backgrounds}
-% Hace que TikZ respete los caracteres activos de babel-spanish (. , < >); sin esta
-% librería las coordenadas y las puntas de flecha rompen todos los diagramas.
-\usetikzlibrary{babel}
 
 % Colorines para los diagramas de vision/HMI
 \definecolor{recazul}{HTML}{2E75B6}
@@ -392,7 +390,7 @@ visión, manipulación, integración e interfaz de usuario sobre la arquitectura
           los vídeos de seguimiento y el vídeo de demostración final.
     \item El repositorio GitHub ha sido cerrado con control de versiones completo y los README de cada
           paquete actualizados.
-    \item Todas las reuniones de coordinación han sido realizadas y documentadas.
+    \item Todas las reuniones de coordinación han sido realizadas.
   \end{itemize}
 \end{itemize}
 \clearpage
@@ -840,25 +838,22 @@ el proyecto, incluyendo reuniones, desarrollo técnico, pruebas y documentación
 \end{table}
 % ---- Gantt ----
 \clearpage
+ 
+% --- Página horizontal solo para el Gantt ---
+\begin{landscape}
 \subsection{Diagrama de Gantt}
+El diagrama de Gantt definitivo refleja la planificación temporal real ejecutada a lo largo del proyecto. El diagrama completo se muestra en la Figura~\ref{fig:gantt}.
 
-El diagrama de Gantt definitivo refleja la planificación temporal real ejecutada a lo largo del proyecto.
-Las únicas desviaciones respecto al cronograma de la Entrega~2 son el desplazamiento de las tareas 304,
-306 y 307 del WP-300 hasta el 12/04/2026 (justificado en la Entrega~2) y la incorporación de las tareas
-del WP-200 a partir del 08/04/2026. El resto del cronograma se ha ejecutado sin modificaciones.
-
-\vspace{8pt}
-\begin{center}
-  \setlength{\fboxrule}{0.6pt}
-  \fbox{\parbox[c][5cm][c]{\dimexpr\textwidth-2\fboxsep-2\fboxrule}{%
-    \centering\color{DarkGray}\large
-    %% Sustituir por: \includegraphics[width=\textwidth]{gantt_definitivo.png}
-    [ Insertar diagrama de Gantt definitivo aquí ]}}
-\end{center}
-\begin{center}
-  {\small\color{DarkGray}\textit{Figura 1. Diagrama de Gantt definitivo del Proyecto REC.}}
-\end{center}
-
+\thispagestyle{empty}
+\vspace*{\fill}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{gantt_definitivo.png}
+  \caption{Diagrama de Gantt definitivo del Proyecto REC.}
+  \label{fig:gantt}
+\end{figure}
+\vspace*{\fill}
+\end{landscape}
 
 \clearpage
 %==============================================================
@@ -976,7 +971,7 @@ desacoplamiento temporal y espacial entre ambos sub-equipos:
         durante el ciclo de pick. El nodo de visión publica solo cuando \code{/vision\_enable}=True.
   \vspace{6.5pt}
   \item \textbf{Clasificación} (\code{/tapones/caja\_asignada}, \code{std\_msgs/Int32}): codificación
-        1--6 = \{rojo, azul, verde, amarillo, negro, blanco\}. El controlador acepta también cadenas de
+        1--6 = \{marrón, azul, verde, amarillo y blanco\}. El controlador acepta también cadenas de
         texto vía \code{color\_callback} (nombres en español a índices). Cola de profundidad~1.
   \clearpage      
   \item \textbf{Habilitación} (\code{/vision\_enable}, \code{std\_msgs/Bool}): QoS RELIABLE +
@@ -1330,7 +1325,7 @@ al controlador.
 
 \subsection{Subsistema de Visión}
 % =====================================================================
-\subsubsection{Infraestructura (\texorpdfstring{\code{lra\_vision}}{lra\_vision})}
+\subsubsection{Infraestructura}
 \label{sec:lra-vision}
 
 El paquete \code{lra\_vision} aporta la base sobre la que opera la clasificación: adquisición de imagen,
@@ -1341,28 +1336,9 @@ calibración intrínseca y el modelo cinemático cámara--robot (URDF/TF).
 
 La captura emplea el nodo \code{v4l2\_camera} lanzado por
 \code{camera\_manager.launch.py}, que autodetecta el dispositivo. Los fotogramas se publican como \code{sensor\_msgs/Image}
-y los intrínsecos como \code{sensor\_msgs/CameraInfo}
-(Tabla~\ref{tab:camera-params}). La conversión a matrices OpenCV se realiza con
+y los intrínsecos como \code{sensor\_msgs/CameraInfo}. La conversión a matrices OpenCV se realiza con
 \code{cv\_bridge}.
 
-\begin{table}[H]
-\centering
-\caption{Parámetros de adquisición (\code{camera\_manager.launch.py}).}
-\label{tab:camera-params}
-\small
-\begin{tabularx}{\linewidth}{@{}l l X@{}}
-\toprule
-\textbf{Parámetro} & \textbf{Valor} & \textbf{Significado}\\
-\midrule
-\code{video\_device} & \code{/dev/video2} (auto) & Dispositivo V4L2\\
-\code{image\_size} & \([640,480]\) & Resolución\\
-\code{time\_per\_frame} & \([1,60]\) & Periodo $\Rightarrow$ 60\,FPS\\
-\code{pixel\_format} & \code{rgb8} & Formato de píxel\\
-\code{camera\_frame\_id} & \code{camera\_optical\_frame} & Marco óptico\\
-\code{camera\_info\_url} & \code{file://.../camera\_info.yaml} & Intrínsecos\\
-\bottomrule
-\end{tabularx}
-\end{table}
 
 \paragraph{Calibración intrínseca}
 \label{sec:calib-intrinseca}
@@ -1669,24 +1645,18 @@ tópico a \code{False}.
 \code{lra\_hmi} es una interfaz de
 supervisión de estilo \textbf{SCADA} que actúa como centro de mando del
 sistema: lanza y vigila todos los subsistemas, muestra telemetría y permite la
-parada de emergencia. Está implementada en \textbf{PyQt5} e integra el bucle de
-eventos de Qt con el cliente \code{rclpy} en un único hilo, evitando la
-complejidad de un \textit{executor} multihilo de ROS\,2.
+parada de emergencia.
 
 \subsubsection{Arquitectura}
 
-La HMI se estructura en una ventana principal (\code{MainWindow}) y tres
-componentes desacoplados (Figura~\ref{fig:hmi-arq}):
+La HMI se estructura en una ventana y tres componentes desacoplados
+(Figura~\ref{fig:hmi-arq}):
 \begin{itemize}
-\item \code{RosBridge}: \code{QObject} que posee el nodo \code{rclpy} y reemite
-cada tópico como una señal Qt. Se suscribe a la telemetría y a las cámaras con QoS
-\textit{best-effort} (perfil de sensor) y al tópico \textit{latched}
-\code{/clasificador/num\_cajas} (RELIABLE + TRANSIENT\_LOCAL); convierte los
-ángulos articulares de radianes a grados y publica \code{/vision\_enable}.
+\item \code{RosBridge}: nodo que traduce suscripciones ROS en señales
+para la HMI.
 \item \code{ProcessManager}: lanza/para/reinicia cada subsistema como
 subproceso en su propio grupo de procesos.
-\item \code{ConnectionMonitor}: \code{QThread} que hace \emph{ping} ICMP periódico
-(cada 2\,s) al robot y reporta su accesibilidad y el RTT.
+\item \code{ConnectionMonitor}: hilo que hace \emph{ping} periódico al robot.
 \end{itemize}
 
 \begin{figure}[H]
@@ -1708,39 +1678,26 @@ subproceso en su propio grupo de procesos.
 \label{fig:hmi-arq}
 \end{figure}
 
-\paragraph{Concurrencia.} La interfaz opera en un único hilo Qt. Un \code{QTimer}
-dispara cada 50\,ms una llamada a \code{rclpy.spin\_once(timeout\_sec=0.0)}, de
-modo que todos los \textit{callbacks} ROS se ejecutan en el hilo de la GUI y
-actualizan los \textit{widgets} sin riesgo de condiciones de carrera. Los únicos
-hilos concurrentes son el \code{ConnectionMonitor} y un hilo lector de
-\code{stdout} por cada subproceso activo; ambos se comunican con la interfaz
-exclusivamente mediante señales Qt encoladas, que Qt entrega de forma segura en el
-hilo principal.
-
 \subsubsection{Disposición de la interfaz}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.85\linewidth]{Screenshot from 2026-05-29 00-30-25.png}
+\includegraphics[width=\linewidth]{Screenshot from 2026-05-29 00-30-25.png}
 \caption{Captura de la HMI.}
 \label{fig:hmi-foto}
 \end{figure}
 
 La ventana (Figura~\ref{fig:hmi-foto}) tiene una barra superior siempre
 visible (título, LED de conexión del UR3e, IP, botón \textbf{PARADA DE
-EMERGENCIA} y \textbf{REHABILITAR}) y cinco pestañas (Panel, Cámara, Registros,
-Ajustes y Acerca de). La pestaña Panel reúne, a la izquierda, el lanzador y los
-contadores y, a la derecha, el estado del robot y la vista de cámara en vivo.
+EMERGENCIA} y \textbf{REHABILITAR}) y cinco pestañas. La pestaña Panel
+agrupa lanzador, contadores, estado y vista de cámara.
 
 \subsubsection{Gestión de procesos}
 
-\code{ProcessManager} lanza cada subsistema (Tabla~\ref{tab:subsistemas}) con
-\code{subprocess.Popen} y \code{preexec\_fn=os.setsid}, creando un grupo de
-procesos propio. Al detenerlo envía \code{SIGTERM} a todo el grupo y, si no
-termina en 5\,s, escala a \code{SIGKILL}; la parada de emergencia emplea
-\code{SIGKILL} directo. La salida estándar de cada grupo se vuelca en un búfer
-circular de 2000 líneas que alimenta las pestañas de registro. Cada subsistema
-sigue la máquina de estados de la Figura~\ref{fig:fsm}.
+\code{ProcessManager} lanza cada subsistema (Tabla~\ref{tab:subsistemas}), creando un grupo de procesos
+propio que permite detenerlo limpiamente
+o de forma inmediata (E-stop). Cada subsistema sigue la máquina de estados de la
+Figura~\ref{fig:fsm}.
 
 \begin{figure}[H]
 \centering
@@ -1762,30 +1719,23 @@ sigue la máquina de estados de la Figura~\ref{fig:fsm}.
 \label{fig:fsm}
 \end{figure}
 
-La transición de STARTING a RUNNING es temporal: transcurrido el retardo de
-arranque propio del grupo (\code{startup\_delay\_s}), si el proceso sigue vivo se
-promueve a RUNNING, sin sonda de salud específica; una salida con código distinto
-de cero lo lleva a CRASHED. El arranque global (\textbf{Iniciar todo}) lanza los
-grupos de forma secuencial respetando el retardo de cada uno.
-
 \begin{table}[H]
 \centering
-\caption{Subsistemas gestionados por la HMI (en orden de arranque).}
+\caption{Subsistemas gestionados por la HMI.}
 \label{tab:subsistemas}
 \small
-\setlength{\tabcolsep}{4.5pt}
-\begin{tabular}{l l l c}
+\begin{tabular}{l l}
 \toprule
-\textbf{Clave} & \textbf{Sección} & \textbf{Nodo / lanzamiento} & \textbf{Retardo (s)}\\
+\textbf{Clave} & \textbf{Sección}\\
 \midrule
-driver       & Hardware & \code{ur\_robot\_driver}\,\textperiodcentered\,\code{ur\_control.launch.py}    & 2.0\\
-tf           & Hardware & \code{tf2\_ros}\,\textperiodcentered\,\code{static\_transform\_publisher}      & 0.5\\
-moveit       & Control  & \code{ur\_moveit\_config}\,\textperiodcentered\,\code{ur\_moveit.launch.py}    & 4.0\\
-camera       & Visión   & \code{v4l2\_camera}\,\textperiodcentered\,\code{v4l2\_camera\_node}            & 1.0\\
-camera\_urdf & Visión   & \code{lra\_vision}\,\textperiodcentered\,\code{upload\_urdf.launch.py}         & 0.5\\
-calibrator   & Visión   & \code{rec\_vision}\,\textperiodcentered\,\code{color\_calibrator\_node}        & 1.0\\
-pick\_sort   & Control  & \code{ur3\_vision\_control}\,\textperiodcentered\,\code{ur3\_pick\_sort}       & 3.0\\
-detector     & Visión   & \code{rec\_vision}\,\textperiodcentered\,\code{detector\_tapones}              & 2.0\\
+driver & Hardware\\
+tf & Hardware\\
+moveit & Control\\
+camera & Visión\\
+camera\_urdf & Visión\\
+calibrator & Visión\\
+detector & Visión\\
+pick\_sort & Control\\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -1793,29 +1743,18 @@ detector     & Visión   & \code{rec\_vision}\,\textperiodcentered\,\code{detect
 \subsubsection{Supervisión, seguridad y configuración}
 
 \begin{itemize}
-\item \textbf{Telemetría.} La HMI incrementa el contador de la caja recibida,
-muestra el total y calcula la tasa de clasificación en vivo (tapones/min desde el
-inicio de sesión); permite exportar un informe JSON con la duración
-(\code{duration\_seconds}), el total (\code{total\_caps}) y el conteo por caja
-(\code{per\_box}). Presenta los ángulos articulares —que marca como obsoletos si
-no llegan datos durante más de 2\,s— y el color del último tapón.
-\item \textbf{Seguridad.} \textbf{PARADA DE EMERGENCIA} publica
-\code{/vision\_enable}=False y mata todos los grupos de procesos con
-\code{SIGKILL}; \textbf{REHABILITAR} vuelve a publicar \code{/vision\_enable}=True
-pero \emph{no} relanza los subsistemas, que el operador debe rearrancar desde el
-lanzador. \code{/vision\_enable} es el mismo tópico \textit{latched} del contrato
-visión--control (Tabla~\ref{tab:contrato}), por lo que el detector queda inhibido
-hasta la rehabilitación. El \code{ConnectionMonitor} señala además la pérdida de
-conexión con el robot.
+\item \textbf{Telemetría.} La HMI incrementa el contador de la caja recibida, muestra el total, y permite exportar un
+informe JSON de la sesión (duración, total y conteo por caja). Presenta
+los ángulos articulares y el color del último tapón.
+\item \textbf{Seguridad.} \textbf{PARADA DE EMERGENCIA} mata todos los
+subprocesos, \textbf{REHABILITAR}
+reactiva la visión. El \code{ConnectionMonitor} señala la pérdida de conexión con
+el robot.
 \item \textbf{Configuración.} La pestaña Ajustes edita los
-parámetros de cada subsistema (cámara, calibrador, detector, pick \& sort) y los
-persiste en \code{\textasciitilde/.lra\_hmi.yaml}, fusionado en profundidad sobre
-los valores por defecto del paquete (\code{default\_config.yaml}); al cambiar
-parámetros que afectan a un subsistema en ejecución, avisa de que debe reiniciarse.
-\item \textbf{Modo simulación.} Con la variable de entorno \code{LRA\_HMI\_SIM}
-activa, la HMI sustituye los grupos reales por nodos simulados de
-\code{lra\_hmi\_sim} y apunta el LED de conexión a \code{127.0.0.1}, lo que permite
-probar la interfaz sin robot ni cámara físicos.
+parámetros de cada subsistema (cámara, calibrador, detector, pick \& sort) y
+los persiste en un archivo de configuración, fusionados sobre los
+valores por defecto del paquete; al cambiar parámetros que afectan a un subsistema
+en ejecución, avisa de que debe reiniciarse.
 \end{itemize}
 
 % =====================================================================
@@ -1986,22 +1925,106 @@ su demostración.
 %==============================================================
 % 4-8. SECCIONES PENDIENTES
 %==============================================================
-\section{Planos}
-
-\subsection{Planos mecánicos}
-\textit{[ Pendiente: incluir planos mecánicos del efector / soporte de cámara. ]}
-
-\subsection{Planos electrónicos}
-\textit{[ Pendiente: incluir esquemas electrónicos / conexionado de E/S. ]}
-
 \section{Lista de materiales}
-\textit{[ Pendiente: incluir la lista de materiales (BOM) del sistema. ]}
+
+\begin{table}[H]
+\centering
+\caption{Lista de materiales del sistema.}
+\label{tab:bom}
+\small
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\textwidth}{|c|>{\RaggedRight\arraybackslash}X|c|>{\RaggedRight\arraybackslash}X|}
+  \hline
+  \rowcolor{BlueHeader}
+  \textcolor{white}{\bfseries \#} &
+  \textcolor{white}{\bfseries Componente} &
+  \textcolor{white}{\bfseries Ud.} &
+  \textcolor{white}{\bfseries Observaciones} \\
+  \hline
+  \multicolumn{4}{|l|}{\cellcolor{BlueCell}\bfseries Hardware robótico} \\
+  \hline
+  \rowA 1 & Robot colaborativo Universal Robots UR3e & 1 & 6 GDL, alcance 500\,mm, carga útil 3\,kg \\
+  \rowB 2 & Controlador del UR3e (CB-Series) & 1 & Incluido con el robot; conexión Ethernet \\
+  \rowA 3 & Teach Pendant del UR3e & 1 & Pantalla táctil para configuración y modo manual \\
+  \hline
+  \multicolumn{4}{|l|}{\cellcolor{BlueCell}\bfseries Efector final} \\
+  \hline
+  \rowB 4 & Soporte de gripper neumático & 1 & Montado sobre \code{tool0} \\
+  \rowA 5 & Ventosa de vacío & 1 & Acoplada al gripper. Control por salida digital (pin 4) \\
+  \hline
+  \multicolumn{4}{|l|}{\cellcolor{BlueCell}\bfseries Sistema de visión} \\
+  \hline
+  \rowB 6 & Cámara Logitech StreamCam & 1 &  \\
+  \rowA 7 & Soporte de cámara sobre el efector & 1 & Fijación sobre \code{tool0} (definido en URDF/Xacro) \\
+  \hline
+  \multicolumn{4}{|l|}{\cellcolor{BlueCell}\bfseries Entorno de trabajo} \\
+  \hline
+  \rowB 8 & Mesa de trabajo & 1 & Superficie del laboratorio  \\
+  \rowA 9 & Caja de trabajo (zona de recogida) & 1 & Caja rectangular donde se depositan los tapones a clasificar \\
+  \rowB 10 & Cajas de clasificación (destino) & 6 & Número configurable desde la HMI \\
+  \rowA 11 & Tapones de plástico de colores  & $\sim$15 & Azul, verde, amarillo, blanco, marrón \\
+  \hline
+  \multicolumn{4}{|l|}{\cellcolor{BlueCell}\bfseries Computación y red} \\
+  \hline
+  \rowB 12 & PC de desarrollo y ejecución & 1 & Ubuntu 22.04 con ROS\,2 Humble \\
+  \rowA 13 & Cable Ethernet (PC $\leftrightarrow$ UR3e) & 1 & Conexión directa, red 169.254.x.x \\
+  \rowB 14 & Cable USB (PC $\leftrightarrow$ cámara) & 1 & USB Type-C \\
+  \hline
+  \multicolumn{4}{|l|}{\cellcolor{BlueCell}\bfseries Software (desarrollo propio)} \\
+  \hline
+  \rowA 15 & lra\_vision & -- & Adquisición de imagen, calibración intrínseca, URDF cámara \\
+  \rowB 16 & rec\_vision & -- & Detección y clasificación de tapones (K-Means, Hough, TF2) \\
+  \rowA 17 & ur3\_vision\_control & -- & Control del UR3e, ciclo pick\,\&\,place, IK vía MoveIt\,2 \\
+  \rowB 18 & lra\_hmi & -- & Interfaz de supervisión PyQt5 (HMI tipo SCADA) \\
+  \hline
+\end{tabularx}
+\end{table}
+
+\clearpage
+La Tabla~\ref{tab:bom} recoge los componentes principales del sistema desarrollado.
+Los elementos de hardware robótico y el entorno de trabajo fueron proporcionados por
+el Laboratorio de Automática y Robótica (LAR) de la UPM. El software es íntegramente
+de desarrollo propio sobre herramientas de código abierto.
+
+Todos los componentes de hardware fueron proporcionados por el laboratorio. El coste del
+proyecto es exclusivamente de horas de ingeniería.
 
 \section{Vídeos}
 \textit{[ Pendiente: incluir enlaces a los vídeos de seguimiento y demostración final. ]}
 
 \section{ANEXO I: Especificación de Requisitos}
-\textit{[ Pendiente: incluir la especificación de requisitos funcionales y técnicos. ]}
+
+\subsection{Requisitos Funcionales y de Operación}
+
+\begin{itemize}
+    \item \textbf{RF-01. Clasificación de tapones:} El sistema deberá detectar, identificar y clasificar tapones plásticos en un número parametrizable de categorías (por defecto 4, ampliable hasta 6), de acuerdo con la calibración dinámica de color implementada.
+    \item \textbf{RF-02. Conteo de elementos clasificados:} El sistema deberá visualizar el número de tapones clasificados por cada categoría, así como el total acumulado y la tasa de procesamiento (tapones/minuto). Además, se permitirá la exportación de un informe de sesión en formato JSON.
+    \item \textbf{RF-03. Control de operación por el usuario:} El usuario gestionará el ciclo de vida de los subsistemas (iniciar, detener, reiniciar) a través de una Interfaz Hombre-Máquina (HMI). La interfaz incluirá controles críticos como la Parada de Emergencia y la Rehabilitación del sistema.
+    \item \textbf{RF-04. Estado del sistema:} El HMI deberá mostrar al usuario el estado general de operación interactiva en tiempo real, incluyendo conexión con el robot, flujo de video, depuración visual de la cámara, registros de la aplicación (logs) y ángulos articulares.
+    \item \textbf{RF-05. Flujo de materiales:} El sistema deberá recoger los tapones mediante cinemática inversa y depositarlos en las posiciones de descarga predefinidas, evitando enviar al robot nuevas misiones cuando este ya se encuentre en movimiento.
+    \item \textbf{RF-06. Alcance del objeto de trabajo:} La recolección se realizará mediante un efector tipo ventosa, eliminando la necesidad de calcular el diámetro del tapón para la manipulación.
+    \item \textbf{RF-07. Sincronización entre módulos:} El módulo de visión realizará un análisis multifotograma (filtro temporal de muestras, por defecto 30 frames) para garantizar una selección de objetivos real y estable antes de activar la señal de \texttt{vision\_enable} hacia el robot.
+    \item \textbf{RF-08. Seguridad operativa básica:} Se integrará MoveIt 2 para la evasión virtual de colisiones, definiendo objetos físicos del entorno de laboratorio (mesa, pared trasera) para impedir trayectorias inseguras.
+\end{itemize}
+
+\subsection{Requisitos técnicos y de hardware}
+
+\begin{itemize}
+    \item \textbf{RT-01. Actuador principal:} El sistema utilizará el brazo robótico UR3e disponible en el laboratorio, planificando movimientos a través del \textit{ActionClient} de MoveIt 2.
+    \item \textbf{RT-02. Módulo de visión:} El sistema integrará una cámara RGB. La adquisición, calibración del patrón intrínseco y la rectificación de imágenes se gestionarán como nodos independientes mediante \textit{v4l2} e interfaces gráficas en la HMI.
+    \item \textbf{RT-03. Efector final:} Se acoplará un sistema de ventosa al TCP de la herramienta, controlado lógicamente a través de los servicios estándar de Entradas/Salidas (\textit{I/O}) del controlador del UR3.
+    \item \textbf{RT-04. Velocidad de operación:} La velocidad de operación debe optimizarse asegurando estabilidad. Las validaciones descartarán misiones inalcanzables usando tolerancias articulares del IK antes del movimiento.
+    \item \textbf{RT-05. Arquitectura del software:} El código empleará ROS 2, estructurado en paquetes independientes para el control HMI, la visión artificial y la lógica de clasificación y manipulación (\texttt{pick\_sort}).
+    \item \textbf{RT-06. Sistemas de coordenadas y unidades:} Se emplearán transformaciones jerárquicas publicadas mediante TF2.
+    \item \textbf{RT-07. Parametrización dinámica:} Los ajustes globales (número de cajas, tolerancias del círculo de Hough, configuración de red IP, retardos) deberán poder editarse mediante el panel de Ajustes en tiempo real sin recompilar el código.
+\end{itemize}
+
+\subsection{Restricciones e integridad del entorno}
+
+\begin{itemize}
+    \item \textbf{RE-01. Inalterabilidad de la infraestructura:} No se realizarán modificaciones permanentes sobre la mesa, el robot UR3 ni los elementos proporcionados por el laboratorio.
+    \item \textbf{RE-02. Montaje y desmontaje:} Cualquier adaptación física permitida deberá ser temporal y reversible.
+\end{itemize}
 
 \section{ANEXO II}
 \textit{[ Pendiente. ]}

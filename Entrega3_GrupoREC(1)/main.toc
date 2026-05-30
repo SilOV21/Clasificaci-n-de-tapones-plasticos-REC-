@@ -37,7 +37,7 @@
 \contentsline {subsubsection}{\numberline {2.1.9}Configuración de waypoints de destino (bins)}{18}{subsubsection.2.1.9}%
 \contentsline {subsubsection}{\numberline {2.1.10}Relación con el subsistema de visión}{18}{subsubsection.2.1.10}%
 \contentsline {subsection}{\numberline {2.2}Subsistema de Visión}{19}{subsection.2.2}%
-\contentsline {subsubsection}{\numberline {2.2.1}Infraestructura (\begingroup \def \_{\char `_\penalty 0 }\def \/{\char `/\penalty 0 }\texttt {\small lra\_vision}\endgroup )}{19}{subsubsection.2.2.1}%
+\contentsline {subsubsection}{\numberline {2.2.1}Infraestructura}{19}{subsubsection.2.2.1}%
 \contentsline {paragraph}{Adquisición de imagen (C++)}{19}{section*.19}%
 \contentsline {paragraph}{Calibración intrínseca}{19}{section*.20}%
 \contentsline {paragraph}{Modelo cinemático cámara--robot (URDF/Xacro + TF)}{20}{section*.21}%
@@ -52,7 +52,6 @@
 \contentsline {paragraph}{Interbloqueo visión--robot}{23}{section*.29}%
 \contentsline {subsection}{\numberline {2.3}Interfaz Hombre-Máquina}{24}{subsection.2.3}%
 \contentsline {subsubsection}{\numberline {2.3.1}Arquitectura}{24}{subsubsection.2.3.1}%
-\contentsline {paragraph}{Concurrencia.}{24}{section*.30}%
 \contentsline {subsubsection}{\numberline {2.3.2}Disposición de la interfaz}{25}{subsubsection.2.3.2}%
 \contentsline {subsubsection}{\numberline {2.3.3}Gestión de procesos}{25}{subsubsection.2.3.3}%
 \contentsline {subsubsection}{\numberline {2.3.4}Supervisión, seguridad y configuración}{26}{subsubsection.2.3.4}%
@@ -64,10 +63,10 @@
 \contentsline {subsubsection}{\numberline {3.2.2}Prueba 603: Seguridad y exclusión de colisiones}{28}{subsubsection.3.2.2}%
 \contentsline {subsubsection}{\numberline {3.2.3}Prueba 604: Verificación de tiempos de ciclos}{29}{subsubsection.3.2.3}%
 \contentsline {subsection}{\numberline {3.3}Análisis de resultados y validación de objetivos (requisitos)}{29}{subsection.3.3}%
-\contentsline {section}{\numberline {4}Planos}{31}{section.4}%
-\contentsline {subsection}{\numberline {4.1}Planos mecánicos}{31}{subsection.4.1}%
-\contentsline {subsection}{\numberline {4.2}Planos electrónicos}{31}{subsection.4.2}%
-\contentsline {section}{\numberline {5}Lista de materiales}{31}{section.5}%
-\contentsline {section}{\numberline {6}Vídeos}{31}{section.6}%
-\contentsline {section}{\numberline {7}ANEXO I: Especificación de Requisitos}{31}{section.7}%
-\contentsline {section}{\numberline {8}ANEXO II}{31}{section.8}%
+\contentsline {section}{\numberline {4}Lista de materiales}{31}{section.4}%
+\contentsline {section}{\numberline {5}Vídeos}{32}{section.5}%
+\contentsline {section}{\numberline {6}ANEXO I: Especificación de Requisitos}{32}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Requisitos Funcionales y de Operación}{32}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}Requisitos técnicos y de hardware}{32}{subsection.6.2}%
+\contentsline {subsection}{\numberline {6.3}Restricciones e integridad del entorno}{33}{subsection.6.3}%
+\contentsline {section}{\numberline {7}ANEXO II}{33}{section.7}%
