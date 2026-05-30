@@ -31,7 +31,7 @@ class ColorCalibratorNode(Node):
         self.declare_parameter('min_radius', 33)
         self.declare_parameter('max_radius', 54)
         self.declare_parameter('min_dist', 75)
-        self.declare_parameter('hough_param1', 21) #30
+        self.declare_parameter('hough_param1', 21) 
         self.declare_parameter('hough_param2', 27)
         self.declare_parameter('show_debug', True)
         self.declare_parameter('image_topic', '/image_raw')
@@ -68,7 +68,7 @@ class ColorCalibratorNode(Node):
             durability=DurabilityPolicy.TRANSIENT_LOCAL,
             reliability=ReliabilityPolicy.RELIABLE
         )
-        # Publica los centros HSV como array plano [H0,S0,V0, H1,S1,V1, ...]
+        # Publica los centros HSV como array plano
         self.pub_centros = self.create_publisher(
             Float32MultiArray, '/clasificador/centros_hsv', qos_latched)
         # Publica cuántas cajas se han definido
@@ -172,7 +172,7 @@ class ColorCalibratorNode(Node):
         self.calibracion_hecha = True
         self.get_logger().info(f'Calibración completada: {k} cajas definidas. Nodo en espera.')
 
-    # ─── EXTRACCIÓN ROBUSTA DE COLOR (idéntica en ambos nodos) ────────────────
+    #  EXTRACCIÓN ROBUSTA DE COLOR  
 
     def extraer_color_hsv(self, hsv_roi, cx, cy, r):
         """
@@ -208,11 +208,11 @@ class ColorCalibratorNode(Node):
         if np.count_nonzero(valid) > 10:
             H, S, V = H[valid], S[valid], V[valid]
 
-        # Mediana de S y V (robusta a outliers)
+        # Mediana de S y V 
         S_med = float(np.median(S))
         V_med = float(np.median(V))
 
-        # Media CIRCULAR de H (OpenCV: 0..180 = 0..360°)
+        # Media CIRCULAR de H 
         ang = H * (2.0 * np.pi / 180.0)
         sin_m = float(np.mean(np.sin(ang)))
         cos_m = float(np.mean(np.cos(ang)))
@@ -220,7 +220,7 @@ class ColorCalibratorNode(Node):
 
         return [H_med, S_med, V_med]
 
-    # ─── DETECCIÓN (igual que en detector_tapones) ────────────────────────────
+    # DETECCIÓN 
 
     def detectar_caja(self, frame):
         hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
